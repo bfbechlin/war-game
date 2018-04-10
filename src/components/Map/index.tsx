@@ -1,5 +1,6 @@
 import * as React from 'react';
 import Continent  from './Continent';
+import './Map.css';
 
 const continents = 
 [
@@ -106,7 +107,7 @@ const Map = () => {
     <Continent name={continent.name} fillColor={continent.fillColor} borderColor={continent.borderColor} countries={continent.countries}/>
   ));
   return(
-    <svg width="1000" height="800">
+    <svg viewBox="-100 0 1200 750">
       {Continents}
     </svg>
   );
