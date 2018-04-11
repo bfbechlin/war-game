@@ -1,8 +1,10 @@
+import { Controller } from "./Controllers/ControllerInterface"
+import { Action, Map } from "./Support"
 export class GameManager {
 
     turn: number;
     map: Map;
-    shouldEndGame: bool;
+    shouldEndGame: boolean;
 
     constructor(public players: [Controller]){}
 
@@ -11,15 +13,15 @@ export class GameManager {
       this.turn = 0;
       this.shouldEndGame = false;
 
-      while(!shouldEndGame){
+      while(!this.shouldEndGame){
 
-        for (let players in players) {
+        for(let player of this.players) {
 
           let action = player.resolveAction()
 
           while(action != Action.Pass){
 
-            handleAction(action);
+            this.handleAction(action);
 
             action = player.resolveAction()
 
