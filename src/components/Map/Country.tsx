@@ -1,4 +1,5 @@
 import * as React from 'react';
+import './Country.css';
 const parseSVG = require('svg-path-parser');
 
 const getCentroid = (path: string) => {
@@ -34,7 +35,7 @@ const Country: React.SFC<CountryProps> = (props) => {
   const centroid = getCentroid(path);
   return (
     <React.Fragment>
-      <path className="country" id={name} d={path}/>
+      <path className="country-selectable" id={name} d={path}/>
       <circle cx={centroid.x} cy={centroid.y} r="16" stroke="white" stroke-width="2" fill="black" />
       <text x={centroid.x} y={centroid.y} text-anchor="middle" fill="white" font-size="15px" font-family="Arial" dy=".3em">122</text>
     </React.Fragment>
