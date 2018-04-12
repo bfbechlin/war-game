@@ -1,8 +1,12 @@
+import { Controller } from './ControllerInterface';
+import { Action } from '../Support';
+
 export class AIController implements Controller {
 
-    function resolveAction() {
-        return Action.Pass
-    }
+    resolveAction = function() {
 
+        return Action.Pass;
 
-}
+    };
+
+  }

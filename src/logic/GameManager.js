@@ -1,5 +1,6 @@
 "use strict";
 exports.__esModule = true;
+var Support_1 = require("./Support");
 var GameManager = /** @class */ (function () {
     function GameManager(players) {
         this.players = players;
@@ -7,11 +8,12 @@ var GameManager = /** @class */ (function () {
     GameManager.prototype.start = function () {
         this.turn = 0;
         this.shouldEndGame = false;
-        while (!shouldEndGame) {
-            for (var players in players) {
+        while (!this.shouldEndGame) {
+            for (var _i = 0, _a = this.players; _i < _a.length; _i++) {
+                var player = _a[_i];
                 var action = player.resolveAction();
-                while (action != Action.Pass) {
-                    handleAction(action);
+                while (action != Support_1.Action.Pass) {
+                    this.handleAction(action);
                     action = player.resolveAction();
                 }
             }
@@ -23,16 +25,16 @@ var GameManager = /** @class */ (function () {
             default: {
                 break;
             }
-            case Action.Attack: {
+            case Support_1.Action.Attack: {
                 break;
             }
-            case Action.PlaceTroop: {
+            case Support_1.Action.PlaceTroop: {
                 break;
             }
-            case Action.Forfeit: {
+            case Support_1.Action.Forfeit: {
                 break;
             }
-            case Action.Ended: {
+            case Support_1.Action.Ended: {
                 this.shouldEndGame = true;
                 break;
             }

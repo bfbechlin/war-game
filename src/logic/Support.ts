@@ -1,11 +1,11 @@
 export enum Action{
-    PlaceTroop,
-    Attack,
-    Pass,
-    Forfeit,
-    Ended,
+    PlaceTroop = 'PlaceTroop',
+    Attack = 'Attack',
+    Pass = 'Pass',
+    Forfeit = 'Forfeit',
+    Ended = 'Ended',
 }
 
 export class Map{
-  
+
 }

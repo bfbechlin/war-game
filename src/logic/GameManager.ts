@@ -1,29 +1,29 @@
-import { Controller } from "./Controllers/ControllerInterface"
-import { Action, Map } from "./Support"
+import { Controller } from './Controllers/ControllerInterface';
+import { Action, Map } from './Support';
 export class GameManager {
 
     turn: number;
     map: Map;
     shouldEndGame: boolean;
 
-    constructor(public players: [Controller]){}
+    constructor(public players: [Controller]) { }
 
-    start(){
+    start() {
 
       this.turn = 0;
       this.shouldEndGame = false;
 
-      while(!this.shouldEndGame){
+      while ( !this.shouldEndGame ) {
 
         for(let player of this.players) {
 
-          let action = player.resolveAction()
+          let action = player.resolveAction();
 
-          while(action != Action.Pass){
+          while(action !== Action.Pass) {
 
             this.handleAction(action);
 
-            action = player.resolveAction()
+            action = player.resolveAction();
 
           }
 
@@ -32,8 +32,8 @@ export class GameManager {
       }
     }
 
-    handleAction(action: Action){
-      switch(action) {
+    handleAction(action: Action) {
+      switch( action ) {
         default: {
           break;
         }

@@ -8,7 +8,6 @@ class App extends React.Component {
       <React.Fragment>
         <div className="App">
           <header className="App-header">
-            <img src={logo} className="App-logo" alt="logo" />
             <h1 className="App-title">Risk</h1>
           </header>
           <p className="App-intro">
