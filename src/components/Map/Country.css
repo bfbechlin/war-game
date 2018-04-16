@@ -1,11 +1,34 @@
+.country-container {
+  cursor: pointer; 
+}
 .country-selectable {
-  -webkit-transition: all 0.5s ease-in;
-  -moz-transition: all 0.5s ease-in;
-  -ms-transition: all 0.5s ease-in;
-  -o-transition: all 0.5s ease-in;
-  transition: all 0.5s ease-in;
+  -webkit-transition: all 300ms ease-in-out;
+  -moz-transition: all 300ms ease-in-out;
+  -ms-transition: all 300ms ease-in-out;
+  -o-transition: all 300ms ease-in-out;
+  transition: all 300ms ease-in-out;
 }
 
-.country-selectable:hover {
+.country-container:hover .country-selectable{
   fill-opacity: 0.5;
+}
+
+.troops-change {
+  animation: topDisapear 0.75s linear 0s;
+  animation-fill-mode: forwards;
+}
+
+@keyframes topDisapear {
+  0% {
+    opacity: 1;
+  }
+  75% {
+    transform: translateY(-30px);
+    opacity: 0.75;
+  }
+  100% {
+    transform: translateY(-40px);
+    opacity: 0;
+    display: none;
+  }
 }

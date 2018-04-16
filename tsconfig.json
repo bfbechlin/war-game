@@ -2,6 +2,12 @@
   "compilerOptions": {
     "outDir": "build/dist",
     "module": "esnext",
+    "baseUrl": "src",
+    "paths": {
+      "store": ["store/*"],
+      "components": ["components/*"],
+      "util": ["util/*"]
+    },
     "target": "es5",
     "lib": ["es6", "dom"],
     "sourceMap": true,
