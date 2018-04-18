@@ -48,11 +48,16 @@ export interface CountryState {
 export interface CountryInfo {
   troops: number;
   owner: string;
+  selected: {
+    source: boolean;
+    destination: boolean;
+  };
 }
 
 export const INCREMENT_TROOPS = '@@country/INCREMENT_TROOPS';
 export const DECREMENT_TROOPS = '@@country/DECREMENT_TROOPS';
 export const CHANGE_OWNER = '@@country/CHANGE_OWNER';
+export const CHANGE_SELECTION = '@@country/CHANGE_SELECTION';
 
 export interface IncrementTroopsAction extends Action {
   type: '@@country/INCREMENT_TROOPS';
@@ -78,5 +83,14 @@ export interface ChangeOwnerAction extends Action {
   };
 }
 
+export interface ChangeSelectionAction extends Action {
+  type: '@@country/CHANGE_SELECTION';
+  payload: {
+    countryName: string;
+    selectionType: 'source' | 'destination';
+    newState: boolean;
+  };
+}
+
 // Down here, we'll create a discriminated union type of all actions which will be used for our reducer.
-export type CountryActions = IncrementTroopsAction | DecrementTroopsAction | ChangeOwnerAction;
+export type CountryActions = IncrementTroopsAction | DecrementTroopsAction | ChangeOwnerAction | ChangeSelectionAction;

@@ -103,5 +103,5 @@ export interface ContinentType {
   name: string;
   fillColor: string;
   borderColor: string;
-  countries: [CountryType];
+  countries: CountryType[];
 }
