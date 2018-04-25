@@ -1,4 +1,4 @@
-import ReactCSSTransitionGroup from 'react-addons-css-transition-group'; 
+import { CSSTransitionGroup } from 'react-transition-group';
 import './RightMenu.css';
 import * as React from 'react';
 
@@ -12,13 +12,13 @@ const RightMenu = <P extends RightMenuProps>(
   class RightMenuClass extends React.Component<P> {
     render() {
       return (
-        <ReactCSSTransitionGroup
+        <CSSTransitionGroup
           transitionName="example"
           transitionEnterTimeout={500}
           transitionLeaveTimeout={300}
         >
           <UnwrappedComponent />
-        </ReactCSSTransitionGroup>
+        </CSSTransitionGroup>
       );
     }
   };

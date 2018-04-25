@@ -12,7 +12,7 @@ import IconLocationOn from 'material-ui/svg-icons/communication/location-on';
 import IconFavorites from 'material-ui/svg-icons/action/favorite';
 import IconRestore from 'material-ui/svg-icons/action/restore';
 // import RightMenu from 'hocs/RightMenu';
-// import ReactCSSTransitionGroup from 'react-addons-css-transition-group'; 
+import { CSSTransitionGroup } from 'react-transition-group';
 import LinearProgress from 'material-ui/LinearProgress';
 
 const recentsIcon = <IconRestore />;
@@ -55,9 +55,18 @@ class App extends React.Component<AppProps, AppState> {
             <div className="col-lg-9">
               <Map />
             </div>
+            
             <div className="col-lg-3" style={{paddingRight: 0, paddingTop: 30, paddingBottom: 30}}>
               <Paper zDepth={1} style={{height: '100%'}}>
-                App Actions and Dashboard
+              <CSSTransitionGroup
+                transitionName="example"
+                transitionAppear={true}
+                transitionAppearTimeout={500}
+                transitionEnter={false}
+                transitionLeave={false}
+              >
+                <h1>Fading at Initial Mount</h1>
+              </CSSTransitionGroup>  
               </Paper>
             </div>
           </div>
