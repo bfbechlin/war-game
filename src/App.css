@@ -33,7 +33,7 @@
 
 .example-enter.example-enter-active {
   opacity: 1;
-  transition: opacity 1500ms ease-in;
+  transition: opacity 15500ms ease-in;
 }
 
 .example-leave {

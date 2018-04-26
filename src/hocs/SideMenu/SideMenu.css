@@ -36,7 +36,14 @@
   }
 }
 
-.bounceInRight {
+.side-menu-enter {
+  -webkit-animation-duration: 1s;
+  animation-duration: 1s;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+}
+
+.side-menu-enter.side-menu-enter-active {
   -webkit-animation-name: bounceInRight;
   animation-name: bounceInRight;
 }
@@ -56,7 +63,14 @@
   }
 }
 
-.bounceOutRight {
+.side-menu-leave {
+  -webkit-animation-duration: 1s;
+  animation-duration: 1s;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+}
+
+.side-menu-leave.side-menu-leave-active {
   -webkit-animation-name: bounceOutRight;
   animation-name: bounceOutRight;
 }

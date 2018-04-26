@@ -12,8 +12,8 @@ import IconLocationOn from 'material-ui/svg-icons/communication/location-on';
 import IconFavorites from 'material-ui/svg-icons/action/favorite';
 import IconRestore from 'material-ui/svg-icons/action/restore';
 // import RightMenu from 'hocs/RightMenu';
-import { CSSTransitionGroup } from 'react-transition-group';
 import LinearProgress from 'material-ui/LinearProgress';
+import SideMenu from './hocs/SideMenu';
 
 const recentsIcon = <IconRestore />;
 const favoritesIcon = <IconFavorites />;
@@ -33,12 +33,13 @@ class App extends React.Component<AppProps, AppState> {
     this.state = {
       slideIndex: 0,
     };
-  }
 
-  handleChange = (value: number) => {
-    this.setState({
-      slideIndex: value,
-    });
+    setInterval(
+      () => {
+        const { slideIndex } = this.state;
+        this.setState({slideIndex: (slideIndex + 1) % 3});
+      }, 
+      3000); 
   }
 
   render() {
@@ -57,17 +58,18 @@ class App extends React.Component<AppProps, AppState> {
             </div>
             
             <div className="col-lg-3" style={{paddingRight: 0, paddingTop: 30, paddingBottom: 30}}>
-              <Paper zDepth={1} style={{height: '100%'}}>
-              <CSSTransitionGroup
-                transitionName="example"
-                transitionAppear={true}
-                transitionAppearTimeout={500}
-                transitionEnter={false}
-                transitionLeave={false}
-              >
-                <h1>Fading at Initial Mount</h1>
-              </CSSTransitionGroup>  
-              </Paper>
+              <SideMenu current={this.state.slideIndex}>
+                <Paper zDepth={1} style={{height: '100%'}}>
+                  <h1>First</h1>
+                </Paper>
+                <Paper zDepth={1} style={{height: '100%'}}>
+                  <h1>Second</h1>
+                </Paper>
+                <Paper zDepth={1} style={{height: '100%'}}>
+                  <h1>Third</h1>
+                </Paper>
+              </SideMenu>
+              
             </div>
           </div>
         </div>
