@@ -33,13 +33,10 @@ class App extends React.Component<AppProps, AppState> {
     this.state = {
       slideIndex: 0,
     };
+  }
 
-    setInterval(
-      () => {
-        const { slideIndex } = this.state;
-        this.setState({slideIndex: (slideIndex + 1) % 3});
-      }, 
-      3000); 
+  select = (index: number) => (event: any) => {
+    this.setState({slideIndex: index});
   }
 
   render() {
@@ -79,14 +76,17 @@ class App extends React.Component<AppProps, AppState> {
               <BottomNavigationItem
                 label="Recents"
                 icon={recentsIcon}
+                onClick={this.select(0)}
               />
               <BottomNavigationItem
                 label="Favorites"
                 icon={favoritesIcon}
+                onClick={this.select(1)}
               />
               <BottomNavigationItem
                 label="Nearby"
                 icon={nearbyIcon}
+                onClick={this.select(2)}
               />
             </BottomNavigation>
           </Paper>
