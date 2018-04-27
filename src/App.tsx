@@ -14,6 +14,7 @@ import IconRestore from 'material-ui/svg-icons/action/restore';
 // import RightMenu from 'hocs/RightMenu';
 import LinearProgress from 'material-ui/LinearProgress';
 import SideMenu from './hocs/SideMenu';
+import ActionsMenu from 'components/ActionsMenu';
 
 const recentsIcon = <IconRestore />;
 const favoritesIcon = <IconFavorites />;
@@ -33,13 +34,6 @@ class App extends React.Component<AppProps, AppState> {
     this.state = {
       slideIndex: 0,
     };
-
-    setInterval(
-      () => {
-        const { slideIndex } = this.state;
-        this.setState({slideIndex: (slideIndex + 1) % 3});
-      }, 
-      3000); 
   }
 
   render() {
@@ -60,7 +54,7 @@ class App extends React.Component<AppProps, AppState> {
             <div className="col-lg-3" style={{paddingRight: 0, paddingTop: 30, paddingBottom: 30}}>
               <SideMenu current={this.state.slideIndex}>
                 <Paper zDepth={1} style={{height: '100%'}}>
-                  <h1>First</h1>
+                  <ActionsMenu />
                 </Paper>
                 <Paper zDepth={1} style={{height: '100%'}}>
                   <h1>Second</h1>

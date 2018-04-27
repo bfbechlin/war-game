@@ -92,5 +92,19 @@ export interface ChangeSelectionAction extends Action {
   };
 }
 
+export const countries = [
+  'East Africa', 'Egypt', 'Congo', 'Madagascar', 'South Africa', 'North Africa', 'Afghanistan', 'India', 'Irkutsk', 'Kamchatka',
+  'Middle East', 'Mongolia', 'Siam', 'China', 'Japan', 'Siberia', 'Ural', 'Yakutsk', 'Eastern Australia', 'New Guniea',
+  'Western Australia', 'Indonesia', 'Great Britain', 'Iceland', 'Northern Europe', 'Scandinavia', 'Southern Europe', 'Ukraine',
+  'Western Europe', 'Alaska', 'Alberta', 'Central America', 'Eastern United States', 'Greenland', 'Northwest Territory',
+  'Ontario', 'Western United States', 'Quebec', 'Argentina', 'Brazil', 'Peru', 'Venezuela',
+];
+
+export type Countries = 'East Africa' | 'Egypt' | 'Congo' | 'Madagascar' | 'South Africa' | 'North Africa' | 'Afghanistan' | 'India' | 'Irkutsk' | 'Kamchatka' |
+  'Middle East' | 'Mongolia' | 'Siam' | 'China' | 'Japan' | 'Siberia' | 'Ural' | 'Yakutsk' | 'Eastern Australia' | 'New Guniea' |
+  'Western Australia' | 'Indonesia' | 'Great Britain' | 'Iceland' | 'Northern Europe' | 'Scandinavia' | 'Southern Europe' | 'Ukraine' |
+  'Western Europe' | 'Alaska' | 'Alberta' | 'Central America' | 'Eastern United States' | 'Greenland' | 'Northwest Territory' |
+  'Ontario' | 'Western United States' | 'Quebec' | 'Argentina' | 'Brazil' | 'Peru' | 'Venezuela';
+
 // Down here, we'll create a discriminated union type of all actions which will be used for our reducer.
 export type CountryActions = IncrementTroopsAction | DecrementTroopsAction | ChangeOwnerAction | ChangeSelectionAction;
