@@ -8,7 +8,7 @@ import {
 import RaisedButton from 'material-ui/RaisedButton';
 import FlatButton from 'material-ui/FlatButton';
 
-import CountrySelector from './CountrySelector';
+import DistributionStep from './DistributionStep';
 
 export interface ActionsMenuProps {
 }
@@ -74,8 +74,7 @@ export class ActionsMenu extends React.Component<ActionsMenuProps, ActionsMenuSt
           <Step>
             <StepLabel>Distribute Troops</StepLabel>
             <StepContent>
-              <p>Type or select on the map the country that you want do add troops.</p>
-              <CountrySelector label={'To(Country)'}/> 
+              <DistributionStep />
               {this.renderStepActions(0)}
             </StepContent>
           </Step>

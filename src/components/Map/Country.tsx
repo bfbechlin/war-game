@@ -27,6 +27,10 @@ class Country extends React.Component<CountryProps, CountryState> {
     };
   }
 
+  onHover = (name: string, type: 'IN' | 'OUT') => (event: any) => {
+    console.log(`hover-${type}: ${name}`);
+  }
+
   componentDidUpdate(prevProps: CountryProps, prevState: CountryState) {
     let troopsChanges: TroopsChange[];
     if (prevProps.troops !== this.props.troops) {
@@ -68,7 +72,12 @@ class Country extends React.Component<CountryProps, CountryState> {
       </g>
     ));
     return (
-      <g className="country-container" onClick={onClick(name)}>
+      <g 
+        className="country-container" 
+        onClick={onClick(name)} 
+        onMouseEnter={this.onHover(name, 'IN')}
+        onMouseLeave={this.onHover(name, 'OUT')}
+      >
         <g className="country">
           <path className="country-selectable" id={name} d={path} />
         </g>

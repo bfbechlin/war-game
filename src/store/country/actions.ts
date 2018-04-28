@@ -6,8 +6,9 @@ import {
   DECREMENT_TROOPS,
   ChangeOwnerAction,
   CHANGE_OWNER,
-  ChangeSelectionAction,
-  CHANGE_SELECTION,
+  ChangeStateAction,
+  CHANGE_STATE,
+  InteractionState,
 } from './types';
 
 export const incrementTroops: ActionCreator<IncrementTroopsAction> = (countryName: string, quantity: number) => ({
@@ -34,11 +35,10 @@ export const changeOwner: ActionCreator<ChangeOwnerAction> = (countryName: strin
   },
 });
 
-export const changeSelection: ActionCreator<ChangeSelectionAction> = (countryName: string, selectionType: 'source' | 'destination', newState: boolean) => ({
-  type: CHANGE_SELECTION,
+export const changeState: ActionCreator<ChangeStateAction> = (countryName: string, newState: InteractionState) => ({
+  type: CHANGE_STATE,
   payload: {
     countryName,
-    selectionType,
     newState
   },
 });

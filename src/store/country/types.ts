@@ -45,19 +45,18 @@ export interface CountryState {
   'Venezuela': CountryInfo;
 }
 
+export type InteractionState = 'NORMAL' | 'HOVERED' | 'SELECTED';
+
 export interface CountryInfo {
   troops: number;
   owner: string;
-  selected: {
-    source: boolean;
-    destination: boolean;
-  };
+  state: InteractionState;
 }
 
 export const INCREMENT_TROOPS = '@@country/INCREMENT_TROOPS';
 export const DECREMENT_TROOPS = '@@country/DECREMENT_TROOPS';
 export const CHANGE_OWNER = '@@country/CHANGE_OWNER';
-export const CHANGE_SELECTION = '@@country/CHANGE_SELECTION';
+export const CHANGE_STATE = '@@country/CHANGE_STATE';
 
 export interface IncrementTroopsAction extends Action {
   type: '@@country/INCREMENT_TROOPS';
@@ -83,12 +82,11 @@ export interface ChangeOwnerAction extends Action {
   };
 }
 
-export interface ChangeSelectionAction extends Action {
-  type: '@@country/CHANGE_SELECTION';
+export interface ChangeStateAction extends Action {
+  type: '@@country/CHANGE_STATE';
   payload: {
     countryName: string;
-    selectionType: 'source' | 'destination';
-    newState: boolean;
+    newState: InteractionState;
   };
 }
 
@@ -107,4 +105,4 @@ export type Countries = 'East Africa' | 'Egypt' | 'Congo' | 'Madagascar' | 'Sout
   'Ontario' | 'Western United States' | 'Quebec' | 'Argentina' | 'Brazil' | 'Peru' | 'Venezuela';
 
 // Down here, we'll create a discriminated union type of all actions which will be used for our reducer.
-export type CountryActions = IncrementTroopsAction | DecrementTroopsAction | ChangeOwnerAction | ChangeSelectionAction;
+export type CountryActions = IncrementTroopsAction | DecrementTroopsAction | ChangeOwnerAction | ChangeStateAction;

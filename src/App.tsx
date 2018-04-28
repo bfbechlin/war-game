@@ -47,11 +47,11 @@ class App extends React.Component<AppProps, AppState> {
         </div>
         <div className="app-content">
           <div className="row h-100">
-            <div className="col-lg-9">
+            <div className="col-xl-9 col-">
               <Map />
             </div>
             
-            <div className="col-lg-3" style={{paddingRight: 0, paddingTop: 30, paddingBottom: 30}}>
+            <div className="col-xl-3" style={{paddingRight: 0, paddingTop: 30, paddingBottom: 30}}>
               <SideMenu current={this.state.slideIndex}>
                 <Paper zDepth={1} style={{height: '100%'}}>
                   <ActionsMenu />
