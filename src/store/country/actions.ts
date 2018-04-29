@@ -6,9 +6,8 @@ import {
   DECREMENT_TROOPS,
   ChangeOwnerAction,
   CHANGE_OWNER,
-  ChangeStateAction,
-  CHANGE_STATE,
-  InteractionState,
+  SetHoverAction,
+  SET_HOVER,
 } from './types';
 
 export const incrementTroops: ActionCreator<IncrementTroopsAction> = (countryName: string, quantity: number) => ({
@@ -35,10 +34,10 @@ export const changeOwner: ActionCreator<ChangeOwnerAction> = (countryName: strin
   },
 });
 
-export const changeState: ActionCreator<ChangeStateAction> = (countryName: string, newState: InteractionState) => ({
-  type: CHANGE_STATE,
+export const changeState: ActionCreator<SetHoverAction> = (countryName: string, hovered: boolean) => ({
+  type: SET_HOVER,
   payload: {
     countryName,
-    newState
+    hovered
   },
 });

@@ -1,4 +1,12 @@
 import { Action } from 'redux';
+import {
+  RED,
+  BLUE,
+  YELLOW,
+  BROWN,
+  PURPLE,
+  GREEN,
+} from 'utils/colors';
 
 export interface CountryState {
   'East Africa': CountryInfo;
@@ -45,18 +53,16 @@ export interface CountryState {
   'Venezuela': CountryInfo;
 }
 
-export type InteractionState = 'NORMAL' | 'HOVERED' | 'SELECTED';
-
 export interface CountryInfo {
   troops: number;
   owner: string;
-  state: InteractionState;
+  hovered: boolean;
 }
 
 export const INCREMENT_TROOPS = '@@country/INCREMENT_TROOPS';
 export const DECREMENT_TROOPS = '@@country/DECREMENT_TROOPS';
 export const CHANGE_OWNER = '@@country/CHANGE_OWNER';
-export const CHANGE_STATE = '@@country/CHANGE_STATE';
+export const SET_HOVER = '@@country/SET_HOVER';
 
 export interface IncrementTroopsAction extends Action {
   type: '@@country/INCREMENT_TROOPS';
@@ -82,13 +88,16 @@ export interface ChangeOwnerAction extends Action {
   };
 }
 
-export interface ChangeStateAction extends Action {
-  type: '@@country/CHANGE_STATE';
+export interface SetHoverAction extends Action {
+  type: '@@country/SET_HOVER';
   payload: {
     countryName: string;
-    newState: InteractionState;
+    hovered: boolean;
   };
 }
+
+// Down here, we'll create a discriminated union type of all actions which will be used for our reducer.
+export type CountryActions = IncrementTroopsAction | DecrementTroopsAction | ChangeOwnerAction | SetHoverAction;
 
 export const countries = [
   'East Africa', 'Egypt', 'Congo', 'Madagascar', 'South Africa', 'North Africa', 'Afghanistan', 'India', 'Irkutsk', 'Kamchatka',
@@ -104,5 +113,77 @@ export type Countries = 'East Africa' | 'Egypt' | 'Congo' | 'Madagascar' | 'Sout
   'Western Europe' | 'Alaska' | 'Alberta' | 'Central America' | 'Eastern United States' | 'Greenland' | 'Northwest Territory' |
   'Ontario' | 'Western United States' | 'Quebec' | 'Argentina' | 'Brazil' | 'Peru' | 'Venezuela';
 
-// Down here, we'll create a discriminated union type of all actions which will be used for our reducer.
-export type CountryActions = IncrementTroopsAction | DecrementTroopsAction | ChangeOwnerAction | ChangeStateAction;
+export const continents = {
+  'North America': { 
+    color: YELLOW,
+    countries: [
+      'Greenland', 
+      'Northwest Territory', 
+      'Alaska', 
+      'Alberta', 
+      'Ontario', 
+      'Quebec', 
+      'Western United States', 
+      'Eastern United States', 
+      'Central America',
+    ]
+  },
+  'Europe': { 
+    color: PURPLE,
+    countries: [
+      'Scandinavia',
+      'Ukraine',
+      'Iceland',
+      'Great Britain',
+      'Northern Europe',
+      'Western Europe',
+      'Southern Europe',
+    ]
+  },
+  'Asia': { 
+    color: RED,
+    countries: [
+      'Siberia',
+      'Yakutsk',
+      'Kamchatka',
+      'Ural',
+      'Irkutsk',
+      'Mongolia',
+      'Japan',
+      'Afghanistan',
+      'China',
+      'India',
+      'Middle East',
+      'Siam',
+    ]
+  },
+  'Africa': { 
+    color: BLUE,
+    countries: [
+      'Egypt',
+      'North Africa',
+      'Congo',
+      'East Africa',
+      'Madagascar',
+      'South Africa',
+    ]
+  },
+  'Australia': {
+    color: BROWN,
+    countries: [
+      'Indonesia',
+      'New Guniea',
+      'Eastern Australia',
+      'Western Australia',
+    ]
+  },
+  'South America': {
+    color: GREEN,
+    countries: [
+      'Venezuela',
+      'Brazil',
+      'Peru',
+      'Argentina',
+    ]
+  },
+};

@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { v4 as UUID } from 'uuid';
 import './Country.css';
-import getCentroid from 'util/pathCentroid';
+import getCentroid from 'utils/pathCentroid';
 
 export interface CountryProps {
   name: string;

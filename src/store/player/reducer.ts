@@ -1,6 +1,6 @@
 import { Reducer } from 'redux';
 import { PlayerState, SET_AVAILABLE_TROOPS, PlayerActions } from './types'; 
-import { GREEN, RED } from 'util/colors';
+import { GREEN, RED } from 'utils/colors';
 
 export const playerInitState: PlayerState = {
   'PLAYER_1': {

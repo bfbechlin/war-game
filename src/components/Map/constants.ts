@@ -6,7 +6,7 @@ import {
   PURPLE,
   GREEN,
   Color
-} from 'util/colors';
+} from 'utils/colors';
 
 export const continents = 
 [

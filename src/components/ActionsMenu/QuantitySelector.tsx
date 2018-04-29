@@ -6,7 +6,7 @@ import PlusFive from 'material-ui/svg-icons/av/forward-5';
 import PlusOne from 'material-ui/svg-icons/hardware/keyboard-arrow-right';
 import MinusFive from 'material-ui/svg-icons/av/replay-5';
 import MinusOne from 'material-ui/svg-icons/hardware/keyboard-arrow-left';
-import { scale, scaleObj } from 'util/screenScale';
+import { scale, scaleObj } from 'utils/screenScale';
 
 interface MuiThemeProps {
   muiTheme?: any;

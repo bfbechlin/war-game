@@ -1,6 +1,6 @@
 import { Action } from 'redux';
 import { Countries } from 'store/country/types';
-import { Color } from 'util/colors';
+import { Color } from 'utils/colors';
 
 // index == ID
 export interface PlayerState {

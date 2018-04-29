@@ -2,7 +2,7 @@ import * as React from 'react';
 import Country from './Country';
 import { CountryType } from './constants';
 import { CountryInfo } from 'store/country/types';
-import { Color } from 'util/colors';
+import { Color } from 'utils/colors';
 
 export interface ContinentProps {
   name: string;

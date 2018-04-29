@@ -16,4 +16,12 @@ ReactDOM.render(
   </Provider>,
   document.getElementById('root') as HTMLElement
 );
+
 registerServiceWorker();
+
+declare global {
+  interface Window {
+    store: any;
+  }
+}
+window.store = store;
