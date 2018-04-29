@@ -49,6 +49,7 @@ const QuantitySelector: React.SFC<QuantitySelectorProps> = (props: QuantitySelec
       props.onChange(boundaries(props.value + newValue));
     }
   };
+  console.log(props.muiTheme);
   return (
     <div>
       <Slider

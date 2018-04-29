@@ -6,6 +6,7 @@ export interface MenuState {
   to: Countries | null;
   from: Countries | null;
   selected: 'TO' | 'FROM';
+  viewMode: 'CONTINENT' | 'PLAYER';
 }
 
 export const SET_QUANTITY = '@@menu/SET_QUANTITY';

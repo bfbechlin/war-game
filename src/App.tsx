@@ -15,10 +15,17 @@ import IconRestore from 'material-ui/svg-icons/action/restore';
 import LinearProgress from 'material-ui/LinearProgress';
 import SideMenu from './hocs/SideMenu';
 import ActionsMenu from 'components/ActionsMenu';
+import getMuiTheme from 'material-ui/styles/getMuiTheme';
 
 const recentsIcon = <IconRestore />;
 const favoritesIcon = <IconFavorites />;
 const nearbyIcon = <IconLocationOn />;
+
+const muiTheme = getMuiTheme({
+  palette: {
+    primary1Color: '#5f4339',
+  }
+});
 
 interface AppState {
   slideIndex: number;
@@ -38,7 +45,7 @@ class App extends React.Component<AppProps, AppState> {
 
   render() {
     return (
-      <MuiThemeProvider>
+      <MuiThemeProvider muiTheme={muiTheme}>
         <div className="app-header">
           <Paper zDepth={2} style={{height: '100%'}}>
             <LinearProgress mode="indeterminate" />

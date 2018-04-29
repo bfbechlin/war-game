@@ -8,7 +8,7 @@ import { CountryState,
   CountryInfo,
 } from './types';
 
-export const initialState: CountryState = {
+export const countryInitState: CountryState = {
   'East Africa':            { troops: 1, owner: 'ID', state: 'NORMAL' },
   'Egypt':                  { troops: 1, owner: 'ID', state: 'NORMAL' },
   'Congo':                  { troops: 1, owner: 'ID', state: 'NORMAL' },
@@ -53,7 +53,7 @@ export const initialState: CountryState = {
   'Venezuela':              { troops: 1, owner: 'ID', state: 'NORMAL' },
 };
 
-const reducer: Reducer<CountryState> = (state: CountryState = initialState, action) => {
+const reducer: Reducer<CountryState> = (state: CountryState = countryInitState, action) => {
   let countryName: string; 
   let country: CountryInfo; 
   switch ((action as CountryActions).type) {

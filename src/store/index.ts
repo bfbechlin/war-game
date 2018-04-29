@@ -1,30 +1,36 @@
 import { combineReducers, Reducer, Dispatch } from 'redux';
 import { routerReducer } from 'react-router-redux';
+
 import { CountryState } from './country/types';
 import { MenuState } from './menu/types';
-import 
-  countryReducer, 
-  { initialState as ContryInitState } 
-  from './country/reducer';
-import 
-  MenuReducer, 
-  { initialState as MenuInitState } 
-  from './menu/reducer';
+import { PlayerState } from './player/types';
+import { GameState } from './game/types';
+
+import countryReducer, { countryInitState } from './country/reducer';
+import menuReducer, { initialState as MenuInitState } from './menu/reducer';
+import playerReducer, { playerInitState } from './player/reducer';
+import gameReducer, { gameInitState } from './game/reducer';
 
 export interface ApplicationState {
   country: CountryState;
   menu: MenuState;
+  player: PlayerState;
+  game: GameState;
 }
 
 export const initialState = {
-  country: ContryInitState,
-  menu: MenuInitState
+  country: countryInitState,
+  menu: MenuInitState,
+  player: playerInitState,
+  game: gameInitState,
 };
 
 export const reducers: Reducer<ApplicationState> = combineReducers<ApplicationState>({
   router: routerReducer,
   country: countryReducer,
-  menu: MenuReducer
+  menu: menuReducer,
+  player: playerReducer,
+  game: gameReducer,
 });
 
 // Additional props for connected React components. This prop is passed by default with `connect()`

@@ -35,8 +35,7 @@ export class Map extends React.Component<Props, MapState> {
       <Continent 
         key={`continent-${continent.name}`} 
         name={continent.name} 
-        fillColor={continent.fillColor} 
-        borderColor={continent.borderColor} 
+        color={continent.color} 
         countries={this.countriesData(continent)}
         click={this.handleCountryClick} 
       />

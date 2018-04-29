@@ -5,8 +5,9 @@ export const initialState: MenuState = {
   quantity: 0,
   to: null,
   from: null,
-  selected: 'TO'  
-};
+  selected: 'TO',
+  viewMode: 'CONTINENT',
+};  
 
 const reducer: Reducer<MenuState> = (state: MenuState = initialState, action) => { 
   let quantity;
