@@ -1,29 +1,32 @@
 import * as React from 'react';
-import Country from './Country';
-import { CountryType } from './constants';
-import { CountryInfo } from 'store/country/types';
+import Country, { CountryProps } from './Country';
 import { Color } from 'utils/colors';
 
 export interface ContinentProps {
   name: string;
   color: Color;
-  countries: (CountryType & CountryInfo)[];
-  click: ((countryName: string) => (event: any) => void);
+  countries: CountryProps[];
 }
 
 const Continent: React.SFC<ContinentProps> = (props) => {
-  const { name, color, countries, click } = props;
-  const Countries = countries.map((country: CountryType & CountryInfo) => (
+  const { name, countries } = props;
+  const Countries = countries.map((country: CountryProps) => (
     <Country 
       key={`country-${country.name}`} 
-      name={country.name} 
-      path={country.path}
+      name={country.name}
       troops={country.troops}
-      onClick={click}
+      shape={country.shape}
+      viewMode={country.viewMode}
+      continentColor={country.continentColor}
+      playerColor={country.playerColor}
+      selectable={country.selectable}
+      interactionState={country.interactionState}
+      possibleChoice={country.possibleChoice}
+      onAction={country.onAction}
     />
   ));
   return (
-    <g id={name} stroke={color.dark} fill={color.normal} visibility="visible">
+    <g id={name}>
       {Countries}
     </g>
   );

@@ -14,6 +14,8 @@ export interface GameState {
 }
 
 export const SET_CARDS_BONUS = '@@game/SET_CARDS_BONUS';
+export const SET_GAME_PHASE = '@@game/SET_GAME_PHASE';
+export const SET_TURN_OWNER = '@@game/SET_TURN_OWNER';
 
 export interface SetCardsBonusAction extends Action {
   type: '@@game/SET_CARDS_BONUS';
@@ -22,4 +24,18 @@ export interface SetCardsBonusAction extends Action {
   };
 }
 
-export type GameActions = SetCardsBonusAction;
+export interface SetGamePhaseAction extends Action {
+  type: '@@game/SET_GAME_PHASE';
+  payload: {
+    phase: GamePhase;
+  };
+}
+
+export interface SetTurnOwnerAction extends Action {
+  type: '@@game/SET_TURN_OWNER';
+  payload: {
+    player: string;
+  };
+}
+
+export type GameActions = SetCardsBonusAction | SetGamePhaseAction | SetTurnOwnerAction;

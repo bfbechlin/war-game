@@ -1,5 +1,11 @@
 import { Reducer } from 'redux';
-import { GameState, SET_CARDS_BONUS, GameActions } from './types'; 
+import { 
+  GameState, 
+  GameActions, 
+  SET_CARDS_BONUS, 
+  SET_GAME_PHASE,
+  SET_TURN_OWNER 
+} from './types'; 
 
 export const gameInitState: GameState = {
   round: 1,
@@ -12,11 +18,13 @@ export const gameInitState: GameState = {
 };  
 
 const reducer: Reducer<GameState> = (state: GameState = gameInitState, action) => { 
-  let cardsBonus;
   switch ((action as GameActions).type) {
     case SET_CARDS_BONUS:
-      cardsBonus = action.payload.quantity;
-      return { ...state, cardsBonus };
+      return { ...state, cardsBonus: action.payload.quantity };
+    case SET_GAME_PHASE:
+      return { ...state, phase: action.payload.phase};
+    case SET_TURN_OWNER:
+      return { ...state, turnOwner: action.payload.player};
     default:
       return state;
   }

@@ -34,7 +34,7 @@ export const changeOwner: ActionCreator<ChangeOwnerAction> = (countryName: strin
   },
 });
 
-export const changeState: ActionCreator<SetHoverAction> = (countryName: string, hovered: boolean) => ({
+export const setHover: ActionCreator<SetHoverAction> = (countryName: string, hovered: boolean) => ({
   type: SET_HOVER,
   payload: {
     countryName,

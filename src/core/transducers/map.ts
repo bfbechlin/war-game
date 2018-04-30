@@ -1,6 +1,6 @@
 import { ApplicationState } from 'store/';
 import { CountryState, CountryInfo, Countries } from 'store/country/types';
-import { GameMode, GamePhase } from 'store/game/types';
+import { GamePhase } from 'store/game/types';
 import { PlayerState } from 'store/player/types';
 import { ViewMode } from 'store/menu/types';
 import { SelectionType, selectionTypeTransducer } from './menu';
@@ -35,9 +35,9 @@ export const countryOnList = (country: Countries, countries: Countries[]): boole
   return countries.indexOf(country) > -1;
 };
 
-export const selectableTransducer = (country: Countries, selectablesCountries: Countries[]): boolean => {
-  return countryOnList(country, selectablesCountries);
-}
+export const selectableTransducer = (country: Countries, selectablesCountries: Countries[], selectedsCountries: Countries[]): boolean => {
+  return countryOnList(country, selectablesCountries) || countryOnList(country, selectedsCountries);
+};
 
 export const interactionStateTransducer = (country: Countries, countryInfo: CountryInfo, selectedsCountries: Countries[]): InteractionState => {
   let result: InteractionState;

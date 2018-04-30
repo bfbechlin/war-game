@@ -1,15 +1,24 @@
 import * as React from 'react';
+import { connect } from 'react-redux';
+
 import Continent  from './Continent';
+import { CountryProps, CountryAction } from './Country';
 import { countriesShape } from './constants';
 import './Map.css';
 
 import { map } from 'utils/object';
-import { connect } from 'react-redux';
-import { continentsInfo } from 'store/country/types';
-import { incrementTroops } from 'store/country/actions';
-import { ApplicationState, ConnectedReduxProps } from 'store/';
+import { Color } from 'utils/colors';
 
-import { MapTransducer, MapStateToProps } from 'core/transducers/map';
+import { continentsInfo, ContinentInfo, Countries } from 'store/country/types';
+import { setHover } from 'store/country/actions';
+import { ConnectedReduxProps } from 'store/';
+
+import { 
+  MapTransducer, 
+  MapStateToProps, 
+  selectableTransducer, 
+  interactionStateTransducer,
+  possibleChoiceTransducer } from 'core/transducers/map';
 
 export interface MapProps extends ConnectedReduxProps<MapStateToProps> {
 }
@@ -23,24 +32,48 @@ export class Map extends React.Component<Props, MapState> {
   state: MapState = {
   };
 
-  handleCountryClick = (countryName: string) => (event: any) => {
-    this.props.dispatch(incrementTroops(countryName, 1));
+  handleCountryClick = (name: Countries, action: CountryAction) => (event: any) => {
+    const { dispatch } = this.props;
+    switch (action) {
+      case 'HOVER-IN':
+        dispatch(setHover(name, true));
+        break;
+      case 'HOVER-OUT':
+        dispatch(setHover(name, false));
+        break;
+      default: 
+        break;
+    }
   }
 
-  countriesData = (continent: ContinentInfo) => {
-    return map<>(,(country: CountryType) => (
-      Object.assign(country, this.props[country.name])
-    ));
+  countriesData = (countries: Countries[], color: Color): CountryProps[] => {
+    const { players, gamePhase, viewMode, selectedables, selecteds, selectorType } = this.props;
+    const countriesState = this.props.countries;
+    return countries.map((country: Countries) => {
+      const countryState = countriesState[country];
+      const shape = countriesShape[country].shape;
+      return {
+        name: country,
+        troops: countryState.troops,
+        shape: shape,
+        viewMode: viewMode,
+        continentColor: color,
+        playerColor: players[countryState.owner].color,
+        selectable: selectableTransducer(country, selectedables, selecteds),
+        interactionState: interactionStateTransducer(country, countryState, selecteds),
+        possibleChoice: possibleChoiceTransducer(country, selectedables, gamePhase, selectorType),
+        onAction: this.handleCountryClick
+      };
+    });
   }
 
   render() {
-    const Continents = continents.map((continent: ContinentType) => (
+    const Continents = map<ContinentInfo, React.ReactNode>(continentsInfo, (info: ContinentInfo, name: string) => (
       <Continent 
-        key={`continent-${continent.name}`} 
-        name={continent.name} 
-        color={continent.color} 
-        countries={this.countriesData(continent)}
-        click={this.handleCountryClick} 
+        key={`continent-${name}`} 
+        name={name} 
+        color={info.color} 
+        countries={this.countriesData(info.countries, info.color)}
       />
     ));
     return(
