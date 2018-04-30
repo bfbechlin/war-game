@@ -6,7 +6,8 @@
     "paths": {
       "store": ["store/*"],
       "components": ["components/*"],
-      "util": ["utils/*"]
+      "utils": ["utils/*"],
+      "core": ["core/*"]
     },
     "target": "es5",
     "lib": ["es6", "dom"],

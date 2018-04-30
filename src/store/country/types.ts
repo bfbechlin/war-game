@@ -6,6 +6,7 @@ import {
   BROWN,
   PURPLE,
   GREEN,
+  Color
 } from 'utils/colors';
 
 export interface CountryState {
@@ -113,7 +114,18 @@ export type Countries = 'East Africa' | 'Egypt' | 'Congo' | 'Madagascar' | 'Sout
   'Western Europe' | 'Alaska' | 'Alberta' | 'Central America' | 'Eastern United States' | 'Greenland' | 'Northwest Territory' |
   'Ontario' | 'Western United States' | 'Quebec' | 'Argentina' | 'Brazil' | 'Peru' | 'Venezuela';
 
-export const continents = {
+export const continents = [ 'North America', 'Europe', 'Asia', 'Africa', 'Australia', 'South America' ];
+
+export interface ContinentInfo {
+  color: Color;
+  countries: Countries[];
+}
+
+export interface Continents {
+  [index: string]: ContinentInfo;
+}
+
+export const continentsInfo: Continents = {
   'North America': { 
     color: YELLOW,
     countries: [

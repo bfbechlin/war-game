@@ -1,12 +1,14 @@
 import { Action } from 'redux';
 import { Countries } from 'store/country/types';
 
+export type ViewMode = 'CONTINENT' | 'PLAYER';
+
 export interface MenuState {
   quantity: number;
-  to: Countries | null;
-  from: Countries | null;
-  selected: 'TO' | 'FROM';
-  viewMode: 'CONTINENT' | 'PLAYER';
+  // Not normalized form, but it improves a lot computation needs on state mappers
+  selectables: Countries[];
+  selecteds: Countries[];
+  viewMode: ViewMode;
 }
 
 export const SET_QUANTITY = '@@menu/SET_QUANTITY';

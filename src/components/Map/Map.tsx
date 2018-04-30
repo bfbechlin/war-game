@@ -1,20 +1,23 @@
 import * as React from 'react';
 import Continent  from './Continent';
-import { continents, ContinentType, CountryType } from './constants';
+import { countriesShape } from './constants';
 import './Map.css';
 
+import { map } from 'utils/object';
 import { connect } from 'react-redux';
-import { CountryState } from 'store/country/types';
+import { continentsInfo } from 'store/country/types';
 import { incrementTroops } from 'store/country/actions';
 import { ApplicationState, ConnectedReduxProps } from 'store/';
 
-export interface MapProps extends ConnectedReduxProps<CountryState> {
+import { MapTransducer, MapStateToProps } from 'core/transducers/map';
+
+export interface MapProps extends ConnectedReduxProps<MapStateToProps> {
 }
 
 type MapState = {
 };
 
-type Props = MapProps & CountryState;
+type Props = MapProps & MapStateToProps;
 
 export class Map extends React.Component<Props, MapState> {
   state: MapState = {
@@ -24,8 +27,8 @@ export class Map extends React.Component<Props, MapState> {
     this.props.dispatch(incrementTroops(countryName, 1));
   }
 
-  countriesData = (continent: ContinentType) => {
-    return continent.countries.map((country: CountryType) => (
+  countriesData = (continent: ContinentInfo) => {
+    return map<>(,(country: CountryType) => (
       Object.assign(country, this.props[country.name])
     ));
   }
@@ -48,6 +51,4 @@ export class Map extends React.Component<Props, MapState> {
   }
 }
 
-const mapStateToProps = (state: ApplicationState) => ( state.country );
-
-export default connect(mapStateToProps)(Map);
+export default connect(MapTransducer)(Map);

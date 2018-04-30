@@ -4,7 +4,7 @@ export const reduceObj = (obj: object, props: string[]) => {
   return result;
 };
 
-export const filter = (obj: object, callback: ((property: object) => boolean)) => {
+export const filter = <T>(obj: object, callback: ((property: T) => boolean)): string[] => {
   const props = [];
   for (const prop in obj) {
     if (obj.hasOwnProperty(prop)) {
@@ -15,3 +15,13 @@ export const filter = (obj: object, callback: ((property: object) => boolean)) =
   }
   return props;
 };
+
+export const map = <T, R>(obj: object, callback: ((property: T) => R)): R[] => {
+  const result: R[] = [];
+  for (const prop in obj) {
+    if (obj.hasOwnProperty(prop)) {
+      result.push(callback(obj[prop]));
+    }
+  }
+  return result;
+}

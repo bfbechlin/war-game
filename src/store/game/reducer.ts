@@ -7,6 +7,7 @@ export const gameInitState: GameState = {
   phase: 'DISTRIBUTION',
   remainingTime: 20,
   turnOwner: 'PLAYER_1',
+  activePlayer: null,
   cardsBonus: 20,
 };  
 

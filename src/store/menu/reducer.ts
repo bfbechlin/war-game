@@ -3,9 +3,8 @@ import { MenuState, SET_QUANTITY, MenuActions } from './types';
 
 export const initialState: MenuState = {
   quantity: 0,
-  to: null,
-  from: null,
-  selected: 'TO',
+  selectables: ['Brazil', 'Peru', 'Venezuela', 'Argentina', 'North Africa'],
+  selecteds: [],
   viewMode: 'CONTINENT',
 };  
 

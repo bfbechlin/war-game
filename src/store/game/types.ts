@@ -9,6 +9,7 @@ export interface GameState {
   phase: GamePhase;
   remainingTime: number;
   turnOwner: string;
+  activePlayer: string | null;
   cardsBonus: number;
 }
 
