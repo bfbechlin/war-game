@@ -55,7 +55,7 @@ export function configureStore(
     composeEnhancers(
       applyMiddleware(
         routerMiddleware(history),
-        gamePhaseWatcher()
+        gamePhaseWatcher
     )),
   );
 }

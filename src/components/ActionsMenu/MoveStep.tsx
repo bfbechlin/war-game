@@ -10,6 +10,7 @@ import AmountSelector from './QuantitySelector';
 import { ApplicationState, ConnectedReduxProps } from 'store/';
 
 import { countrySelectionTransition } from 'core/transitions/countrySelection';
+import { move } from 'core/transitions/gameActions';
 
 interface DistributionStepProps extends ConnectedReduxProps {
 
@@ -44,7 +45,7 @@ const DistributionStep: React.SFC<Props> = (props) => {
         onFocus={() => { console.log(`FOCUS`); }}
       />
       <AmountSelector value={props.quantity} max={13} onChange={onChangeQuantity} />
-      <FlatButton label="ADD"/>
+      <FlatButton label="ADD" onClick={() => move('Brazil', 'Peru', 3)}/>
     </React.Fragment>
   );
 };

@@ -60,10 +60,19 @@ export interface CountryInfo {
   hovered: boolean;
 }
 
+export const SET_TROOPS = '@@country/SET_TROOPS';
 export const INCREMENT_TROOPS = '@@country/INCREMENT_TROOPS';
 export const DECREMENT_TROOPS = '@@country/DECREMENT_TROOPS';
 export const CHANGE_OWNER = '@@country/CHANGE_OWNER';
 export const SET_HOVER = '@@country/SET_HOVER';
+
+export interface SetTroopsAction extends Action {
+  type: '@@country/SET_TROOPS';
+  payload: {
+    countryName: string;
+    quantity: number;
+  };
+}
 
 export interface IncrementTroopsAction extends Action {
   type: '@@country/INCREMENT_TROOPS';
@@ -98,7 +107,7 @@ export interface SetHoverAction extends Action {
 }
 
 // Down here, we'll create a discriminated union type of all actions which will be used for our reducer.
-export type CountryActions = IncrementTroopsAction | DecrementTroopsAction | ChangeOwnerAction | SetHoverAction;
+export type CountryActions = SetTroopsAction | IncrementTroopsAction | DecrementTroopsAction | ChangeOwnerAction | SetHoverAction;
 
 export const countries: Countries[] = [
   'East Africa', 'Egypt', 'Congo', 'Madagascar', 'South Africa', 'North Africa', 'Afghanistan', 'India', 'Irkutsk', 'Kamchatka',

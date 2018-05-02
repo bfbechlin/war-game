@@ -21,7 +21,7 @@ interface DistributionStepProps extends ConnectedReduxProps {
 }
 
 const DistributionStep: React.SFC<DistributionStepProps> = (props: DistributionStepProps) => {
-  const { dispatch, selected, selectables, availableTroops, quantity, player } = props;
+  const { dispatch, selected, selectables, availableTroops, quantity } = props;
 
   const onChangeQuantity = (value: number) => {
     dispatch(setQuantity(value));
@@ -29,7 +29,7 @@ const DistributionStep: React.SFC<DistributionStepProps> = (props: DistributionS
 
   const onAddTroops = () => {
     const diff = availableTroops - quantity;
-    addTroops(player, selected!, quantity);
+    addTroops(selected!, quantity);
     if (diff < quantity) {
       dispatch(setQuantity(diff));
     }

@@ -1,5 +1,7 @@
 import { ActionCreator } from 'redux';
 import {
+  SetTroopsAction,
+  SET_TROOPS,
   IncrementTroopsAction,
   INCREMENT_TROOPS,
   DecrementTroopsAction,
@@ -9,6 +11,14 @@ import {
   SetHoverAction,
   SET_HOVER,
 } from './types';
+
+export const setTroops: ActionCreator<SetTroopsAction> = (countryName: string, quantity: number) => ({
+  type: SET_TROOPS,
+  payload: {
+    countryName,
+    quantity
+  },
+});
 
 export const incrementTroops: ActionCreator<IncrementTroopsAction> = (countryName: string, quantity: number) => ({
   type: INCREMENT_TROOPS,

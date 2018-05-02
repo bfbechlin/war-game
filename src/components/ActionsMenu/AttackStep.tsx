@@ -8,7 +8,7 @@ import CountrySelector, { SelectionAction } from './CountrySelector';
 import AmountSelector from './QuantitySelector';
 
 import { countrySelectionTransition } from 'core/transitions/countrySelection';
-import { addTroops } from 'core/transitions/gameActions';
+import { attack } from 'core/transitions/gameActions';
 import { setGamePhase } from 'store/game/actions';
 import { setQuantity } from 'store/menu/actions';
 
@@ -21,7 +21,7 @@ interface AttackStepProps extends ConnectedReduxProps {
 }
 
 const AttackStep: React.SFC<AttackStepProps> = (props: AttackStepProps) => {
-  const { dispatch, selected, selectables, availableTroops, quantity, player } = props;
+  const { dispatch, selected, selectables, availableTroops, quantity } = props;
 
   const onChangeQuantity = (value: number) => {
     dispatch(setQuantity(value));
@@ -29,7 +29,7 @@ const AttackStep: React.SFC<AttackStepProps> = (props: AttackStepProps) => {
 
   const onAddTroops = () => {
     const diff = availableTroops - quantity;
-    addTroops(player, selected!, quantity);
+    attack('Brazil', 'Argentina', 3);
     if (diff < quantity) {
       dispatch(setQuantity(diff));
     }
@@ -58,7 +58,7 @@ const AttackStep: React.SFC<AttackStepProps> = (props: AttackStepProps) => {
       />
       <AmountSelector value={quantity} max={availableTroops} onChange={onChangeQuantity} />
       <div style={{margin: 5, width: '100%', display: 'flex', flexDirection: 'row', justifyContent: 'space-around'}}>
-        <RaisedButton label="ADD TROOPS" disabled={selected === null || availableTroops <= 0} onClick={onAddTroops}/> 
+        <RaisedButton label="ADD TROOPS" onClick={onAddTroops}/> 
         <RaisedButton label="FINISH" primary={true} onClick={onFinish}/>
       </div>
     </div>

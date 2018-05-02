@@ -1,6 +1,7 @@
 import { Reducer } from 'redux';
 import { CountryState,
   CountryActions,
+  SET_TROOPS,
   INCREMENT_TROOPS,
   DECREMENT_TROOPS,
   CHANGE_OWNER,
@@ -47,7 +48,7 @@ export const countryInitState: CountryState = {
   'Ontario':                { troops: 1, owner: 'PLAYER_2', hovered: false },
   'Western United States':  { troops: 1, owner: 'PLAYER_2', hovered: false },
   'Quebec':                 { troops: 1, owner: 'PLAYER_2', hovered: false },
-  'Argentina':              { troops: 1, owner: 'PLAYER_2', hovered: false },
+  'Argentina':              { troops: 3, owner: 'PLAYER_2', hovered: false },
   'Brazil':                 { troops: 1, owner: 'PLAYER_1', hovered: false },
   'Peru':                   { troops: 1, owner: 'PLAYER_1', hovered: false },
   'Venezuela':              { troops: 1, owner: 'PLAYER_1', hovered: false },
@@ -57,6 +58,11 @@ const reducer: Reducer<CountryState> = (state: CountryState = countryInitState, 
   let countryName: string; 
   let country: CountryInfo; 
   switch ((action as CountryActions).type) {
+    case SET_TROOPS:
+      countryName = action.payload.countryName;
+      country = { ...state[countryName] };
+      country.troops = action.payload.quantity;    
+      return { ...state, [countryName]: country };
     case INCREMENT_TROOPS:
       countryName = action.payload.countryName;
       country = { ...state[countryName] };
