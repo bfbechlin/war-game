@@ -1,62 +1,55 @@
 import * as React from 'react';
-import AutoComplete from 'material-ui/AutoComplete';
-import { countries } from 'store/country/types';
+import SelectField from 'material-ui/SelectField';
+import MenuItem from 'material-ui/MenuItem';
+import { Countries } from 'store/country/types';
+
+export type SelectionAction = 'HOVER-IN' | 'HOVER-OUT' | 'SELECTION-IN' | 'SELECTION-OUT';
 
 interface CountrySelectorProps {
   label: string;
   selected: string | null;
-  onSelect: ((country: string) => void);
-  onUnSelect: (() => void);
+  selectables: Countries[];
+  onAction: ((country: string, action: string) => (event: any) => void);
+  onFocus: (() => void);
 }
 
-interface CountrySelectorState {
-  searchText: string;
-}
+const CountrySelector: React.SFC<CountrySelectorProps> = (props: CountrySelectorProps) =>  {
+  const { label, onAction, onFocus, selectables, selected } = props;
 
-class ContrySelector extends React.Component<CountrySelectorProps, CountrySelectorState> {
-  static getDerivedStateFromProps(nextProps: CountrySelectorProps, prevState: CountrySelectorState) {
-    if (nextProps.selected !== null) {
-      return {searchText: nextProps.selected};
+  const handleChange = (event: any, index: number, value: string) => {
+    if (selected && selected !== value) {
+      onAction(selected, 'SELECTION-OUT')(event);  
     }
-    return null;
-  }
-  
-  constructor(props: CountrySelectorProps) {
-    super(props);
-    this.state = {
-      searchText: ''
-    };
-  }
+    onAction(value, 'SELECTION-IN')(event);
+  };
 
-  onUpdateInput = (searchText: string, dataSource: any[]) => {
-    if (this.props.selected !== null) {
-      this.props.onUnSelect();
-    }
-    this.setState({searchText});
-  }
+  const list = selectables.length === 0 ? 
+    (selected === null ? [] : [selected]) : selectables;
 
-  onNewRequest = (searchResult: string) => {
-    if (countries.indexOf(searchResult) > -1) {
-      this.props.onSelect(searchResult);
-    }
-  }
+  const items = list.map((country: Countries) => (
+    <MenuItem 
+      key={`${label}-${country}`}
+      onMouseEnter={onAction(country, 'HOVER-IN')}  
+      onMouseLeave={onAction(country, 'HOVER-OUT')}
+      value={country}  
+      primaryText={country} 
+    />
+  ));
 
-  render() {
-    const { label } = this.props;
-    const { searchText } = this.state;
-    return (
-      <AutoComplete
-        style={{marginTop: 0}}
+  return (
+    <div onClick={onFocus} style={{marginTop: -10}} >
+      <SelectField
         floatingLabelText={label}
-        filter={AutoComplete.caseInsensitiveFilter}
-        dataSource={countries}
-        searchText={searchText}
-        onUpdateInput={this.onUpdateInput}
-        onNewRequest={this.onNewRequest}
-        maxSearchResults={5}
-      />
-    );  
-  }
-}
+        value={selected} 
+        style={{minWidth: 200}}
+        onChange={handleChange}
+        maxHeight={300}
+        disabled={list.length === 0} 
+      >
+        {items}
+      </SelectField>
+    </div>
+  );
+};
 
-export default ContrySelector;
+export default CountrySelector;

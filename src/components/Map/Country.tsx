@@ -11,9 +11,8 @@ import TroopsChangeMarker from './TroopsChangeMarker';
 import { Countries } from 'store/country/types';
 import { ViewMode } from 'store/menu/types';
 import { Color } from 'utils/colors';
-import { InteractionState } from 'core/transducers/map';
-
-export type CountryAction = 'HOVER-IN' | 'HOVER-OUT' | 'SELECTION-IN' | 'SELECTION-OUT';
+import { InteractionState,  } from 'core/transducers/map';
+import { CountrySelection } from 'core/transitions/countrySelection';
 
 export interface CountryProps {
   name: Countries;
@@ -25,7 +24,7 @@ export interface CountryProps {
   selectable: boolean;
   interactionState: InteractionState;
   possibleChoice: boolean;
-  onAction: ((name: Countries, type: CountryAction) => (event: any) => void);
+  onAction: ((name: Countries, type: CountrySelection) => (event: any) => void);
 }
 
 interface TroopsChange {
@@ -53,36 +52,7 @@ class Country extends React.Component<CountryProps, CountryState> {
       setTimeout(() => { this.setState({troopsChanges : troopsChanges.slice(1)}); }, 1100);
     }
   }
-
-  faddingElement(shapeID: string) {
-    const { viewMode, playerColor, continentColor } = this.props;
-    const color = viewMode === 'PLAYER' ? playerColor : continentColor;
-    const classes = classNames('country-selectable', `${color.name}-fade`);
-    return (
-      <use xlinkHref={`#${shapeID}`} className={classes} stroke={color.dark} />
-    );
-  }
-
-  countryElement(shapeID: string, hidden: boolean) {
-    const { viewMode, playerColor, continentColor, selectable, interactionState } = this.props;
-    const color = viewMode === 'PLAYER' ? playerColor : continentColor;
-    const colorMapper = {
-      'NORMAL': color.normal,
-      'SELECT': color.dark,
-      'HOVER': color.light,
-    };
-    const classes = classNames({'country-selectable': selectable});
-    return (
-      <use 
-        xlinkHref={`#${shapeID}`} 
-        className={classes} 
-        fill={colorMapper[interactionState]} 
-        stroke={color.dark} 
-        style={hidden ? {visibility: 'hidden'} : {}} 
-      />
-    );
-  }
-
+  
   render() {
     const { name, shape, troops, viewMode, playerColor, continentColor, selectable, interactionState, onAction, possibleChoice } = this.props;
     const color = viewMode === 'PLAYER' ? playerColor : continentColor;
@@ -113,9 +83,6 @@ class Country extends React.Component<CountryProps, CountryState> {
         stroke={color.dark} 
       />
     ) : null;
-    if (name === 'Brazil') {
-      console.log(this.props, fadding);
-    }
     return (
       <g 
         className={classNames('country-container', {'country-container-selectable': selectable})} 

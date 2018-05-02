@@ -100,7 +100,7 @@ export interface SetHoverAction extends Action {
 // Down here, we'll create a discriminated union type of all actions which will be used for our reducer.
 export type CountryActions = IncrementTroopsAction | DecrementTroopsAction | ChangeOwnerAction | SetHoverAction;
 
-export const countries = [
+export const countries: Countries[] = [
   'East Africa', 'Egypt', 'Congo', 'Madagascar', 'South Africa', 'North Africa', 'Afghanistan', 'India', 'Irkutsk', 'Kamchatka',
   'Middle East', 'Mongolia', 'Siam', 'China', 'Japan', 'Siberia', 'Ural', 'Yakutsk', 'Eastern Australia', 'New Guniea',
   'Western Australia', 'Indonesia', 'Great Britain', 'Iceland', 'Northern Europe', 'Scandinavia', 'Southern Europe', 'Ukraine',
@@ -198,4 +198,12 @@ export const continentsInfo: Continents = {
       'Argentina',
     ]
   },
+};
+
+export interface BorderCountry {
+  [index: string]: Countries[]; 
+}
+
+export const borderCountries: BorderCountry = {
+  'Brazil': ['Peru', 'Venezuela', 'Argentina', 'North Africa']
 };

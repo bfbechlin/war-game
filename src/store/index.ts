@@ -1,5 +1,8 @@
-import { combineReducers, Reducer, Dispatch } from 'redux';
-import { routerReducer } from 'react-router-redux';
+import { createStore, applyMiddleware, Store, combineReducers, Reducer, Dispatch } from 'redux';
+import { routerReducer, routerMiddleware } from 'react-router-redux';
+import { composeWithDevTools } from 'redux-devtools-extension';
+import { History } from 'history';
+import createHistory from 'history/createBrowserHistory';
 
 import { CountryState } from './country/types';
 import { MenuState } from './menu/types';
@@ -39,3 +42,19 @@ export interface ConnectedReduxProps<S> {
   // Additional type information is given through generics.
   dispatch: Dispatch<S>;
 }
+
+export function configureStore(
+  history: History,
+): Store<ApplicationState> {
+  const composeEnhancers = composeWithDevTools({});
+
+  return createStore<ApplicationState>(
+    reducers,
+    initialState,
+    composeEnhancers(applyMiddleware(
+      routerMiddleware(history),
+    )),
+  );
+}
+
+export default configureStore(createHistory());

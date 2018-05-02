@@ -10,10 +10,10 @@ import {
 
 export const initialState: MenuState = {
   quantity: 0,
-  selectables: ['Peru', 'Venezuela', 'Argentina', 'North Africa'],
-  selecteds: ['Brazil'],
-  viewMode: 'CONTINENT',
-};  
+  selectables: ['Brazil', 'Peru', 'Venezuela', 'North Africa'],
+  selecteds: [],
+  viewMode: 'PLAYER',
+};
 
 const reducer: Reducer<MenuState> = (state: MenuState = initialState, action) => { 
   switch ((action as MenuActions).type) {

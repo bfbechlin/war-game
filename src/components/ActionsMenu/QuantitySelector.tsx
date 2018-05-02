@@ -19,6 +19,8 @@ interface QuantitySelectorProps extends MuiThemeProps {
 }
 
 const QuantitySelector: React.SFC<QuantitySelectorProps> = (props: QuantitySelectorProps) => {
+  const { onChange, max, value } = props;
+
   const iconSize = scaleObj({
     width: 48,
     height: 48
@@ -32,24 +34,21 @@ const QuantitySelector: React.SFC<QuantitySelectorProps> = (props: QuantitySelec
   const fontSize = scale(25);
   const color = props.muiTheme && props.muiTheme.palette.primary1Color || '#FFFFFF';
   
-  const max = props.max;
   const step = Math.trunc(max / 10) > 0 ? Math.trunc(max / 10) : 1;
-  const value = props.value;
 
   const boundaries = (newValue: number) => (
     (newValue < 0 ? 0 : newValue > max ? max : newValue)
   );
-  const onChange = (event: any, newValue: number) => {
+  const onChangeValue = (event: any, newValue: number) => {
     if (max !== 0) {
-      props.onChange(newValue);
+      onChange(newValue);
     }
   };
   const onClick = (newValue: number) => (event: any) => {
     if (max !== 0) {
-      props.onChange(boundaries(props.value + newValue));
+      onChange(boundaries(props.value + newValue));
     }
   };
-  console.log(props.muiTheme);
   return (
     <div>
       <Slider
@@ -60,44 +59,22 @@ const QuantitySelector: React.SFC<QuantitySelectorProps> = (props: QuantitySelec
         step={step}
         value={value}
         disabled={max === 0}
-        onChange={onChange}
+        onChange={onChangeValue}
       />
       <div style={{display: 'flex', alignItems: 'center'}}>
-        <IconButton 
-          iconStyle={iconSize} 
-          style={iconContainer} 
-          tooltip="Remove 5"
-          onClick={onClick(-5)}
-        >
+        <IconButton iconStyle={iconSize} style={iconContainer} tooltip="Remove 5" onClick={onClick(-5)}>
           <MinusFive />
         </IconButton>
-        <IconButton 
-          iconStyle={iconSize} 
-          style={iconContainer} 
-          tooltip="Remove 1"
-          onClick={onClick(-1)}
-        >
+        <IconButton iconStyle={iconSize} style={iconContainer} tooltip="Remove 1" onClick={onClick(-1)}>
           <MinusOne />
         </IconButton>
         <div style={{display: 'inline-block', fontSize, textAlign: 'center', minWidth}}>
-          <sup>{value}</sup>
-          /
-          <sub style={{color, fontSize: '100%', fontWeight: 500}}>{max}</sub>
+          <sup>{value}</sup>/<sub style={{color, fontSize: '100%', fontWeight: 500}}>{max}</sub>
         </div>
-        <IconButton 
-          iconStyle={iconSize} 
-          style={iconContainer} 
-          tooltip="Add 1"
-          onClick={onClick(1)}
-        >
+        <IconButton iconStyle={iconSize} style={iconContainer} tooltip="Add 1" onClick={onClick(1)}>
           <PlusOne />
         </IconButton>
-        <IconButton 
-          iconStyle={iconSize} 
-          style={iconContainer} 
-          tooltip="Add 5"
-          onClick={onClick(5)}
-        >
+        <IconButton iconStyle={iconSize} style={iconContainer} tooltip="Add 5" onClick={onClick(5)}>
           <PlusFive />
         </IconButton>
       </div>

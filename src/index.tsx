@@ -5,10 +5,7 @@ import registerServiceWorker from './registerServiceWorker';
 import './index.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Provider } from 'react-redux';
-import createHistory from 'history/createBrowserHistory';
-import configureStore from './AppStore';
-
-const store = configureStore(createHistory());
+import store from 'store/';
 
 ReactDOM.render(
   <Provider store={store}>
