@@ -20,14 +20,23 @@ export interface Card {
   shape: 'SQUARE' | 'CIRCLE' | 'TRIANGLE';
 }
 
-export const SET_AVAILABLE_TROOPS = '@@player/SET_AVAILABLE_TROOPS';
+export const INCREMENT_AVAILABLE_TROOPS = '@@player/INCREMENT_AVAILABLE_TROOPS';
+export const DECREMENT_AVAILABLE_TROOPS = '@@player/DECREMENT_AVAILABLE_TROOPS';
 
-export interface SetAvailableTroopsAction extends Action {
-  type: '@@player/SET_AVAILABLE_TROOPS';
+export interface IncrementAvailableTroopsAction extends Action {
+  type: '@@player/INCREMENT_AVAILABLE_TROOPS';
   payload: {
     player: string;
     quantity: number;
   };
 }
 
-export type PlayerActions = SetAvailableTroopsAction;
+export interface DecrementAvailableTroopsAction extends Action {
+  type: '@@player/DECREMENT_AVAILABLE_TROOPS';
+  payload: {
+    player: string;
+    quantity: number;
+  };
+}
+
+export type PlayerActions = IncrementAvailableTroopsAction | DecrementAvailableTroopsAction;

@@ -12,7 +12,7 @@ import { addTroops } from 'core/transitions/gameActions';
 import { setGamePhase } from 'store/game/actions';
 import { setQuantity } from 'store/menu/actions';
 
-interface DistributionStepProps extends ConnectedReduxProps {
+interface AttackStepProps extends ConnectedReduxProps {
   quantity: number;
   availableTroops: number;
   player: string;
@@ -20,7 +20,7 @@ interface DistributionStepProps extends ConnectedReduxProps {
   selectables: Countries[];
 }
 
-const DistributionStep: React.SFC<DistributionStepProps> = (props: DistributionStepProps) => {
+const AttackStep: React.SFC<AttackStepProps> = (props: AttackStepProps) => {
   const { dispatch, selected, selectables, availableTroops, quantity, player } = props;
 
   const onChangeQuantity = (value: number) => {
@@ -36,11 +36,11 @@ const DistributionStep: React.SFC<DistributionStepProps> = (props: DistributionS
   };
 
   const onFinish = () => {
-    dispatch(setGamePhase('ATTACK'));
+    dispatch(setGamePhase('MOVE'));
   };
 
   const handleAction = (name: Countries, action: SelectionAction) => (event: any) => {
-    countrySelectionTransition('DISTRIBUTION', action, name);
+    countrySelectionTransition('ATTACK', action, name);
   };
 
   return (
@@ -52,7 +52,7 @@ const DistributionStep: React.SFC<DistributionStepProps> = (props: DistributionS
         onAction={handleAction}
         onFocus={() => { 
           if (selected) {
-            countrySelectionTransition('DISTRIBUTION', 'SELECTION-OUT', selected) ;
+            countrySelectionTransition('ATTACK', 'SELECTION-OUT', selected) ;
           }
         }}
       />
@@ -65,4 +65,4 @@ const DistributionStep: React.SFC<DistributionStepProps> = (props: DistributionS
   );
 };
 
-export default connect()(DistributionStep);
+export default connect()(AttackStep);

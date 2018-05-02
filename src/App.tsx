@@ -14,7 +14,7 @@ import IconRestore from 'material-ui/svg-icons/action/restore';
 // import RightMenu from 'hocs/RightMenu';
 import LinearProgress from 'material-ui/LinearProgress';
 import SideMenu from './hocs/SideMenu';
-import ActionsMenu from 'components/ActionsMenu';
+import ActionsMenu from 'components/ActionsMenu/ActionsMenu';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 
 const recentsIcon = <IconRestore />;

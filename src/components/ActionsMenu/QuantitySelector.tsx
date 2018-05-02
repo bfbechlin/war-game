@@ -37,10 +37,10 @@ const QuantitySelector: React.SFC<QuantitySelectorProps> = (props: QuantitySelec
   const step = Math.trunc(max / 10) > 0 ? Math.trunc(max / 10) : 1;
 
   const boundaries = (newValue: number) => (
-    (newValue < 0 ? 0 : newValue > max ? max : newValue)
+    (newValue < 1 ? 1 : newValue > max ? max : newValue)
   );
   const onChangeValue = (event: any, newValue: number) => {
-    if (max !== 0) {
+    if (max !== 0 && newValue > 0) {
       onChange(newValue);
     }
   };
@@ -49,16 +49,17 @@ const QuantitySelector: React.SFC<QuantitySelectorProps> = (props: QuantitySelec
       onChange(boundaries(props.value + newValue));
     }
   };
+  console.log(max, value);
   return (
     <div>
       <Slider
         style={{marginLeft: 15, marginRight: 15}}
         sliderStyle={{margin: 0}}
-        min={0}
+        min={max === 0 || (value === 1 && max === 1) ? 0 : 1}
         max={max === 0 ? 1 : max}
         step={step}
         value={value}
-        disabled={max === 0}
+        disabled={max === 0 || (value === 1 && max === 1)}
         onChange={onChangeValue}
       />
       <div style={{display: 'flex', alignItems: 'center'}}>

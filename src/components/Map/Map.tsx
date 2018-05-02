@@ -20,7 +20,7 @@ import {
   interactionStateTransducer,
   possibleChoiceTransducer } from 'core/transducers/map';
 
-export interface MapProps extends ConnectedReduxProps<MapStateToProps> {
+export interface MapProps extends ConnectedReduxProps {
 }
 
 type MapState = {

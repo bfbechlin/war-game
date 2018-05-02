@@ -1,5 +1,8 @@
 import { Reducer } from 'redux';
-import { PlayerState, SET_AVAILABLE_TROOPS, PlayerActions } from './types'; 
+import { PlayerState, 
+  INCREMENT_AVAILABLE_TROOPS, 
+  DECREMENT_AVAILABLE_TROOPS,
+  PlayerActions } from './types'; 
 import { GREEN, RED } from 'utils/colors';
 
 export const playerInitState: PlayerState = {
@@ -21,12 +24,18 @@ export const playerInitState: PlayerState = {
 
 const reducer: Reducer<PlayerState> = (state: PlayerState = playerInitState, action) => { 
   let quantity, player;
+  
   switch ((action as PlayerActions).type) {
-    case SET_AVAILABLE_TROOPS:
+    case INCREMENT_AVAILABLE_TROOPS:
       player = { ...state[action.payload.player]};
       quantity = action.payload.quantity;
-      player.availableTroops = quantity;
-      return { ...state, player };
+      player.availableTroops += quantity;
+      return { ...state, [action.payload.player]: player };
+    case DECREMENT_AVAILABLE_TROOPS:
+      player = { ...state[action.payload.player]};
+      quantity = action.payload.quantity;
+      player.availableTroops -= quantity;
+      return { ...state, [action.payload.player]: player };
     default:
       return state;
   }

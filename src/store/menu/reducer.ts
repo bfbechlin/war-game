@@ -9,7 +9,7 @@ import {
 } from './types'; 
 
 export const initialState: MenuState = {
-  quantity: 0,
+  quantity: 1,
   selectables: ['Brazil', 'Peru', 'Venezuela', 'North Africa'],
   selecteds: [],
   viewMode: 'PLAYER',

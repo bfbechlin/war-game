@@ -3,6 +3,7 @@ import { routerReducer, routerMiddleware } from 'react-router-redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import { History } from 'history';
 import createHistory from 'history/createBrowserHistory';
+import { gamePhaseWatcher } from './game/midlewares';
 
 import { CountryState } from './country/types';
 import { MenuState } from './menu/types';
@@ -37,10 +38,10 @@ export const reducers: Reducer<ApplicationState> = combineReducers<ApplicationSt
 });
 
 // Additional props for connected React components. This prop is passed by default with `connect()`
-export interface ConnectedReduxProps<S> {
+export interface ConnectedReduxProps {
   // Correct types for the `dispatch` prop passed by `react-redux`.
   // Additional type information is given through generics.
-  dispatch: Dispatch<S>;
+  dispatch: Dispatch<ApplicationState>;
 }
 
 export function configureStore(
@@ -51,8 +52,10 @@ export function configureStore(
   return createStore<ApplicationState>(
     reducers,
     initialState,
-    composeEnhancers(applyMiddleware(
-      routerMiddleware(history),
+    composeEnhancers(
+      applyMiddleware(
+        routerMiddleware(history),
+        gamePhaseWatcher()
     )),
   );
 }
