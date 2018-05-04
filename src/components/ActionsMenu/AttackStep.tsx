@@ -14,24 +14,27 @@ import { setQuantity } from 'store/menu/actions';
 
 interface AttackStepProps extends ConnectedReduxProps {
   quantity: number;
-  availableTroops: number;
+  maxAttack: number;
   player: string;
-  selected: Countries | null;
+  selectedFrom: Countries | null;
+  selectedTo: Countries | null;
   selectables: Countries[];
 }
 
 const AttackStep: React.SFC<AttackStepProps> = (props: AttackStepProps) => {
-  const { dispatch, selected, selectables, availableTroops, quantity } = props;
+  const { dispatch, selectedTo, selectedFrom, selectables, maxAttack, quantity } = props;
+
+  if (maxAttack < quantity) {
+    dispatch(setQuantity(maxAttack));
+  }
 
   const onChangeQuantity = (value: number) => {
     dispatch(setQuantity(value));
   };
 
-  const onAddTroops = () => {
-    const diff = availableTroops - quantity;
-    attack('Brazil', 'Argentina', 3);
-    if (diff < quantity) {
-      dispatch(setQuantity(diff));
+  const onAttack = () => {
+    if (attack(selectedFrom!, selectedTo!, quantity)) {
+      countrySelectionTransition('ATTACK', 'SELECTION-OUT', selectedTo!);  
     }
   };
 
@@ -46,19 +49,34 @@ const AttackStep: React.SFC<AttackStepProps> = (props: AttackStepProps) => {
   return (
     <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
       <CountrySelector 
-        label={'To'}
-        selected={selected}
-        selectables={selectables}
+        label={'From'}
+        selected={selectedFrom}
+        selectables={selectedFrom ? [] : selectables}
         onAction={handleAction}
         onFocus={() => { 
-          if (selected) {
-            countrySelectionTransition('ATTACK', 'SELECTION-OUT', selected) ;
+          if (selectedFrom) {
+            countrySelectionTransition('ATTACK', 'SELECTION-OUT', selectedFrom) ;
           }
         }}
       />
-      <AmountSelector value={quantity} max={availableTroops} onChange={onChangeQuantity} />
+      <CountrySelector 
+        label={'To'}
+        selected={selectedTo}
+        selectables={selectedFrom ? selectables : []}
+        onAction={handleAction}
+        onFocus={() => { 
+          if (selectedTo) {
+            countrySelectionTransition('ATTACK', 'SELECTION-OUT', selectedTo) ;
+          }
+        }}
+      />
+      <AmountSelector 
+        value={maxAttack < quantity ? maxAttack : quantity} 
+        max={maxAttack} 
+        onChange={onChangeQuantity} 
+      />
       <div style={{margin: 5, width: '100%', display: 'flex', flexDirection: 'row', justifyContent: 'space-around'}}>
-        <RaisedButton label="ADD TROOPS" onClick={onAddTroops}/> 
+        <RaisedButton label="ATTACK" disabled={maxAttack === 0 || selectedFrom === null || selectedFrom === null} onClick={onAttack}/> 
         <RaisedButton label="FINISH" primary={true} onClick={onFinish}/>
       </div>
     </div>

@@ -28,10 +28,13 @@ const phaseMappper = {
 };
 
 const ActionsMenu: React.SFC<Props> = (props: Props) => {
-  const { menu, game, player } = props;
+  const { menu, game, player, country } = props;
   const { turnOwner, phase } = game;
   const { selecteds, quantity } = menu;
-  
+  const selectedTo = selecteds[1] ? selecteds[1] : null;
+  const selectedFrom = selecteds[0] ? selecteds[0] : null;
+  const maxAttack = selectedFrom ? country[selectedFrom].troops - 1 : 0;
+
   return (
     <div style={{maxWidth: 380, maxHeight: 400, marginLeft: 20}}>
       <Stepper activeStep={phaseMappper[phase]} orientation="vertical">
@@ -42,7 +45,7 @@ const ActionsMenu: React.SFC<Props> = (props: Props) => {
               quantity={quantity}
               player={turnOwner}
               availableTroops={player[turnOwner].availableTroops}
-              selected={selecteds.length === 0 ? null : selecteds[0]}
+              selected={selectedFrom}
               selectables={menu.selectables}
             />            
           </StepContent>
@@ -51,10 +54,11 @@ const ActionsMenu: React.SFC<Props> = (props: Props) => {
           <StepLabel>Atack Countries</StepLabel>
           <StepContent>
             <AttackStep 
-              quantity={quantity}
+              quantity={maxAttack === 0 ? 0 : quantity}
               player={turnOwner}
-              availableTroops={player[turnOwner].availableTroops}
-              selected={selecteds.length === 0 ? null : selecteds[0]}
+              maxAttack={maxAttack}
+              selectedFrom={selectedFrom}
+              selectedTo={selectedTo}
               selectables={menu.selectables}
             />
           </StepContent>

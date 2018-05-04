@@ -14,7 +14,7 @@ export const attack = (from: Countries, to: Countries, quantity: number): boolea
   let fromTroops = country[from].troops;
   let toTroops = country[to].troops;
   for (let i = 0; i < quantity; i++) {
-    if (fromTroops === 2 || toTroops === 0) {
+    if (fromTroops <= 2 || toTroops <= 0) {
       break;
     }
     const attackSucessful = Math.random() < 0.4;
