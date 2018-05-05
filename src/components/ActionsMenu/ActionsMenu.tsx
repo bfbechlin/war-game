@@ -66,7 +66,14 @@ const ActionsMenu: React.SFC<Props> = (props: Props) => {
         <Step>
           <StepLabel>Move Troops</StepLabel>
           <StepContent>
-            <MoveStep />
+            <MoveStep 
+              quantity={maxAttack === 0 ? 0 : quantity}
+              player={turnOwner}
+              maxAttack={maxAttack}
+              selectedFrom={selectedFrom}
+              selectedTo={selectedTo}
+              selectables={menu.selectables}
+            />
           </StepContent>
         </Step>
       </Stepper>    

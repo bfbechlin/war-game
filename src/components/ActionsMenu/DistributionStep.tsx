@@ -9,7 +9,7 @@ import AmountSelector from './QuantitySelector';
 
 import { countrySelectionTransition } from 'core/transitions/countrySelection';
 import { addTroops } from 'core/transitions/gameActions';
-import { setGamePhase } from 'store/game/actions';
+import { nextGamePhase } from 'store/game/actions';
 import { setQuantity } from 'store/menu/actions';
 
 interface DistributionStepProps extends ConnectedReduxProps {
@@ -36,7 +36,7 @@ const DistributionStep: React.SFC<DistributionStepProps> = (props: DistributionS
   };
 
   const onFinish = () => {
-    dispatch(setGamePhase('ATTACK'));
+    dispatch(nextGamePhase('ATTACK'));
   };
 
   const handleAction = (name: Countries, action: SelectionAction) => (event: any) => {

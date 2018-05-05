@@ -5,14 +5,26 @@ import {
   SET_CARDS_BONUS,
   SET_TURN_OWNER,
   SET_GAME_PHASE,
+  NEXT_GAME_PHASE,
+  DECREMENT_REMAINING_TIME,
+  SET_REMAINING_TIME,
   SetGamePhaseAction,
+  NextGamePhaseAction,
   SetTurnOwnerAction,
+  SetRemainingTimeAction,
+  DecrementRemainingTimeAction
 } from './types';
 
 export const setCardBonus: ActionCreator<SetCardsBonusAction> = (quantity: number) => ({
   type: SET_CARDS_BONUS,
   payload: {
     quantity
+  }
+});
+
+export const nextGamePhase: ActionCreator<NextGamePhaseAction> = () => ({
+  type: NEXT_GAME_PHASE,
+  payload: {
   }
 });
 
@@ -27,5 +39,18 @@ export const setTurnOwner: ActionCreator<SetTurnOwnerAction> = (player: string) 
   type: SET_TURN_OWNER,
   payload: {
     player
+  }
+});
+
+export const decrementRemainingTime: ActionCreator<DecrementRemainingTimeAction> = () => ({
+  type: DECREMENT_REMAINING_TIME,
+  payload: {
+  }
+});
+
+export const setRemainingTime: ActionCreator<SetRemainingTimeAction> = (remainingTime) => ({
+  type: SET_REMAINING_TIME,
+  payload: {
+    remainingTime
   }
 });

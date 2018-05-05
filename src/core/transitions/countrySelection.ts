@@ -53,7 +53,7 @@ export const doubleSelectionTransition = (type: CountrySelection, country: Count
     case 'SELECTION-OUT':
       if (selecteds[0] === country) {
         store.dispatch(setSelecteds([]));
-        store.dispatch(setSelectables(playerCountries(turnOwner, state.country)));
+        store.dispatch(setSelectables(playerCountries(turnOwner, state.country, 1)));
       } else {
         store.dispatch(setSelecteds([selecteds[0]]));
         store.dispatch(setSelectables(borderCountries(selecteds[0], state.country, turnOwner, sameOrigin)));

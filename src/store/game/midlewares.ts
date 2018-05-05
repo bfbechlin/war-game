@@ -10,10 +10,12 @@ import {
   Middleware,
   AnyAction
 } from 'redux';
-import { SET_GAME_PHASE } from './types';
+import { NEXT_GAME_PHASE, SET_GAME_PHASE, DECREMENT_REMAINING_TIME, nextPhaseResolver } from './types';
 import { ApplicationState } from 'store/';
-import { setQuantity, setSelectables, setSelecteds } from 'store/menu/actions';
-import { playerCountries } from 'core/transducers/map';
+import { decrementRemainingTime, setRemainingTime } from 'store/game/actions';
+import { nextGamePhase } from 'store/game/actions';
+import { interactionInit, nextTurnInit } from 'core/transitions/gameTransitions';
+import { startClock, stopClock } from 'utils/clock';
 
 export interface ExtendedMiddleware<StateType> extends Middleware {
     <S extends StateType>(api: MiddlewareAPI<S>): (next: Dispatch<S>) => Dispatch<S>;
@@ -22,21 +24,53 @@ export interface ExtendedMiddleware<StateType> extends Middleware {
 export const gamePhaseWatcher: ExtendedMiddleware<ApplicationState> = <S extends ApplicationState>({getState, dispatch}: MiddlewareAPI<S>) =>
   (next: Dispatch<S>) =>
     <A extends AnyAction>(action: A): A => {
-      if (action.type === SET_GAME_PHASE) {
-        const state = getState();
-        const hasSelectables = 
-          action.payload.phase !== 'INIT' && action.payload.phase !== 'FINAL' && (
-            (state.game.mode === 'CPU' && state.game.activePlayer === state.game.turnOwner) ||
-            (state.game.mode === 'PVP')
-          );
-        if (hasSelectables) {
-          dispatch(setQuantity(1));
-          dispatch(setSelecteds([]));
-          dispatch(setSelectables(playerCountries(state.game.turnOwner, state.country)));
+      if (action.type === NEXT_GAME_PHASE || action.type === SET_GAME_PHASE) {
+        const { game } = getState();
+        const nextPhase = action.type === NEXT_GAME_PHASE ?
+          nextPhaseResolver(game.phase) :
+          action.payload.phase;
+        if (nextPhase === 'FINAL') {
+          stopClock();
         } else {
-          dispatch(setQuantity(1));
-          dispatch(setSelecteds([]));
-          dispatch(setSelectables([]));
+          if (nextPhase === 'DISTRIBUTION') {
+            nextTurnInit();
+          }
+          // Clock time
+          stopClock();
+          dispatch(setRemainingTime(30));
+          startClock(() => dispatch(decrementRemainingTime()));
+
+          interactionInit(nextPhase);
+
+          if (game.mode === 'CPU') {
+            setTimeout(
+              () => {
+                // HERE CPU
+                // cpuAction(nextPhase); --> passing actual game phase
+                setTimeout(
+                  () => {
+                    dispatch(nextGamePhase());
+                  }, 
+                  2000
+                );
+              }, 
+              2000);
+            console.log('CPU');
+          }
+
+        }
+      }
+      return next(action);
+    };
+
+export const remainingTimeWatcher: ExtendedMiddleware<ApplicationState> = <S extends ApplicationState>({getState, dispatch}: MiddlewareAPI<S>) =>
+  (next: Dispatch<S>) =>
+    <A extends AnyAction>(action: A): A => {
+      if (action.type === DECREMENT_REMAINING_TIME) {
+        const { remainingTime } = getState().game;
+        console.log(remainingTime);
+        if (remainingTime === 1) {
+          dispatch(nextGamePhase());
         }
       }
       return next(action);

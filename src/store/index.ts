@@ -3,7 +3,7 @@ import { routerReducer, routerMiddleware } from 'react-router-redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import { History } from 'history';
 import createHistory from 'history/createBrowserHistory';
-import { gamePhaseWatcher } from './game/midlewares';
+import { gamePhaseWatcher, remainingTimeWatcher } from './game/midlewares';
 
 import { CountryState } from './country/types';
 import { MenuState } from './menu/types';
@@ -55,6 +55,7 @@ export function configureStore(
     composeEnhancers(
       applyMiddleware(
         routerMiddleware(history),
+        remainingTimeWatcher,
         gamePhaseWatcher
     )),
   );

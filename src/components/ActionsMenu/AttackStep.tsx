@@ -9,7 +9,7 @@ import AmountSelector from './QuantitySelector';
 
 import { countrySelectionTransition } from 'core/transitions/countrySelection';
 import { attack } from 'core/transitions/gameActions';
-import { setGamePhase } from 'store/game/actions';
+import { nextGamePhase } from 'store/game/actions';
 import { setQuantity } from 'store/menu/actions';
 
 interface AttackStepProps extends ConnectedReduxProps {
@@ -39,7 +39,7 @@ const AttackStep: React.SFC<AttackStepProps> = (props: AttackStepProps) => {
   };
 
   const onFinish = () => {
-    dispatch(setGamePhase('MOVE'));
+    dispatch(nextGamePhase());
   };
 
   const handleAction = (name: Countries, action: SelectionAction) => (event: any) => {

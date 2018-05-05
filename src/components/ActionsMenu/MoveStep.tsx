@@ -1,55 +1,86 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
-import { MenuState } from 'store/menu/types';
 import { Countries } from 'store/country/types';
-import { setQuantity } from 'store/menu/actions';
+import RaisedButton from 'material-ui/RaisedButton';
+import { ConnectedReduxProps } from 'store/';
 
-import FlatButton from 'material-ui/FlatButton';
 import CountrySelector, { SelectionAction } from './CountrySelector';
 import AmountSelector from './QuantitySelector';
-import { ApplicationState, ConnectedReduxProps } from 'store/';
 
 import { countrySelectionTransition } from 'core/transitions/countrySelection';
 import { move } from 'core/transitions/gameActions';
+import { nextGamePhase } from 'store/game/actions';
+import { setQuantity } from 'store/menu/actions';
 
-interface DistributionStepProps extends ConnectedReduxProps {
-
+interface AttackStepProps extends ConnectedReduxProps {
+  quantity: number;
+  maxAttack: number;
+  player: string;
+  selectedFrom: Countries | null;
+  selectedTo: Countries | null;
+  selectables: Countries[];
 }
 
-type Props = DistributionStepProps & MenuState;
+const AttackStep: React.SFC<AttackStepProps> = (props: AttackStepProps) => {
+  const { dispatch, selectedTo, selectedFrom, selectables, maxAttack, quantity } = props;
 
-const DistributionStep: React.SFC<Props> = (props) => {
-  const { dispatch, selecteds, selectables } = props;
+  if (maxAttack < quantity) {
+    dispatch(setQuantity(maxAttack));
+  }
+
   const onChangeQuantity = (value: number) => {
     dispatch(setQuantity(value));
   };
 
+  const onAttack = () => {
+    if (move(selectedFrom!, selectedTo!, quantity)) {
+      countrySelectionTransition('MOVE', 'SELECTION-OUT', selectedTo!);  
+    }
+  };
+
+  const onFinish = () => {
+    dispatch(nextGamePhase());
+  };
+
   const handleAction = (name: Countries, action: SelectionAction) => (event: any) => {
-    countrySelectionTransition('DISTRIBUTION', action, name);
+    countrySelectionTransition('MOVE', action, name);
   };
 
   return (
-    <React.Fragment>
+    <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
       <CountrySelector 
-        label={'To'}
-        selected={selecteds[0]}
-        selectables={selectables}
+        label={'From'}
+        selected={selectedFrom}
+        selectables={selectedFrom ? [] : selectables}
         onAction={handleAction}
-        onFocus={() => { console.log(`FOCUS`); }}
+        onFocus={() => { 
+          if (selectedFrom) {
+            countrySelectionTransition('MOVE', 'SELECTION-OUT', selectedFrom) ;
+          }
+        }}
       />
       <CountrySelector 
         label={'To'}
-        selected={selecteds[0]}
-        selectables={selectables}
+        selected={selectedTo}
+        selectables={selectedFrom ? selectables : []}
         onAction={handleAction}
-        onFocus={() => { console.log(`FOCUS`); }}
+        onFocus={() => { 
+          if (selectedTo) {
+            countrySelectionTransition('MOVE', 'SELECTION-OUT', selectedTo) ;
+          }
+        }}
       />
-      <AmountSelector value={props.quantity} max={13} onChange={onChangeQuantity} />
-      <FlatButton label="ADD" onClick={() => move('Brazil', 'Peru', 3)}/>
-    </React.Fragment>
+      <AmountSelector 
+        value={maxAttack < quantity ? maxAttack : quantity} 
+        max={maxAttack} 
+        onChange={onChangeQuantity} 
+      />
+      <div style={{margin: 5, width: '100%', display: 'flex', flexDirection: 'row', justifyContent: 'space-around'}}>
+        <RaisedButton label="MOVE" disabled={maxAttack === 0 || selectedFrom === null || selectedFrom === null} onClick={onAttack}/> 
+        <RaisedButton label="FINISH" primary={true} onClick={onFinish}/>
+      </div>
+    </div>
   );
 };
 
-const mapStateToProps = (state: ApplicationState) => ( state.menu );
-
-export default connect(mapStateToProps)(DistributionStep);
+export default connect()(AttackStep);
