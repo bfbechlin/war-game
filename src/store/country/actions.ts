@@ -1,5 +1,7 @@
 import { ActionCreator } from 'redux';
 import {
+  MassChangeOwnerAction,
+  MASS_CHANGE_OWNER,
   SetTroopsAction,
   SET_TROOPS,
   IncrementTroopsAction,
@@ -11,6 +13,14 @@ import {
   SetHoverAction,
   SET_HOVER,
 } from './types';
+
+export const massChangeOwner: ActionCreator<MassChangeOwnerAction> = (countries: string[], onwer: string) => ({
+  type: MASS_CHANGE_OWNER,
+  payload: {
+    countries,
+    onwer
+  },
+});
 
 export const setTroops: ActionCreator<SetTroopsAction> = (countryName: string, quantity: number) => ({
   type: SET_TROOPS,

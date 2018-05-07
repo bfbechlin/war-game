@@ -1,6 +1,5 @@
 import { 
   each as _each, 
-  toArray as _toArray,
   object as _object,
   keys as _keys,
 } from 'underscore';
@@ -43,9 +42,17 @@ export const lenght = (obj: object): number => {
   return n;
 };
 
-export const each = _each;
+export const toArray = <T>(obj: object): T[] => {
+  const result: T[] = [];
+  for (const prop in obj) {
+    if (obj.hasOwnProperty(prop)) {
+      result.push(obj[prop]);
+    }
+  }
+  return result;
+};
 
-export const toArray = _toArray;
+export const each = _each;
 
 export const object = _object;
 

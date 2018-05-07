@@ -1,13 +1,13 @@
 import store from 'store/';
-import { map, lenght, object, keys, each } from 'utils/object';
+import { filter, map, lenght, object, keys, each } from 'utils/object';
 import { difference, shuffle, partition } from 'utils/array';
-import { CountryState, continentsInfo, ContinentInfo, countries as allCountries, Countries } from 'store/country/types';
+import { CountryState, continentsInfo, ContinentInfo, countries as allCountries, Countries, CountryInfo } from 'store/country/types';
 import { setQuantity, setSelectables, setSelecteds } from 'store/menu/actions';
 import { playerCountries } from 'core/transducers/map';
 import { GamePhase } from 'store/game/types';
 import { PlayerState } from 'store/player/types';
 
-import { setHover, changeOwner, setTroops } from 'store/country/actions';
+import { setHover, massChangeOwner } from 'store/country/actions';
 import { setTurnOwner } from 'store/game/actions';
 import { incrementAvailableTroops } from 'store/player/actions';
 
@@ -57,12 +57,15 @@ interface InitCountries {
 export const gameInit = (players: PlayerState) => {
   each(
     object(keys(players), partition(shuffle(allCountries), lenght(players))) as InitCountries,
-    (countriesNames, playerName) => {
-      countriesNames.forEach((countryName) => {
-        console.log(countryName, playerName);
-        store.dispatch(changeOwner(countryName, playerName));
-        store.dispatch(setTroops(countryName, 1));
-      });
+    (countriesNames: Countries[], playerName: string) => {
+      store.dispatch(massChangeOwner(countriesNames, playerName));
     }
   );
+};
+
+export const endGameVerify = () => {
+  // Verify each player objective. For now only if a player has all countries
+  const { country } = store.getState();
+  const randomPlayer = country.Brazil.owner;
+  return filter(country, (countryInfo: CountryInfo) => (countryInfo.owner !== randomPlayer)) === [];
 };

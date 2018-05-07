@@ -1,6 +1,7 @@
 import { Reducer } from 'redux';
 import { CountryState,
   CountryActions,
+  MASS_CHANGE_OWNER,
   SET_TROOPS,
   INCREMENT_TROOPS,
   DECREMENT_TROOPS,
@@ -56,8 +57,20 @@ export const countryInitState: CountryState = {
 
 const reducer: Reducer<CountryState> = (state: CountryState = countryInitState, action) => {
   let countryName: string; 
-  let country: CountryInfo; 
+  let country: CountryInfo;
+  let countries: CountryState; 
   switch ((action as CountryActions).type) {
+    case MASS_CHANGE_OWNER:
+      let owner = action.payload.onwer;
+      countries = Object.assign(state, {});
+      action.payload.countries.forEach((ctName: string) => {
+        countries[ctName] = {
+          troops: 1,
+          owner,
+          hovered: false
+        };
+      });
+      return countries;
     case SET_TROOPS:
       countryName = action.payload.countryName;
       country = { ...state[countryName] };
