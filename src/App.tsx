@@ -7,19 +7,18 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 // import PlayerIcon from 'material-ui/svg-icons/maps/person-pin-circle';
 import Paper from 'material-ui/Paper';
 import { BottomNavigation, BottomNavigationItem } from 'material-ui/BottomNavigation';
-import Map from './components/Map';
-import IconLocationOn from 'material-ui/svg-icons/communication/location-on';
-import IconFavorites from 'material-ui/svg-icons/action/favorite';
+
 import IconRestore from 'material-ui/svg-icons/action/restore';
 // import RightMenu from 'hocs/RightMenu';
-import LinearProgress from 'material-ui/LinearProgress';
-import SideMenu from './hocs/SideMenu';
+
 import ActionsMenu from 'components/ActionsMenu/ActionsMenu';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 
+import AppHeader from 'components/AppHeader';
+import SideMenu from './hocs/SideMenu';
+import Map from 'components/Map';
+
 const recentsIcon = <IconRestore />;
-const favoritesIcon = <IconFavorites />;
-const nearbyIcon = <IconLocationOn />;
 
 const muiTheme = getMuiTheme({
   palette: {
@@ -46,12 +45,7 @@ class App extends React.Component<AppProps, AppState> {
   render() {
     return (
       <MuiThemeProvider muiTheme={muiTheme}>
-        <div className="app-header">
-          <Paper zDepth={2} style={{height: '100%'}}>
-            <LinearProgress mode="indeterminate" />
-            App Header
-          </Paper>
-        </div>
+        <AppHeader />
         <div className="app-content">
           <div className="row h-100">
             <div className="col-xl-9 col-">
@@ -78,16 +72,8 @@ class App extends React.Component<AppProps, AppState> {
           <Paper zDepth={1} style={{height: '100%'}}>
             <BottomNavigation selectedIndex={this.state.slideIndex}>
               <BottomNavigationItem
-                label="Recents"
+                label="Actions"
                 icon={recentsIcon}
-              />
-              <BottomNavigationItem
-                label="Favorites"
-                icon={favoritesIcon}
-              />
-              <BottomNavigationItem
-                label="Nearby"
-                icon={nearbyIcon}
               />
             </BottomNavigation>
           </Paper>

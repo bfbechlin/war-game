@@ -33,7 +33,7 @@ const AttackStep: React.SFC<AttackStepProps> = (props: AttackStepProps) => {
   };
 
   const onAttack = () => {
-    if (attack(selectedFrom!, selectedTo!, quantity)) {
+    if (selectedFrom && selectedTo && attack(selectedFrom, selectedTo, quantity)) {
       countrySelectionTransition('ATTACK', 'SELECTION-OUT', selectedTo!);  
     }
   };

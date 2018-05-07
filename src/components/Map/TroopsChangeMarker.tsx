@@ -10,7 +10,7 @@ export interface TroopsChangeMarkerProps {
 
 const TroopsChangeMarker: React.SFC<TroopsChangeMarkerProps> = ({ position, quantity }) => {
   const color = quantity < 0 ? 'red' : 'green';
-  const text = quantity < 0 ? `+${quantity}` : `${quantity}`;
+  const text = quantity < 0 ? `${quantity}` : `+${quantity}`;
   return (
     <g className="troops-change">
       <circle cx={position.x} cy={position.y} r="20" stroke="black" strokeWidth="1" fill="#D3D3D3" />

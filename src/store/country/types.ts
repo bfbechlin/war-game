@@ -127,6 +127,7 @@ export const continents = [ 'North America', 'Europe', 'Asia', 'Africa', 'Austra
 
 export interface ContinentInfo {
   color: Color;
+  troopsBonus: number;
   countries: Countries[];
 }
 
@@ -137,6 +138,7 @@ export interface Continents {
 export const continentsInfo: Continents = {
   'North America': { 
     color: YELLOW,
+    troopsBonus: 5,
     countries: [
       'Greenland', 
       'Northwest Territory', 
@@ -151,6 +153,7 @@ export const continentsInfo: Continents = {
   },
   'Europe': { 
     color: PURPLE,
+    troopsBonus: 5,
     countries: [
       'Scandinavia',
       'Ukraine',
@@ -163,6 +166,7 @@ export const continentsInfo: Continents = {
   },
   'Asia': { 
     color: RED,
+    troopsBonus: 7,
     countries: [
       'Siberia',
       'Yakutsk',
@@ -180,6 +184,7 @@ export const continentsInfo: Continents = {
   },
   'Africa': { 
     color: BLUE,
+    troopsBonus: 3,
     countries: [
       'Egypt',
       'North Africa',
@@ -191,6 +196,7 @@ export const continentsInfo: Continents = {
   },
   'Australia': {
     color: BROWN,
+    troopsBonus: 2,
     countries: [
       'Indonesia',
       'New Guniea',
@@ -200,6 +206,7 @@ export const continentsInfo: Continents = {
   },
   'South America': {
     color: GREEN,
+    troopsBonus: 2,
     countries: [
       'Venezuela',
       'Brazil',

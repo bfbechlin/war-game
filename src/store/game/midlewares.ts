@@ -14,7 +14,7 @@ import { NEXT_GAME_PHASE, SET_GAME_PHASE, DECREMENT_REMAINING_TIME, nextPhaseRes
 import { ApplicationState } from 'store/';
 import { decrementRemainingTime, setRemainingTime } from 'store/game/actions';
 import { nextGamePhase } from 'store/game/actions';
-import { interactionInit, nextTurnInit } from 'core/transitions/gameTransitions';
+import { interactionInit, nextTurnInit, gameInit } from 'core/transitions/gameTransitions';
 import { startClock, stopClock } from 'utils/clock';
 
 export interface ExtendedMiddleware<StateType> extends Middleware {
@@ -25,10 +25,14 @@ export const gamePhaseWatcher: ExtendedMiddleware<ApplicationState> = <S extends
   (next: Dispatch<S>) =>
     <A extends AnyAction>(action: A): A => {
       if (action.type === NEXT_GAME_PHASE || action.type === SET_GAME_PHASE) {
-        const { game } = getState();
+        const { game, player } = getState();
+        const actualPhase = game.phase;
         const nextPhase = action.type === NEXT_GAME_PHASE ?
           nextPhaseResolver(game.phase) :
           action.payload.phase;
+        if (actualPhase === 'INIT') {
+          gameInit(player);
+        }
         if (nextPhase === 'FINAL') {
           stopClock();
         } else {
@@ -68,7 +72,6 @@ export const remainingTimeWatcher: ExtendedMiddleware<ApplicationState> = <S ext
     <A extends AnyAction>(action: A): A => {
       if (action.type === DECREMENT_REMAINING_TIME) {
         const { remainingTime } = getState().game;
-        console.log(remainingTime);
         if (remainingTime === 1) {
           dispatch(nextGamePhase());
         }

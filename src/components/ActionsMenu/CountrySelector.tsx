@@ -40,11 +40,11 @@ const CountrySelector: React.SFC<CountrySelectorProps> = (props: CountrySelector
     <div onClick={onFocus} style={{marginTop: -10}} >
       <SelectField
         floatingLabelText={label}
-        value={selected} 
-        style={{minWidth: 200}}
+        value={selected}
+        style={{width: 200}}
         onChange={handleChange}
         maxHeight={300}
-        disabled={list.length === 0} 
+        disabled={list.length === 0}
       >
         {items}
       </SelectField>
