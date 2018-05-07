@@ -16,6 +16,7 @@ import { decrementRemainingTime, setRemainingTime } from 'store/game/actions';
 import { nextGamePhase } from 'store/game/actions';
 import { interactionInit, nextTurnInit, gameInit } from 'core/transitions/gameTransitions';
 import { startClock, stopClock } from 'utils/clock';
+import { cpuAction } from 'core/transitions/cpuActions';
 
 export interface ExtendedMiddleware<StateType> extends Middleware {
     <S extends StateType>(api: MiddlewareAPI<S>): (next: Dispatch<S>) => Dispatch<S>;
@@ -46,11 +47,12 @@ export const gamePhaseWatcher: ExtendedMiddleware<ApplicationState> = <S extends
 
           interactionInit(nextPhase);
 
-          if (game.mode === 'CPU') {
+          if (game.mode === 'CPU' && game.turnOwner !== game.activePlayer) {
+            console.log(' CPU resolving ' + nextPhase);
             setTimeout(
               () => {
                 // HERE CPU
-                // cpuAction(nextPhase); --> passing actual game phase
+                cpuAction(nextPhase);
                 setTimeout(
                   () => {
                     dispatch(nextGamePhase());

@@ -13,11 +13,11 @@ import {
 
 export const gameInitState: GameState = {
   round: 1,
-  mode: 'PVP',
+  mode: 'CPU',
   phase: 'INIT',
   remainingTime: 20,
-  turnOwner: 'PLAYER_2',
-  activePlayer: null,
+  turnOwner: 'PLAYER_1',
+  activePlayer: 'PLAYER_1',
   playerOrder: ['PLAYER_1', 'PLAYER_2'],
   cardsBonus: 20,
 };  
