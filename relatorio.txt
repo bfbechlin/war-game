@@ -1,0 +1,49 @@
+------------------------------------- Ambiente de desenvolvimento --------------------------------------
+
+A única dependência que deve estar instalada no host para o processo de build do projeto é o NodeJS. 
+O NodeJS é uma versão da V8, engine de JS desenvolvida pelo google para pre-compilação e execução de
+javascript no seu navegador Google Chrome, portada para plataforma. Alguns pontos importantes dessa
+engine de javascript é que ela é totalmente single thread, mas usa um modelo de eventos e I/O não
+bloqueante para lidar com essa limitação. Esse modelo tem se mostrado uma alternativa aos tradicionais
+com multi threads, tanto que o NodeJS vem sendo vastamente usado como servidor aplicação para aplicações
+web.
+Juntamente com o NodeJS é instalado o gerenciador de pacotes NPM, que possui o maior ecosistema de 
+bibliotecas open source do mundo. Essas dependências são instaladas localmente dentro de uma pasta na mesma
+raiz do projeto, independente da plataforma e sem nenhuma ligação com S.O. do usuário. Isso aumenta a 
+portabilidade do projeto e automatiza o processo de construção da aplicação, já que com um comando é 
+baixado e instalado todas as dependências listadas no projeto.
+
+-------------------------------------  Como levantar a aplicação ----------------------------------------
+
+Como citado anteriormente o projeto usa o NodeJS e NPM. No primeiro momento é necessário instalar as dependências
+externas do projeto, como até mesmo o Typescript, Babel transpiler, Redux, React e outros. Para realizar roda o
+seguinte comando na raiz do projeto.
+
+%
+$ npm install
+%
+
+Esse comando chama o gerenciador de pacotes NPM solicitando a instalação dos pacotes que estão listados no
+arquivo PACKAGE.json. Após instaladas as dependências então é necessário "compilar" o projeto, nas próximas
+sessões serão descrita como ocorre e esse processo. Então para iniciar o ambiente de desenvolvimento é necessário
+rodar o seguinte comando
+
+%
+$ npm run start
+%
+
+Esse comando chama o script start também descrito no arquivo PACKAGE.json. Como resultado ele compila o projeto, 
+abre o navegador padrão do host apontando para o localhost porta 3000 e já sobe um servidor de aplicação node que
+serve o conteúdo estático ligado com todas as interfaces de rede do Host na porta 3000. Além disso é adicionado 
+um watcher na pasta, com Inotify em linux distros, para recompilar o projeto em casos de modificações e automaticamente
+recarregar a página do navegador.
+
+---------------------------------- Typescript vs Javascript --------------------------------------------------
+
+Ao pé da letra do o JS não é uma linguagem e sim uma definição feita pela ECMA foundation para servir como um contrato
+entre os navegadores e desenvolvedores de aplicações web sobre o que está disponível na sua engine de script. Isso nem 
+sempre é totalmente cumprido e o com o processo de evolução da linguagem vários navagores não implementam a especificação
+por completo. Esses problemas acabaram levando a soluções alternativas pela comunidade como implementar as funcionalidades
+implementar funcionalidades novas da linguagem usando elementos disponíveis no momento. Essa metodologia ficou conhecida 
+como polyfill. Isso também foi evoluindo, criando um conjunto grandes de polyfills e então se começou a realizar o processo
+de transpilação, onde o código fonte javscript é transformado novamente em javscript.
