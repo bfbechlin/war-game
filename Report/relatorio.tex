@@ -190,6 +190,12 @@ Ao pé da letra JavaScript não é uma linguagem, mas sim uma definição feita 
 Esses problemas acabaram levando a soluções alternativas pela comunidade, como implementar as funcionalidadesnovas da linguagem usando elementos disponíveis no momento. Essa metodologia ficou conhecida como polyfill. Isso também foi evoluindo, criando um conjunto grandes de polyfills e então se começou a realizar o processo de transpilação, onde o código fonte TypeScript é transformado novamente em JavaScript.
 
 \section{Paradigma funcional}
+Cada uma das entidades do projeto - país, jogo, menu, jogador - é composto de três principais partes: as ações, os redutores e os tipos. \par
+Os arquivos de \textbf{constantes} (types.ts) definem os tipos que cada uma das ações das entidades pertence, bem como outras constantes utilizadas em outras partes do projeto. Para fins de melhor legibilidade e modularização, cada entidade do projeto possui um arquivo de constantes a ela associado. \par
+As \textbf{ações} - actions - de cada entidade são funções que correspondem a comandos específicos que elas podem executar de modo a gerar informações que possibilitem a posterior alteração do estado atual do jogo (feita pelos redutores). Cada ação possui um tipo associado, definido no arquivo de tipos citado acima, e carrega consigo algum dado que é levado à store do projeto. \par
+Os \textbf{redutores} são os responsáveis pelo controle do estado atual do jogo. Eles recebem a informação gerada por uma ação e realizam a criação de um novo estado de jogo de acordo com o novo dado. Ou seja, os reducers têm em mãos o estado atual do jogo, uma ação disparada por determinada entidade, e então produzem e retornam um novo estado composto pelas informações do estado antigo atualizadas de acordo com o dado trazido pela ação. \par
+As entidades, com seus redutores, ações e constantes, constituem a \textbf{store} da aplicação. Uma store é um objeto que armazena o estado atual da aplicação, provedora de uma interface que faz a mediação do acesso ao estado. \par
+
 
 \section{Paradigma de orientação a objetos}
 

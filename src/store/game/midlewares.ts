@@ -54,10 +54,10 @@ export const gamePhaseWatcher: ExtendedMiddleware<ApplicationState> = <S extends
                 setTimeout(
                   () => {
                     dispatch(nextGamePhase());
-                  }, 
+                  },
                   2000
                 );
-              }, 
+              },
               2000);
             console.log('CPU');
           }
