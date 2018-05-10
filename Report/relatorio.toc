@@ -1,0 +1,16 @@
+\select@language {brazilian}
+\select@language {brazilian}
+\select@language {brazilian}
+\contentsline {chapter}{1~Introdu\IeC {\c c}\IeC {\~a}o}{3}{CHAPTER.1}
+\contentsline {section}{\numberline {1.1}Vis\IeC {\~a}o geral da linguagem}{3}{section.1.1}
+\contentsline {section}{\numberline {1.2}Descri\IeC {\c c}\IeC {\~a}o do problema}{4}{section.1.2}
+\contentsline {chapter}{2~Desenvolvimento}{5}{CHAPTER.2}
+\contentsline {section}{\numberline {2.1}Depend\IeC {\^e}ncias}{5}{section.2.1}
+\contentsline {subsection}{\numberline {2.1.1}Instalando a aplica\IeC {\c c}\IeC {\~a}o}{5}{subsection.2.1.1}
+\contentsline {section}{\numberline {2.2}TypeScript vs. JavaScript}{6}{section.2.2}
+\contentsline {section}{\numberline {2.3}Paradigma funcional}{6}{section.2.3}
+\contentsline {section}{\numberline {2.4}Paradigma de orienta\IeC {\c c}\IeC {\~a}o a objetos}{6}{section.2.4}
+\contentsline {chapter}{3~Resultados}{7}{CHAPTER.3}
+\contentsline {chapter}{4~Conclus\IeC {\~a}o}{8}{CHAPTER.4}
+\contentsline {chapter}{\xspace {}Refer{\^e}ncias}{9}{schapter.2}
+\contentsfinish 
