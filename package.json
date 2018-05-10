@@ -28,7 +28,8 @@
     "test": "react-scripts-ts test --env=jsdom",
     "eject": "react-scripts-ts eject",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d build"
+    "deploy": "gh-pages -d build",
+    "report": "pdflatex -no-file-line-error report/relatorio.tex"
   },
   "devDependencies": {
     "@types/classnames": "^2.2.3",
