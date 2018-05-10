@@ -43,6 +43,88 @@
 \usepackage[alf,abnt-emphasize=bf]{abntex2cite}	% pacote para usar citações abnt
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Sintaxe
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+
+%Define the listing package
+\usepackage{color} %use color
+\definecolor{mygreen}{rgb}{0,0.6,0}
+\definecolor{mygray}{rgb}{0.5,0.5,0.5}
+\definecolor{mymauve}{rgb}{0.58,0,0.82}
+
+%Customize a bit the look
+\lstset{ %
+backgroundcolor=\color{white}, % choose the background color; you must add \usepackage{color} or \usepackage{xcolor}
+basicstyle=\footnotesize, % the size of the fonts that are used for the code
+breakatwhitespace=false, % sets if automatic breaks should only happen at whitespace
+breaklines=true, % sets automatic line breaking
+captionpos=b, % sets the caption-position to bottom
+commentstyle=\color{mygreen}, % comment style
+deletekeywords={...}, % if you want to delete keywords from the given language
+escapeinside={\%*}{*)}, % if you want to add LaTeX within your code
+extendedchars=true, % lets you use non-ASCII characters; for 8-bits encodings only, does not work with UTF-8
+frame=single, % adds a frame around the code
+keepspaces=true, % keeps spaces in text, useful for keeping indentation of code (possibly needs columns=flexible)
+keywordstyle=\color{blue}, % keyword style
+% language=Octave, % the language of the code
+morekeywords={*,...}, % if you want to add more keywords to the set
+numbers=left, % where to put the line-numbers; possible values are (none, left, right)
+numbersep=5pt, % how far the line-numbers are from the code
+numberstyle=\tiny\color{mygray}, % the style that is used for the line-numbers
+rulecolor=\color{black}, % if not set, the frame-color may be changed on line-breaks within not-black text (e.g. comments (green here))
+showspaces=false, % show spaces everywhere adding particular underscores; it overrides 'showstringspaces'
+showstringspaces=false, % underline spaces within strings only
+showtabs=false, % show tabs within strings adding particular underscores
+stepnumber=1, % the step between two line-numbers. If it's 1, each line will be numbered
+stringstyle=\color{mymauve}, % string literal style
+tabsize=2, % sets default tabsize to 2 spaces
+title=\lstname % show the filename of files included with \lstinputlisting; also try caption instead of title
+}
+%END of listing package%
+
+\definecolor{darkgray}{rgb}{.4,.4,.4}
+\definecolor{purple}{rgb}{0.65, 0.12, 0.82}
+
+%define Javascript language
+\lstdefinelanguage{JavaScript}{
+keywords={npm, break, case, catch, class, const, continue, debugger, default, delete, do, else, enum, export, extends, false, finally, for, function, if, import, in, instanceof, new, null, return, super, switch, this, throw, true, try, typeof, var, void, while, with},
+keywordstyle=\color{purple}\bfseries,
+ndkeywords={run, as, implements, interface, let, package, private, protected, public, static, yield, symbol, from, of, any, boolean, constructor, declare, get, module, require, number, set, string, T, R, object, Countries, number, ViewMode, Color, InteractionState, CountrySelection},
+ndkeywordstyle=\color{YellowGreen}\bfseries,
+identifierstyle=\color{MidnightBlue},
+sensitive=true,
+comment=[l]{//},
+morecomment=[s]{/*}{*/},
+commentstyle=\color{gray}\ttfamily,
+stringstyle=\color{red}\ttfamily,
+morestring=[b]',
+morestring=[b]"
+}
+
+\lstset{
+language=JavaScript,
+extendedchars=true,
+basicstyle=\footnotesize\ttfamily,
+showstringspaces=false,
+showspaces=false,
+numbers=left,
+numberstyle=\footnotesize,
+numbersep=9pt,
+tabsize=2,
+breaklines=true,
+showtabs=false,
+captionpos=b,
+classoffset=1, % starting new class
+otherkeywords={>,<,.,;,-,!,=,~,:,[,],?,\%},
+morekeywords={>,<,.,;,-,!,=,~,:,[,],?,\%},
+keywordstyle=\color{darkgray},
+classoffset=0,
+}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Macros, ajustes e definições
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
@@ -172,22 +254,32 @@ Essas dependências são instaladas localmente dentro de uma pasta na mesma raiz
 Como citado anteriormente o projeto usa o \textbf{NodeJS} e \textbf{NPM}. No primeiro momento é necessário instalar as dependências externas do projeto, como até mesmo o \textbf{Typescript}, \textbf{Babel transpiler}, \textbf{Redux}, \textbf{React} e outros. \par
 Para realizar a instalação, execute via terminal o seguinte comando no diretório raíz do projeto:
 
-\begin{lstlisting}
+\begin{lstlisting}[language=JavaScript]
   npm install
 \end{lstlisting}
 
 Esse comando chama o gerenciador de pacotes \textbf{NPM} solicitando a instalação dos pacotes que estão listados no arquivo \verb|PACKAGE.json|. Após instaladas as dependências, é necessário "compilar" o projeto, nas próximas sessões será descrito como ocorre esse processo. \par
 Para iniciar o ambiente de desenvolvimento é necessário executar o seguinte comando:
 
-\begin{lstlisting}
+\begin{lstlisting}[language=JavaScript]
   npm run start
 \end{lstlisting}
 
 Esse comando chama o script start também descrito no arquivo \verb|PACKAGE.json|. Como resultado, ele compila o projeto, abre o navegador padrão do host (apontando para o localhost porta 3000), e já sobe um servidor de aplicação node que serve o conteúdo estático ligado com todas as interfaces de rede do Host na porta 3000. Além disso, é adicionado um watcher na pasta, com Inotify em linux distros, para recompilar o projeto em casos de modificações e automaticamente recarregar a página do navegador.
 
+\subsection{React}
+React é a biblioteca usada para a interface gráfica, tendo influência na construção da aplicação. Criada pelo Facebook, visa solucionar um problema antigo relacionado à construção e manipulação da DOM e a lógica de negócios da aplicação. Com a evolução da computação em geral e também dos requisitos dos usuários, as páginas Web passaram de simples páginas com hiperlinks para aplicações completas e, com isso, o browser passa a ser usado como um ambiente de execução dessas aplicações. \par
+A biblioteca tem uma construção como teor funcional, no qual cada componente tem entradas via propriedades e retorna elementos HTML através de JSX. Os componentes podem montar outros componentes em sua visualização e definir suas entradas. É possível, também, armazenar estados dentro de componentes por meio de classes. Para isso, estende-se uma classe de componente do React, que possui alguns métodos adicionais que lidam com o estado e também com o ciclo de vida do componente.
+
+\subsection{Redux}
+O conjunto React+Redux é uma combinação comum para aplicações que usam React. Com o Redux, é possível gerenciar o estado da aplicação, o que se faz bastante útil, uma vez que usar o estado do componente para salvar dados e estado geral não é escalável, já que exige componentes com muitos filhos e muitas propriedades de entrada para componentes intermediários. Assim, a combinação do React com esse gerenciador de maior complexidade torna-se quase natural.
+
 \section{TypeScript vs. JavaScript}
 Ao pé da letra JavaScript não é uma linguagem, mas sim uma definição feita pela ECMA foundation para servir como um contrato entre os navegadores e desenvolvedores de aplicações web sobre o que está disponível na sua engine de script. Isso nem sempre é totalmente cumprido e, com o processo de evolução da linguagem, vários navagores não implementam a especificação por completo. \par
-Esses problemas acabaram levando a soluções alternativas pela comunidade, como implementar as funcionalidadesnovas da linguagem usando elementos disponíveis no momento. Essa metodologia ficou conhecida como polyfill. Isso também foi evoluindo, criando um conjunto grandes de polyfills e então se começou a realizar o processo de transpilação, onde o código fonte JavaScript é transformado novamente em JavaScript.
+Esses problemas acabaram levando a soluções alternativas pela comunidade, como implementar as funcionalidadesnovas da linguagem usando elementos disponíveis no momento. Essa metodologia ficou conhecida como polyfill. Isso também foi evoluindo, criando um conjunto grandes de polyfills e então se começou a realizar o processo de transpilação, onde o código fonte JavaScript é transformado novamente em JavaScript, usando as funcionalidades das especificações antigas. \par
+O TypeScript, criado pela Microsoft, usa esses artifícios para gerar JavaScript, executado em grande parte dos navagadores web. Esse caso é diferente, uma vez que trata-se de uma linguagem sendo transformada em outra, mas muitas os dois processos são realizados serialmente com TSCompiler, que transforma em ES6(EcmaScript v6) e depois em ES5(EcmaScript v5), melhor suportada pela maioria dos navegadores. \par
+Entretanto, a própria referência do TypeScript se intitula como um superset de JavaScript adicionando, principalmente, a tipagem estática, o que não a torna disruptiva em relação ao JavaScript.\par
+Esse processo é usado por outras linguagens além do TypeScript, como ClojureScript, CoffeeScript e outros.
 
 \section{Paradigma funcional}
 Cada uma das entidades do projeto - país, jogo, menu, jogador - é composto de três principais partes: as ações, os redutores e os tipos. \par
@@ -196,6 +288,137 @@ As \textbf{ações} - actions - de cada entidade são funções que correspondem
 Os \textbf{redutores} são os responsáveis pelo controle do estado atual do jogo. Eles recebem a informação gerada por uma ação e realizam a criação de um novo estado de jogo de acordo com o novo dado. Ou seja, os reducers têm em mãos o estado atual do jogo, uma ação disparada por determinada entidade, e então produzem e retornam um novo estado composto pelas informações do estado antigo atualizadas de acordo com o dado trazido pela ação. \par
 As entidades, com seus redutores, ações e constantes, constituem a \textbf{store} da aplicação. Uma store é um objeto que armazena o estado atual da aplicação, provedora de uma interface que faz a mediação do acesso ao estado. \par
 
+\subsection{Listings}
+\subsubsection{utils/array}
+
+\begin{lstlisting}[language = JavaScript]
+
+export const intersection = <T>(array1: T[], array2: T[]) => (
+ array1.filter((element: T) => array2.indexOf(element) > -1)
+);
+
+export const difference = <T>(array1: T[], array2: T[]) => (
+ array1.filter((element: T) => array2.indexOf(element) < 0)
+);
+
+export const cyclicIncrement = <T>(array: T[], element: T) => (
+ array[(array.indexOf(element) + 1) % array.length]
+);
+
+export const shuffle = <T>(array: T[]): T[] => {
+ if (array.length === 0) {
+   return [];
+ }
+ const index = Math.trunc(Math.random() * array.length);
+ const element = array.splice(index, 1);
+ return [element[0], ...shuffle(array)];
+};
+
+export const partition = <T>(array: T[], n: number): T[][] => {
+ const result = groupBy(array, (item: T, index: number) => (
+   index % n
+ ));
+ return values(result);
+};
+
+
+\end{lstlisting}
+
+\subsubsection{utils/object}
+
+\begin{lstlisting}[language=JavaScript]
+
+export const filter = <T>(obj: object, callback: ((value: T, key?: string) => boolean)): string[] => {
+const props = [];
+for (const prop in obj) {
+ if (obj.hasOwnProperty(prop)) {
+   if (callback(obj[prop], prop)) {
+     props.push(prop);
+   }
+ }
+}
+return props;
+};
+
+export const map = <T, R>(obj: object, callback: ((property: T, key?: string) => R)): R[] => {
+const result: R[] = [];
+for (const prop in obj) {
+ if (obj.hasOwnProperty(prop)) {
+   result.push(callback(obj[prop], prop));
+ }
+}
+return result;
+};
+
+export const lenght = (obj: object): number => {
+let n: number = 0;
+for (const prop in obj) {
+ if (obj.hasOwnProperty(prop)) {
+   n += 1;
+ }
+}
+return n;
+};
+
+export const toArray = <T>(obj: object): T[] => {
+const result: T[] = [];
+for (const prop in obj) {
+ if (obj.hasOwnProperty(prop)) {
+   result.push(obj[prop]);
+ }
+}
+return result;
+};
+
+\end{lstlisting}
+
+\subsubsection{core/transducers/map}
+\begin{lstlisting}[language=JavaScript]
+
+export const playerCountries = (player: string, countries: CountryState, minTroops: number = 0) => (
+filter(countries, (country: CountryInfo) => ( country.owner === player && country.troops > minTroops))
+);
+
+export const borderCountries = (country: Countries, countries: CountryState, player: string, sameOrigin: boolean = true) => {
+const borders = bdCountries[country] ? bdCountries[country] : [];
+return sameOrigin ?
+ intersection(borders, playerCountries(player, countries)) :
+ difference(borders, playerCountries(player, countries)) ;
+};
+
+\end{lstlisting}
+
+\subsubsection{core/transictions/gameTransictions}
+\begin{lstlisting}[language=JavaScript]
+export const computeNewTroops = (player: string, country: CountryState) => {
+const countries = playerCountries(player, country);
+let newTroopsCounter = Math.ceil(countries.length / 2);
+const continentBonus = map <ContinentInfo, number> (continentsInfo, (continent: ContinentInfo) => (
+ difference(continent.countries, countries).length === 0 ? continent.troopsBonus : 0
+));
+newTroopsCounter += continentBonus.reduce((acc, value) => (acc + value), 0);
+return newTroopsCounter;
+};
+
+
+export const gameInit = (players: PlayerState) => {
+each(
+ object(keys(players), partition(shuffle(allCountries), lenght(players))) as InitCountries,
+ (countriesNames: Countries[], playerName: string) => {
+   store.dispatch(massChangeOwner(countriesNames, playerName));
+ }
+);
+};
+
+export const endGameVerify = () => {
+// Verify each player objective. For now only if a player has all countries
+const { country } = store.getState();
+const randomPlayer = country.Brazil.owner;
+return filter(country, (countryInfo: CountryInfo) => (countryInfo.owner !== randomPlayer)) === [];
+};
+
+
+\end{lstlisting}
 
 \section{Paradigma de orientação a objetos}
 
