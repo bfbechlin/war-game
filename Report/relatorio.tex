@@ -1,0 +1,233 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Modelo de relatório de Disciplina de MLP a partir da
+% classe latex iiufrgs disponivel em http://github.com/schnorr/iiufrgs
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Definição do tipo / classe de documento e estilo usado
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+\documentclass[rel_mlp]{iiufrgs}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Importação de pacotes
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% (a A seguir podem ser importados os pacotes necessários para o documento, de acordo
+% com a necessidade)
+%
+\usepackage[brazilian]{babel}	    % para texto escrito em pt-br
+\usepackage[utf8]{inputenc}         % pacote para acentuação
+\usepackage{graphicx}         	    % pacote para importar figuras
+\usepackage[T1]{fontenc}            % pacote para conj. de caracteres correto
+\usepackage{times}                  % pacote para usar fonte Adobe Times
+\usepackage{enumerate}              % para lista de itens com letras
+\usepackage{breakcites}
+\usepackage{titlesec}
+\usepackage{enumitem}
+\usepackage{titletoc}
+\usepackage{listings}			    % para listagens de código-fonte
+\usepackage{mathptmx}               % p/ usar fonte Adobe Times nas formulas matematicas
+\usepackage{url}                    % para formatar URLs
+%\usepackage{color}				    % para imagens e outras coisas coloridas
+%\usepackage{fixltx2e}              % para subscript
+%\usepackage{amsmath}               % para \epsilon e matemática
+%\usepackage{amsfonts}
+%\usepackage{setspace}			    % para mudar espaçamento dos parágrafos
+%\usepackage[table,xcdraw]{xcolor}  % para tabelas coloridas
+%\usepackage{longtable}             % para tabelas compridas (mais de uma página)
+%\usepackage{float}
+%\usepackage{booktabs}
+%\usepackage{tabularx}
+%\usepackage[breaklinks]{hyperref}
+
+\usepackage[alf,abnt-emphasize=bf]{abntex2cite}	% pacote para usar citações abnt
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Macros, ajustes e definições
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+
+% define estilo de parágrafo para citação longa direta:
+\newenvironment{citacao}{
+    %\singlespacing
+    %\footnotesize
+    \small
+    \begin{list}{}{
+        \setlength{\leftmargin}{4.0cm}
+        \setstretch{1}
+        \setlength{\topsep}{1.2cm}
+        \setlength{\listparindent}{\parindent}
+    }
+    \item[]}{\end{list}
+}
+
+% adiciona a fonte em figuras e tabelas
+\newcommand{\fonte}[1]{\\Fonte: {#1}}
+
+% Ative o seguinte caso alguma nota de rodapé fique muito longa e quebre entre múltiplas
+% páginas
+%\interfootnotelinepenalty=10000
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Informações gerais
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% título
+\title{Implementação do jogo War sando TypeScript}
+
+% autor
+\author{DELTA}{GRUPO} % {sobrenome}{nome}
+\author{da Rocha Costa e Silva}{Átila} % {sobrenome}{nome}
+\author{Bechlin}{Béuren Felipe}
+\author{Bertoldo Colombo de Souza}{Felipe}
+%\author{Autor2}{Aluno} % {sobrenome}{nome} 1 para cada aluno
+
+% Professor orientador da disciplina
+\advisor[Prof.~Dr.]{Mello Schnorr}{Lucas}
+
+% Nome do(s) curso(s):
+\course{Curso de Graduação em Ciência da Computa{\c{c}}{\~a}o e Engenharia de Computação}
+
+% local da realização do trabalho
+\location{Porto Alegre}{RS}
+
+% data da entrega do trabalho (mês e ano)
+\date{07}{2018}
+
+
+% Palavras chave
+\keyword{War}
+\keyword{TypeScript}
+%\keyword{}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Início do documento e elementos pré-textuais
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Declara início do documento
+\begin{document}
+
+% inclui folha de rosto
+\maketitle
+
+\selectlanguage{brazilian}
+
+% Sumario
+\tableofcontents
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Aqui comeca o texto propriamente dito
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%espaçamento entre parágrafos
+%\setlength{\parskip}{6 pt}
+
+\selectlanguage{brazilian}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Introdução
+%
+\chapter{Introdução} \label{intro}
+O trabalho visa a solução de um problema através de diferentes paradigmas de programação: orientação a objetos e funcional. \par
+Com as duas implementações, teremos visto na prática as vantagens e desvantagens de cada paradigma na abordagem ao problema, tendo condições de estabelecer um comparativo entre diferentes pontos. \par
+O problema escolhido foi o jogo War, versão brasileira do norte americano Risk, que será abordado a seguir.
+
+
+\section{Visão geral da linguagem}
+Dentro das linguagens disponibilizadas, TypeScript é a que possui maior suporte para elementos de interfaces e bibliotecas em geral, já que é um superset de JavaScript que, através do TypeScript Transpiler, é  transformada para JavaScript.
+Outro fator determinante é a necessidade de solucionar o problema também de uma forma funcional, e JavaScript é uma linguagem essencialmente funcional com vasta utilização de closures e padrões de projeto, como módulo. \par
+Mesmo TypeScript sendo implementada para restringir o uso de JavaScript, além de adicionar tipagem estática e outros elementos de OOP, é possível utilizar esses padrões herdados da linguagem JavaScript, ajudando bastante em uma solução funcional.
+Como já citado, o TypeScript foi desenvolvido com o intuito de criar uma linguagem mais estável para aplicações web e com melhor manutenibilidade que o JS. Adicionando elementos de checagem estática de tipos, diferentemente do JS, orientação a objetos com maior poder que as especificações de EcmaScript 6. \par
+Dessa maneira, possuímos uma linguagem completa para solucionar um problema com grande interação com usuário e elementos gráficos como é um caso de um jogo.
+Para exemplificar, é possível utilizar o framework de single page applications criado pelo Google chamado Angular, usado por grandes empresas. Também é possível utilizar uma biblioteca interface com usuário chamada React, desenvolvida e mantida pelo Facebook usada por Netflix, AirBnb e outros. \par
+Para auxílio da programação funcional existe a implementação da biblioteca underscore para TypeScript.
+Além disso a linguagem possui um ótimo ambiente de desenvolvimento com vários utilitários desenvolvidos por terceiros para gerenciamento de pacotes e dependências, gerenciadores de tarefas e frameworks para testes.
+
+
+\section{Descrição do problema}
+Em TypeScript será implementado o jogo War, versão brasileira do norteamericano Risk. \par
+No jogo, o participante controla um exército que recebe um objetivo que deverá ser cumprido.
+O objetivo é conquistar determinado território. Se, ao final de uma batalha, o participante destruir todos os exércitos de defesa do adversário, ele terá conquistado o território.
+Quando um objetivo é declarado como concluído, o participante que o declarou conquista o território de combate e recebe novos exércitos, aumentando seu poder. \par
+Em cada rodada, o participante poderá receber novos exércitos, caso conquiste territórios, usá-los conforme sua estratégia, atacar outros exércitos ou mover exércitos. \par
+Vence o participante que atingir o objetivo recebido no início do jogo.
+
+\chapter{Desenvolvimento}
+
+
+\section{Dependências}
+A única dependência que deve estar instalada no host para o processo de build do projeto é o \textbf{NodeJS}.
+O NodeJS é uma versão da V8, engine de JavaScript desenvolvida pelo Google para pré-compilação e execução de
+JavaScript em seu navegador Google Chrome, portada para plataforma. \par
+Um dos pontos importantes dessa engine de JavaScript é que ela é totalmente single thread, mas usa um modelo de eventos e I/O não bloqueante para lidar com essa limitação. Esse modelo tem se mostrado uma alternativa aos tradicionais com multi threads, tanto que o NodeJS vem sendo vastamente usado como servidor aplicação para aplicações web. \par
+Juntamente com o NodeJS, é instalado o gerenciador de pacotes \textbf{NPM}, que possui o maior ecosistema de bibliotecas open source do mundo.
+Essas dependências são instaladas localmente dentro de uma pasta na mesma raiz do projeto, independente da plataforma e sem nenhuma ligação com sistema operacional do usuário. Isso aumenta a portabilidade do projeto e automatiza o processo de construção da aplicação, já que com um comando é baixado e instalado todas as dependências listadas no projeto.
+
+\subsection{Instalando a aplicação}
+Como citado anteriormente o projeto usa o \textbf{NodeJS} e \textbf{NPM}. No primeiro momento é necessário instalar as dependências externas do projeto, como até mesmo o \textbf{Typescript}, \textbf{Babel transpiler}, \textbf{Redux}, \textbf{React} e outros. \par
+Para realizar a instalação, execute via terminal o seguinte comando no diretório raíz do projeto:
+
+\begin{lstlisting}
+  npm install
+\end{lstlisting}
+
+Esse comando chama o gerenciador de pacotes \textbf{NPM} solicitando a instalação dos pacotes que estão listados no arquivo \verb|PACKAGE.json|. Após instaladas as dependências, é necessário "compilar" o projeto, nas próximas sessões será descrito como ocorre esse processo. \par
+Para iniciar o ambiente de desenvolvimento é necessário executar o seguinte comando:
+
+\begin{lstlisting}
+  npm run start
+\end{lstlisting}
+
+Esse comando chama o script start também descrito no arquivo \verb|PACKAGE.json|. Como resultado, ele compila o projeto, abre o navegador padrão do host (apontando para o localhost porta 3000), e já sobe um servidor de aplicação node que serve o conteúdo estático ligado com todas as interfaces de rede do Host na porta 3000. Além disso, é adicionado um watcher na pasta, com Inotify em linux distros, para recompilar o projeto em casos de modificações e automaticamente recarregar a página do navegador.
+
+\section{TypeScript vs. JavaScript}
+Ao pé da letra JavaScript não é uma linguagem, mas sim uma definição feita pela ECMA foundation para servir como um contrato entre os navegadores e desenvolvedores de aplicações web sobre o que está disponível na sua engine de script. Isso nem sempre é totalmente cumprido e, com o processo de evolução da linguagem, vários navagores não implementam a especificação por completo. \par
+Esses problemas acabaram levando a soluções alternativas pela comunidade, como implementar as funcionalidadesnovas da linguagem usando elementos disponíveis no momento. Essa metodologia ficou conhecida como polyfill. Isso também foi evoluindo, criando um conjunto grandes de polyfills e então se começou a realizar o processo de transpilação, onde o código fonte JavaScript é transformado novamente em JavaScript.
+
+\section{Paradigma funcional}
+Cada uma das entidades do projeto - país, jogo, menu, jogador - é composto de três principais partes: as ações, os redutores e os tipos. \par
+Os arquivos de \textbf{constantes} (types.ts) definem os tipos que cada uma das ações das entidades pertence, bem como outras constantes utilizadas em outras partes do projeto. Para fins de melhor legibilidade e modularização, cada entidade do projeto possui um arquivo de constantes a ela associado. \par
+As \textbf{ações} - actions - de cada entidade são funções que correspondem a comandos específicos que elas podem executar de modo a gerar informações que possibilitem a posterior alteração do estado atual do jogo (feita pelos redutores). Cada ação possui um tipo associado, definido no arquivo de tipos citado acima, e carrega consigo algum dado que é levado à store do projeto. \par
+Os \textbf{redutores} são os responsáveis pelo controle do estado atual do jogo. Eles recebem a informação gerada por uma ação e realizam a criação de um novo estado de jogo de acordo com o novo dado. Ou seja, os reducers têm em mãos o estado atual do jogo, uma ação disparada por determinada entidade, e então produzem e retornam um novo estado composto pelas informações do estado antigo atualizadas de acordo com o dado trazido pela ação. \par
+As entidades, com seus redutores, ações e constantes, constituem a \textbf{store} da aplicação. Uma store é um objeto que armazena o estado atual da aplicação, provedora de uma interface que faz a mediação do acesso ao estado. \par
+
+
+\section{Paradigma de orientação a objetos}
+
+\chapter{Resultados}
+
+\chapter{Conclusão}
+
+\bibliographystyle{abntex2-alf}
+
+\begin{thebibliography}{9}
+\bibitem{TypeScriptReference}
+The TypeScript Reference,
+\\\texttt{https://www.typescriptlang.org/docs/home.html}
+
+\bibitem{ReactJSReference}
+The ReactJS Reference,
+\\\texttt{https://reactjs.org/docs/react-api.html}
+
+
+\bibitem{ReduxWithReact}
+Using Redux with React,
+\\\texttt{https://redux.js.org/basics/usage-with-react}
+
+\bibitem{UnderscoreJS}
+Underscore JS,
+\\\texttt{http://underscorejs.org/}
+
+\bibitem{ReactReduxGuide}
+React and Redux TypeScript Guide,
+\\\texttt{https://github.com/piotrwitek/react-redux-typescript-guide}
+
+\end{thebibliography}
+
+
+\end{document}
