@@ -362,22 +362,29 @@ Na pasta \verb|src| se encontra todo o fonte do projeto com a seguinte hierarqui
 \subsection{Conceitos explorados nas funções}
 \subsubsection{utils/array}
 
+Função \textbf{intersection} retorna a interseção de dois conjuntos aqui representados por listas. Faz uso da função de alta ordem \verb|filter| para retornar os elementos em comum entre os dois arranjos. O callback esperado como parâmetro da função filter é outra função, definida ali mesmo, que estabelece a condição de que o elemento precisa estar em ambos os arranjos.
 \begin{lstlisting}[language = JavaScript]
-
 export const intersection = <T>(array1: T[], array2: T[]) => (
  array1.filter((element: T) => array2.indexOf(element) > -1)
 );
 \end{lstlisting}
+
+
+A função \textbf{difference} retorna a diferença entre dois conjuntos, nesse caso é importante a ordem já que a A - B é diferente de B - A. Assim como a intersection, utiliza filter e outra função para callback. A diferença está na condição estabelecida no callback da filter: nesse caso, os elementos que serão retornados não podem estar concomitantemente em ambos os arranjos, ou seja, calcula a diferença entre os dois.
 \begin{lstlisting}[language = JavaScript]
 export const difference = <T>(array1: T[], array2: T[]) => (
  array1.filter((element: T) => array2.indexOf(element) < 0)
 );
 \end{lstlisting}
+
+A função \textbf{incremento cíclico} retorna o próximo item do array em relação a um elemento descrito. Caso esse elemento esteja na última posição do array então é retornado o primeiro elemento.
 \begin{lstlisting}[language = JavaScript]
 export const cyclicIncrement = <T>(array: T[], element: T) => (
  array[(array.indexOf(element) + 1) % array.length]
 );
 \end{lstlisting}
+
+A função \textbf{shuffle} retorna um vetor com os elementos embaralhados do arranjo recebido como parâmetro. Para isso, faz uso de recursão onde cada chamada adiciona um elemento aleatório do primeiro vetor no novo arranjo, parando quando o tamanho do arranjo source for igual à zero. Como efeito colateral essa função altera o próprio array enviado como argumento, já que em JS objetos e listas são sempre passados como referências.
 \begin{lstlisting}[language = JavaScript]
 export const shuffle = <T>(array: T[]): T[] => {
  if (array.length === 0) {
@@ -388,6 +395,8 @@ export const shuffle = <T>(array: T[]): T[] => {
  return [element[0], ...shuffle(array)];
 };
 \end{lstlisting}
+
+A função \textbf{partition} retorna uma lista de n partições, cada uma contendo uma lista de itens. Faz uso da função groupBy da biblioteca underscore para agrupar os dados que retornam o mesmo valor na função de agrupamento. A função values transforma o objeto criado pelo groupBy em um lista com listas dos grupos formados.
 \begin{lstlisting}[language = JavaScript]
 export const partition = <T>(array: T[], n: number): T[][] => {
  const result = groupBy(array, (item: T, index: number) => (
@@ -398,9 +407,11 @@ export const partition = <T>(array: T[], n: number): T[][] => {
 \end{lstlisting}
 
 \subsubsection{utils/object}
+Funções de alta ordem aplicáveis em objetos. Para objetos a linguagem não provê nenhuma função de alta ordem, devido à heterogeneidade dessa construção. Nessas funções, não tivemos outra opção a não ser usar o controle de fluxo for, já que é a única forma de iterar sobre propriedades de um objeto. \par Outro ponto importante aqui é que todas as propriedades do objeto tenham a mesma interface de elementos que é especificada através dos templates de TypeScript \verb|<T>|.
+
+A função \textbf{filter} filtra as propriedades de um objeto com base na função passada como argumento. Nesse função é injetado dois parâmetros o elemento contido na propriedade que se está iterando e opcionalmente o nome dessa propriedade.
 
 \begin{lstlisting}[language=JavaScript]
-
 export const filter = <T>(obj: object, callback: ((value: T, key?: string) => boolean)): string[] => {
 const props = [];
 for (const prop in obj) {
@@ -413,6 +424,8 @@ for (const prop in obj) {
 return props;
 };
 \end{lstlisting}
+
+O \textbf{map} consiste no mesmo compartimento que a função tem para arrays. Onde para cada propriedade é gerado um novo elemento. Esse elemento deve possuir a interface generica \verb|<R>|.
 \begin{lstlisting}[language = JavaScript]
 export const map = <T, R>(obj: object, callback: ((property: T, key?: string) => R)): R[] => {
 const result: R[] = [];
@@ -424,6 +437,8 @@ for (const prop in obj) {
 return result;
 };
 \end{lstlisting}
+
+A função \textbf{lenght} conta a quantidade de propriedades de um objeto.
 \begin{lstlisting}[language = JavaScript]
 export const lenght = (obj: object): number => {
 let n: number = 0;
@@ -435,6 +450,8 @@ for (const prop in obj) {
 return n;
 };
 \end{lstlisting}
+
+A função \textbf{toArray} transforma um objeto em um array, fazendo com que cada propriedade desse objeto seja um item no array gerado.
 \begin{lstlisting}[language = JavaScript]
 export const toArray = <T>(obj: object): T[] => {
 const result: T[] = [];
@@ -449,12 +466,48 @@ return result;
 \end{lstlisting}
 
 \subsubsection{core/transducers/map}
+Para a compreensão funções dessa parte, é importante entender como o objeto de estado dos países está estruturado.
 \begin{lstlisting}[language=JavaScript]
+export interface CountryState {
+ 'East Africa': CountryInfo;
+ 'Egypt': CountryInfo;
+...
+}
 
+export interface CountryInfo {
+ troops: number;
+ owner: string;
+ hovered: boolean;
+}
+
+export type Countries = 'East Africa' | 'Egypt' | ...
+
+export interface ContinentInfo {
+ color: Color;
+ troopsBonus: number;
+ countries: Countries[];
+}
+
+export interface Continents {
+ [index: string]: ContinentInfo;
+}
+
+export const borderCountries: BorderCountry = {
+ 'Brazil': ['Peru', 'Venezuela', 'Argentina', 'North Africa'],
+ 'East Africa': ['North Africa', 'Egypt', 'South Africa', 'Congo'],
+ ...
+}
+\end{lstlisting}
+
+A função \textbf{playerCountries} utiliza a função de alta ordem filter definida acima para o fim de possibilitar um fácil acesso aos territórios que pertencem ao jogador passado como parâmetro. São passados três parâmetros, o identificador do jogador ao qual devem pertencer os objetos Country resultantes da consulta, os Countries que compõem as regiões possíveis do mapa e por fim um parâmetro opcional minTroops que serve uma função lógica para omitir Countries que tem um número menor que o valor passado como parâmetro no resultado.
+
+\begin{lstlisting}[language=JavaScript]
 export const playerCountries = (player: string, countries: CountryState, minTroops: number = 0) => (
 filter(countries, (country: CountryInfo) => ( country.owner === player && country.troops > minTroops))
 );
 \end{lstlisting}
+
+A função \textbf{borderCountries} recebe como parâmetro um Country, o identificador do jogador ao qual pertence, e os Countries que compõem as regiões possíveis do mapa, assim partindo de uma mapa de adjacência ela retorna os países adjacentes àquele Country passado como parâmetro que não pertencem ao seu dono, ou seja, apenas Countries adjacentes comandados por inimigos. Esta função é usada para resolver os possíveis ataques partindo de uma região específica
 \begin{lstlisting}[language = JavaScript]
 export const borderCountries = (country: Countries, countries: CountryState, player: string, sameOrigin: boolean = true) => {
 const borders = bdCountries[country] ? bdCountries[country] : [];
@@ -462,10 +515,12 @@ return sameOrigin ?
  intersection(borders, playerCountries(player, countries)) :
  difference(borders, playerCountries(player, countries)) ;
 };
-
 \end{lstlisting}
 
+
 \subsubsection{core/transictions/gameTransictions}
+
+O processo de contagem de regiões para a definição de quantas tropas estão disponíveis para o jogador é representado pela função \textbf{computeNewTroops}, que recebe um identificador de jogador e um CountryState, retornando o resultado do cálculo de suas tropas disponíveis resultantes de tanto do seu número de territorios conquistados como o seu domínio sobre continentes.
 \begin{lstlisting}[language=JavaScript]
 export const computeNewTroops = (player: string, country: CountryState) => {
 const countries = playerCountries(player, country);
@@ -477,6 +532,9 @@ newTroopsCounter += continentBonus.reduce((acc, value) => (acc + value), 0);
 return newTroopsCounter;
 };
 \end{lstlisting}
+
+
+A função \textbf{gameInit} decide o estado inicial do jogo a partir do jogadores que participam da sessão, representando a parte de distribuição de territórios tradicional do jogo Risk, aleatoriamente distribuindo as regiões aos jogadores da sessão.
 \begin{lstlisting}[language = JavaScript]
 
 export const gameInit = (players: PlayerState) => {
@@ -488,6 +546,8 @@ each(
 );
 };
 \end{lstlisting}
+
+A função \textbf{endGameVerify} tem o propósito de verificar se as condições para o término do jogo estão presentes verificando o estado atual da aplicação. Para fins de simplicidade o objetivo de todos os jogadores é dominar todos os países.
 \begin{lstlisting}[language = JavaScript]
 export const endGameVerify = () => {
 // Verify each player objective. For now only if a player has all countries
@@ -498,6 +558,16 @@ return filter(country, (countryInfo: CountryInfo) => (countryInfo.owner !== rand
 
 
 \end{lstlisting}
+
+\subsection{Currying}
+No código a seguir, é possível ver a utilização de currying em TypeScript e sua interface de especificação. Nesse caso não é um currying completo, já que uma das funções possui dois parâmetros. Entretanto, é necessário, caso contrário seria somente um uso forçado. \par
+Devido a forma que a engine lida com a ligação de eventos assíncronos, é necessário deixar ligado ao escopo da função todos valores que ela precisa conhecer, já que no momento que ela é disparada o contexto de execução é outro e geralmente está ligado com a DOM. Então é gerado uma função que já está ligada com os dois parâmetros, e no momento que é dispara o browser injetado o objeto com a descrição do evento que ocorreu.
+
+
+\subsection{Pattern matching}
+Diferente de outras linguagens que apresentam características funcionais, Typescript não apresenta suporte nativo a uma função de pattern matching com o match-with da linguagem F\#, um aspecto muito importante de linguagens deste paradigma. Assim, existe a possibilidade de simular esse comportamento, mas a funcionalidade do match sendo mockado é limitada, pois necessita de um preparo prévio do ambiente cite{patternmatching}. Devido a simplicidade dos casos nos testes de controle, decidimos usar apenas as ferramentas da linguagem disposta pelo professor para este caso.
+
+
 
 \section{Paradigma de orientação a objetos}
 
