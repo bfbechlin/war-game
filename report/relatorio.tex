@@ -90,7 +90,7 @@ title=\lstname % show the filename of files included with \lstinputlisting; also
 \lstdefinelanguage{JavaScript}{
 keywords={npm, break, case, catch, class, const, continue, debugger, default, delete, do, else, enum, export, extends, false, finally, for, function, if, import, in, instanceof, new, null, return, super, switch, this, throw, true, try, typeof, var, void, while, with},
 keywordstyle=\color{purple}\bfseries,
-ndkeywords={run, as, implements, interface, let, package, private, protected, public, static, yield, symbol, from, of, any, boolean, constructor, declare, get, module, require, number, set, string, T, R, object, Countries, number, ViewMode, Color, InteractionState, CountrySelection},
+ndkeywords={run, as, implements, interface, let, package, private, protected, public, static, yield, symbol, from, of, any, boolean, constructor, declare, get, module, require, number, set, string, T, R, object, Countries, number, ViewMode, Color, InteractionState, CountrySelection, ContinentInfo},
 ndkeywordstyle=\color{YellowGreen}\bfseries,
 identifierstyle=\color{MidnightBlue},
 sensitive=true,
@@ -272,23 +272,94 @@ React é a biblioteca usada para a interface gráfica, tendo influência na cons
 A biblioteca tem uma construção como teor funcional, no qual cada componente tem entradas via propriedades e retorna elementos HTML através de JSX. Os componentes podem montar outros componentes em sua visualização e definir suas entradas. É possível, também, armazenar estados dentro de componentes por meio de classes. Para isso, estende-se uma classe de componente do React, que possui alguns métodos adicionais que lidam com o estado e também com o ciclo de vida do componente.
 
 \subsection{Redux}
-O conjunto React+Redux é uma combinação comum para aplicações que usam React. Com o Redux, é possível gerenciar o estado da aplicação, o que se faz bastante útil, uma vez que usar o estado do componente para salvar dados e estado geral não é escalável, já que exige componentes com muitos filhos e muitas propriedades de entrada para componentes intermediários. Assim, a combinação do React com esse gerenciador de maior complexidade torna-se quase natural.
+O conjunto React+Redux é uma combinação comum para aplicações React. Usar o estado do componente para salvar dados e estado geral da aplicação não é muito escalável, já que se torna necessário ter componentes com muito filhos e muitas propriedades de entrada para componentes intermediários. Então, a combinação do React com um gerenciador de estado mais completo é quase que natural. \par
+O Redux é um gerenciador e mantenedor de estado para aplicações JavaScript em geral. Seu principal conceito está em guardar o estado de forma imutável e sempre que seja necessário modificar o estado gerar um novo objeto. Essa decisão é muito importante, pois em geral todas as comparações realizadas em JavaScript são da forma shallow, e assim gerando um novo objeto é fácil compreender quando houve alguma alteração. Pela forma que a linguagem JavaScript foi concebida, usando cadeia de protótipos, uma operação de comparação deep é bem mais custosa já que é necessário percorrer toda a árvore de protótipos existentes em um objeto. \par
+Para guardar esse objeto que contém os dados de estado é introduzido um conceito chamado \textbf{store} que possui duas interfaces principais: uma para pegar o estado e outra para disparar ações. As ações são objetos que contêm basicamente o tipo da ação que está disparando uma carga útil, que é usado como parâmetro para atualizar o estado. Essa é a única maneira de sinalizar uma alteração de estado. \par
+A real alteração do estado é realizada dentro de \textbf{redutores}, que são basicamente funções que detalham o que cada ação deve gerar como resultado. Em geral, são criados com switchs com a variável seletora no tipo da ação e devem retornar um novo objeto que será substituído para representar o novo estado.\par
+A real utilidade Redux no caso do React é uma função de alta ordem disponível na pacote react-redux, onde é possível conectar os componentes React com a store. Nessa conexão com os componentes são injetados alguns atributos disponíveis na store como propriedades do componente React, através de uma função de mapeamento entre o estado e as propriedades. Essa função de mapeamento deve ser uma função pura, podendo ser realizado algumas manipulações antes de retornar as propriedades.
 
 \section{TypeScript vs. JavaScript}
 Ao pé da letra JavaScript não é uma linguagem, mas sim uma definição feita pela ECMA foundation para servir como um contrato entre os navegadores e desenvolvedores de aplicações web sobre o que está disponível na sua engine de script. Isso nem sempre é totalmente cumprido e, com o processo de evolução da linguagem, vários navagores não implementam a especificação por completo. \par
 Esses problemas acabaram levando a soluções alternativas pela comunidade, como implementar as funcionalidadesnovas da linguagem usando elementos disponíveis no momento. Essa metodologia ficou conhecida como polyfill. Isso também foi evoluindo, criando um conjunto grandes de polyfills e então se começou a realizar o processo de transpilação, onde o código fonte JavaScript é transformado novamente em JavaScript, usando as funcionalidades das especificações antigas. \par
 O TypeScript, criado pela Microsoft, usa esses artifícios para gerar JavaScript, executado em grande parte dos navagadores web. Esse caso é diferente, uma vez que trata-se de uma linguagem sendo transformada em outra, mas muitas os dois processos são realizados serialmente com TSCompiler, que transforma em ES6(EcmaScript v6) e depois em ES5(EcmaScript v5), melhor suportada pela maioria dos navegadores. \par
 Entretanto, a própria referência do TypeScript se intitula como um superset de JavaScript adicionando, principalmente, a tipagem estática, o que não a torna disruptiva em relação ao JavaScript.\par
+Outro ponto interessante nesse contexto é a possibilidade de usar grande parte das bibliotecas disponíveis para JavaScript realizando uma interface para compatibilidade com a tipagem do TypeScript, que muitas vezes pode ser feita pelo próprio usuário da biblioteca, já que o TScompiler também compila código JavaScript. Isso pode ser visto no arquivo \verb|package.json| onde são adicionados os módulos \verb|@types| para baixar os pacotes que contém essas interfaces e namespaces.
+
+\begin{lstlisting}[language=JavaScript]
+{
+ "name": "war-game",
+ "version": "0.1.0",
+ "private": true,
+ "homepage": "http://bfbechlin.github.io/war-game",
+ "dependencies": {
+   "bootstrap": "^4.1.0",
+   "classnames": "^2.2.5",
+   "history": "^4.7.2",
+   "material-ui": "^0.20.0",
+   "react": "^16.3.1",
+   "react-dom": "^16.3.1",
+   "react-redux": "^5.0.7",
+   "react-router-redux": "^4.0.8",
+   "react-scripts-ts": "2.14.0",
+   "react-swipeable-views": "^0.12.13",
+   "react-transition-group": "^1.2.1",
+   "redux": "^3.7.2",
+   "redux-devtools-extension": "^2.13.2",
+   "svg-path-parser": "^1.1.0",
+   "underscore": "^1.9.0",
+   "uuid": "^3.2.1"
+ },
+ "scripts": {
+   "start": "react-scripts-ts start",
+   "build": "react-scripts-ts build",
+   "test": "react-scripts-ts test --env=jsdom",
+   "eject": "react-scripts-ts eject",
+   "predeploy": "npm run build",
+   "deploy": "gh-pages -d build",
+   "report": "pdflatex -no-file-line-error report/relatorio.tex"
+ },
+ "devDependencies": {
+   "@types/classnames": "^2.2.3",
+   "@types/jest": "^22.2.2",
+   "@types/node": "^9.6.2",
+   "@types/react": "^16.3.10",
+   "@types/react-dom": "^16.0.5",
+   "@types/react-redux": "^5.0.16",
+   "@types/react-router-redux": "^5.0.13",
+   "@types/material-ui": "^0.21.1",
+   "@types/react-swipeable-views": "^0.12.1",
+   "@types/react-transition-group": "^1.1.3",
+   "@types/underscore": "^1.8.8",
+   "@types/uuid": "^3.4.3",
+   "gh-pages": "^1.1.0",
+   "typescript": "^2.8.1"
+ }
+}
+\end{lstlisting}
+
 Esse processo é usado por outras linguagens além do TypeScript, como ClojureScript, CoffeeScript e outros.
 
-\section{Paradigma funcional}
-Cada uma das entidades do projeto - país, jogo, menu, jogador - é composto de três principais partes: as ações, os redutores e os tipos. \par
-Os arquivos de \textbf{constantes} (types.ts) definem os tipos que cada uma das ações das entidades pertence, bem como outras constantes utilizadas em outras partes do projeto. Para fins de melhor legibilidade e modularização, cada entidade do projeto possui um arquivo de constantes a ela associado. \par
-As \textbf{ações} - actions - de cada entidade são funções que correspondem a comandos específicos que elas podem executar de modo a gerar informações que possibilitem a posterior alteração do estado atual do jogo (feita pelos redutores). Cada ação possui um tipo associado, definido no arquivo de tipos citado acima, e carrega consigo algum dado que é levado à store do projeto. \par
-Os \textbf{redutores} são os responsáveis pelo controle do estado atual do jogo. Eles recebem a informação gerada por uma ação e realizam a criação de um novo estado de jogo de acordo com o novo dado. Ou seja, os reducers têm em mãos o estado atual do jogo, uma ação disparada por determinada entidade, e então produzem e retornam um novo estado composto pelas informações do estado antigo atualizadas de acordo com o dado trazido pela ação. \par
-As entidades, com seus redutores, ações e constantes, constituem a \textbf{store} da aplicação. Uma store é um objeto que armazena o estado atual da aplicação, provedora de uma interface que faz a mediação do acesso ao estado. \par
+\section{Estrutura do projeto}
+Na pasta \verb|src| se encontra todo o fonte do projeto com a seguinte hierarquia de pastas:
+\begin{itemize}
+  \item \textbf{Components}: componentes React. Separado por componentes chaves, mas que possuem outros componentes relacionados/dependentes.
+  \item \textbf{Core}: lógica de negócio em geral. Com as seguintes subpastas:
+    \begin{itemize}
+      \item \textbf{Transducers}: funções puras, como mapeamento de estado para propriedades, levantamento de possíveis países para atacar.
+      \item \textbf{Transitions}: funções que precisam ler o estado da aplicação para operar.
+    \end{itemize}
+  \item \textbf{Hocs}: componetes de alta ordem React.
+  \item \textbf{Store}: gerenciador de estado Redux. Separado por grupo de funcionalidades, contendo o seu redutor e suas ações.
+  \item \textbf{Utils}: utilidades em geral, como funções de alta ordem para manipulação de listas e objetos, cores e etc.
+\end{itemize}
 
-\subsection{Listings}
+\par Existem arquivos soltos dentro da pasta \verb|src| que são os arquivos de ponto de entrada para a criação da aplicação.
+
+
+
+\section{Paradigma funcional}
+
+\subsection{Conceitos explorados nas funções}
 \subsubsection{utils/array}
 
 \begin{lstlisting}[language = JavaScript]
@@ -296,15 +367,18 @@ As entidades, com seus redutores, ações e constantes, constituem a \textbf{sto
 export const intersection = <T>(array1: T[], array2: T[]) => (
  array1.filter((element: T) => array2.indexOf(element) > -1)
 );
-
+\end{lstlisting}
+\begin{lstlisting}[language = JavaScript]
 export const difference = <T>(array1: T[], array2: T[]) => (
  array1.filter((element: T) => array2.indexOf(element) < 0)
 );
-
+\end{lstlisting}
+\begin{lstlisting}[language = JavaScript]
 export const cyclicIncrement = <T>(array: T[], element: T) => (
  array[(array.indexOf(element) + 1) % array.length]
 );
-
+\end{lstlisting}
+\begin{lstlisting}[language = JavaScript]
 export const shuffle = <T>(array: T[]): T[] => {
  if (array.length === 0) {
    return [];
@@ -313,15 +387,14 @@ export const shuffle = <T>(array: T[]): T[] => {
  const element = array.splice(index, 1);
  return [element[0], ...shuffle(array)];
 };
-
+\end{lstlisting}
+\begin{lstlisting}[language = JavaScript]
 export const partition = <T>(array: T[], n: number): T[][] => {
  const result = groupBy(array, (item: T, index: number) => (
    index % n
  ));
  return values(result);
 };
-
-
 \end{lstlisting}
 
 \subsubsection{utils/object}
@@ -339,7 +412,8 @@ for (const prop in obj) {
 }
 return props;
 };
-
+\end{lstlisting}
+\begin{lstlisting}[language = JavaScript]
 export const map = <T, R>(obj: object, callback: ((property: T, key?: string) => R)): R[] => {
 const result: R[] = [];
 for (const prop in obj) {
@@ -349,7 +423,8 @@ for (const prop in obj) {
 }
 return result;
 };
-
+\end{lstlisting}
+\begin{lstlisting}[language = JavaScript]
 export const lenght = (obj: object): number => {
 let n: number = 0;
 for (const prop in obj) {
@@ -359,7 +434,8 @@ for (const prop in obj) {
 }
 return n;
 };
-
+\end{lstlisting}
+\begin{lstlisting}[language = JavaScript]
 export const toArray = <T>(obj: object): T[] => {
 const result: T[] = [];
 for (const prop in obj) {
@@ -378,7 +454,8 @@ return result;
 export const playerCountries = (player: string, countries: CountryState, minTroops: number = 0) => (
 filter(countries, (country: CountryInfo) => ( country.owner === player && country.troops > minTroops))
 );
-
+\end{lstlisting}
+\begin{lstlisting}[language = JavaScript]
 export const borderCountries = (country: Countries, countries: CountryState, player: string, sameOrigin: boolean = true) => {
 const borders = bdCountries[country] ? bdCountries[country] : [];
 return sameOrigin ?
@@ -399,7 +476,8 @@ const continentBonus = map <ContinentInfo, number> (continentsInfo, (continent: 
 newTroopsCounter += continentBonus.reduce((acc, value) => (acc + value), 0);
 return newTroopsCounter;
 };
-
+\end{lstlisting}
+\begin{lstlisting}[language = JavaScript]
 
 export const gameInit = (players: PlayerState) => {
 each(
@@ -409,7 +487,8 @@ each(
  }
 );
 };
-
+\end{lstlisting}
+\begin{lstlisting}[language = JavaScript]
 export const endGameVerify = () => {
 // Verify each player objective. For now only if a player has all countries
 const { country } = store.getState();
