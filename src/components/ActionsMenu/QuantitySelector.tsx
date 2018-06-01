@@ -49,7 +49,6 @@ const QuantitySelector: React.SFC<QuantitySelectorProps> = (props: QuantitySelec
       onChange(boundaries(props.value + newValue));
     }
   };
-  console.log(max, value);
   return (
     <div>
       <Slider

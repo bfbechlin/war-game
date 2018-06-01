@@ -1,14 +1,14 @@
 import store from 'store/';
-import { filter, map, lenght, object, keys, each } from 'utils/object';
+import { filter, map, object, each } from 'utils/object';
 import { difference, shuffle, partition } from 'utils/array';
 import { CountryState, continentsInfo, ContinentInfo, countries as allCountries, Countries, CountryInfo } from 'store/country/types';
 import { setQuantity, setSelectables, setSelecteds } from 'store/menu/actions';
 import { playerCountries } from 'core/transducers/map';
+import { isActivePlayer } from 'core/transducers/player';
 import { GamePhase } from 'store/game/types';
-import { PlayerState } from 'store/player/types';
 
 import { setHover, massChangeOwner } from 'store/country/actions';
-import { setTurnOwner } from 'store/game/actions';
+import { setTurnOwner, setGamePhase } from 'store/game/actions';
 import { incrementAvailableTroops } from 'store/player/actions';
 
 export const computeNewTroops = (player: string, country: CountryState) => {
@@ -30,8 +30,7 @@ export const interactionInit = (phase: GamePhase) => {
     store.dispatch(setHover(countryName, false));
   });
   store.dispatch(setSelecteds([]));
-
-  if (game.mode  === 'CPU' && game.activePlayer !== game.turnOwner) {
+  if (!isActivePlayer(game.turnOwner, game.activePlayers)) {
     store.dispatch(setQuantity(0));
     store.dispatch(setSelectables([]));
   } else {
@@ -54,18 +53,20 @@ interface InitCountries {
   [index: string]: Countries[];
 }
 
-export const gameInit = (players: PlayerState) => {
+export const gameInit = (players: string[]) => {
   each(
-    object(keys(players), partition(shuffle(allCountries), lenght(players))) as InitCountries,
+    object(players, partition(shuffle(allCountries), players.length)) as InitCountries,
     (countriesNames: Countries[], playerName: string) => {
       store.dispatch(massChangeOwner(countriesNames, playerName));
     }
   );
 };
 
-export const endGameVerify = () => {
+export const endGameReducer = () => {
   // Verify each player objective. For now only if a player has all countries
   const { country } = store.getState();
   const randomPlayer = country.Brazil.owner;
-  return filter(country, (countryInfo: CountryInfo) => (countryInfo.owner !== randomPlayer)) === [];
+  if (filter(country, (countryInfo: CountryInfo) => (countryInfo.owner !== randomPlayer)) === []) {
+    store.dispatch(setGamePhase('FINAL'));
+  }
 };

@@ -6,7 +6,7 @@ import './index.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Provider } from 'react-redux';
 import store from 'store/';
-import { nextGamePhase } from 'store/game/actions';
+// import { nextGamePhase } from 'store/game/actions';
 
 ReactDOM.render(
   <Provider store={store}>
@@ -23,4 +23,4 @@ declare global {
   }
 }
 window.store = store;
-store.dispatch(nextGamePhase());
+// store.dispatch(nextGamePhase());

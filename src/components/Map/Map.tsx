@@ -7,7 +7,7 @@ import { countriesShape } from './constants';
 import './Map.css';
 
 import { map } from 'utils/object';
-import { Color } from 'utils/colors';
+import { Color, GREY } from 'utils/colors';
 
 import { continentsInfo, ContinentInfo, Countries } from 'store/country/types';
 import { countrySelectionTransition, CountrySelection } from 'core/transitions/countrySelection';
@@ -42,13 +42,14 @@ export class Map extends React.Component<Props, MapState> {
     return countries.map((country: Countries) => {
       const countryState = countriesState[country];
       const shape = countriesShape[country].shape;
+      const playerColor = countryState.owner ? players[countryState.owner].color : GREY; 
       return {
         name: country,
         troops: countryState.troops,
         shape: shape,
         viewMode: viewMode,
         continentColor: color,
-        playerColor: players[countryState.owner].color,
+        playerColor,
         selectable: selectableTransducer(country, selectedables, selecteds),
         interactionState: interactionStateTransducer(country, countryState, selecteds),
         possibleChoice: possibleChoiceTransducer(country, selectedables, gamePhase, selectorType),

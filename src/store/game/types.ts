@@ -2,15 +2,13 @@ import { Action } from 'redux';
 import { cyclicIncrement } from 'utils/array';
 
 export type GamePhase = 'INIT' | 'DISTRIBUTION' | 'ATTACK' | 'MOVE' | 'FINAL';
-export type GameMode =  'CPU' | 'PVP';
 
 export interface GameState {
   round: number;
-  mode: GameMode;
   phase: GamePhase;
   remainingTime: number;
   turnOwner: string;
-  activePlayer: string | null;
+  activePlayers: string[];
   playerOrder: string[];
   cardsBonus: number;
 }
@@ -21,6 +19,8 @@ export const NEXT_GAME_PHASE = '@@game/NEXT_GAME_PHASE';
 export const SET_TURN_OWNER = '@@game/SET_TURN_OWNER';
 export const DECREMENT_REMAINING_TIME = '@@game/DECREMENT_REMAINING_TIME';
 export const SET_REMAINING_TIME = '@@game/SET_REMAINING_TIME';
+export const SET_ACTIVE_PLAYERS = '@@game/SET_ACTIVE_PLAYERS';
+export const SET_PLAYER_ORDER = '@@game/SET_PLAYER_ORDER';
 
 export interface SetCardsBonusAction extends Action {
   type: '@@game/SET_CARDS_BONUS';
@@ -62,7 +62,22 @@ export interface SetRemainingTimeAction extends Action {
   };
 }
 
-export type GameActions = SetCardsBonusAction | SetGamePhaseAction | NextGamePhaseAction | SetTurnOwnerAction | DecrementRemainingTimeAction | SetRemainingTimeAction;
+export interface SetActivePlayers extends Action {
+  type: '@@game/SET_ACTIVE_PLAYERS';
+  payload: {
+    activePlayers: string[];
+  };
+}
+
+export interface SetPlayerOrder extends Action {
+  type: '@@game/SET_PLAYER_ORDER';
+  payload: {
+    playerOrder: string[];
+  };
+}
+
+export type GameActions = SetCardsBonusAction | SetGamePhaseAction | NextGamePhaseAction | SetTurnOwnerAction 
+  | DecrementRemainingTimeAction | SetRemainingTimeAction | SetActivePlayers | SetPlayerOrder;
 
 export const gamePhaseOrder: GamePhase[] =  ['DISTRIBUTION', 'ATTACK', 'MOVE'];
 

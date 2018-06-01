@@ -8,17 +8,18 @@ import {
   SET_TURN_OWNER,
   DECREMENT_REMAINING_TIME,
   SET_REMAINING_TIME,
+  SET_ACTIVE_PLAYERS,
+  SET_PLAYER_ORDER,
   nextPhaseResolver
 } from './types'; 
 
 export const gameInitState: GameState = {
   round: 1,
-  mode: 'PVP',
   phase: 'INIT',
-  remainingTime: 20,
-  turnOwner: 'PLAYER_2',
-  activePlayer: null,
-  playerOrder: ['PLAYER_1', 'PLAYER_2'],
+  remainingTime: 0,
+  turnOwner: '',
+  activePlayers: [],
+  playerOrder: [],
   cardsBonus: 20,
 };  
 
@@ -36,6 +37,10 @@ const reducer: Reducer<GameState> = (state: GameState = gameInitState, action) =
       return { ...state, remainingTime: state.remainingTime - 1};
     case SET_REMAINING_TIME:
       return { ...state, remainingTime: action.payload.remainingTime};
+    case SET_PLAYER_ORDER:
+      return { ...state, playerOrder: action.payload.playerOrder};
+    case SET_ACTIVE_PLAYERS:
+      return { ...state, activePlayers: action.payload.activePlayers};
     default:
       return state;
   }

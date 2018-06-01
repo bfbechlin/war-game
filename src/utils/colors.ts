@@ -46,3 +46,12 @@ export const PURPLE: Color = {
   light: '#df78ef',
   dark: '#790e8b',
 };
+
+export const GREY: Color = {
+  name: 'grey',
+  normal: '#78909c',
+  light: '#a7c0cd',
+  dark: '#4b636e',
+};
+
+export const colors = [RED, BLUE, YELLOW, GREEN, BROWN, PURPLE];

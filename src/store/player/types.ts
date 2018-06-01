@@ -1,6 +1,6 @@
 import { Action } from 'redux';
 import { Countries } from 'store/country/types';
-import { Color } from 'utils/colors';
+import { Color, GREY } from 'utils/colors';
 
 // index == ID
 export interface PlayerState {
@@ -22,6 +22,7 @@ export interface Card {
 
 export const INCREMENT_AVAILABLE_TROOPS = '@@player/INCREMENT_AVAILABLE_TROOPS';
 export const DECREMENT_AVAILABLE_TROOPS = '@@player/DECREMENT_AVAILABLE_TROOPS';
+export const NEW_PLAYER = '@@player/NEW_PLAYER';
 
 export interface IncrementAvailableTroopsAction extends Action {
   type: '@@player/INCREMENT_AVAILABLE_TROOPS';
@@ -39,4 +40,19 @@ export interface DecrementAvailableTroopsAction extends Action {
   };
 }
 
-export type PlayerActions = IncrementAvailableTroopsAction | DecrementAvailableTroopsAction;
+export interface NewPlayerAction extends Action {
+  type: '@@player/NEW_PLAYER';
+  payload: {
+    player: PlayerInfo;
+  };
+}
+
+export type PlayerActions = IncrementAvailableTroopsAction | DecrementAvailableTroopsAction | NewPlayerAction;
+
+export const DummyPlayer = {
+  name: 'INIT_GAME',
+  cards: [],
+  availableTroops: 0,
+  color: GREY,
+  avatar: 'IG'
+};

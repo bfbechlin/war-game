@@ -62,22 +62,19 @@ export const possibleChoiceTransducer =
   return selectorType === 'TO' && (gamePhase === 'ATTACK' || gamePhase === 'MOVE') && countryOnList(country, selectablesCountries);
 };
 
-export const playerCountries = (player: string, countries: CountryState, minTroops: number = 0) => (
-  filter(countries, (country: CountryInfo) => ( country.owner === player && country.troops > minTroops))
+export const playerCountries = (player: string, countries: CountryState, minTroops: number = 0): Countries[] => (
+  filter (countries, (country: CountryInfo) => ( country.owner === player && country.troops > minTroops)) as Countries[]
 );
 
-export const borderCountries = (country: Countries, countries: CountryState, player: string, sameOrigin: boolean = true) => {
+/**
+ * sameOrigin:
+ *  true -> ATTACK
+ *  false -> MOVE
+ */
+export const borderCountries = (country: Countries, countries: CountryState, sameOrigin: boolean = true): Countries[] => {
+  const player = countries[country].owner;
   const borders = bdCountries[country] ? bdCountries[country] : [];
   return sameOrigin ? 
-    intersection(borders, playerCountries(player, countries)) :
-    difference(borders, playerCountries(player, countries)) ;
+    intersection(borders, playerCountries(player, countries)) as Countries[] :
+    difference(borders, playerCountries(player, countries)) as Countries[] ;
 };
-
-declare global {
-  interface Window {
-    playerCountries: any;
-    borderCountries: any;
-  }
-}
-window.playerCountries = playerCountries;
-window.borderCountries = borderCountries;

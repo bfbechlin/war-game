@@ -45,7 +45,7 @@ export const doubleSelectionTransition = (type: CountrySelection, country: Count
     case 'SELECTION-IN':
       store.dispatch(setSelecteds([...selecteds, country]));
       if (selecteds.length === 0) {
-        store.dispatch(setSelectables(borderCountries(country, state.country, turnOwner, sameOrigin)));
+        store.dispatch(setSelectables(borderCountries(country, state.country, sameOrigin)));
       } else {
         store.dispatch(setSelectables([]));
       }
@@ -56,7 +56,7 @@ export const doubleSelectionTransition = (type: CountrySelection, country: Count
         store.dispatch(setSelectables(playerCountries(turnOwner, state.country, 1)));
       } else {
         store.dispatch(setSelecteds([selecteds[0]]));
-        store.dispatch(setSelectables(borderCountries(selecteds[0], state.country, turnOwner, sameOrigin)));
+        store.dispatch(setSelectables(borderCountries(selecteds[0], state.country, sameOrigin)));
       }
       break;
     default:

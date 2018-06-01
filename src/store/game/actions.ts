@@ -12,7 +12,11 @@ import {
   NextGamePhaseAction,
   SetTurnOwnerAction,
   SetRemainingTimeAction,
-  DecrementRemainingTimeAction
+  DecrementRemainingTimeAction,
+  SetPlayerOrder,
+  SetActivePlayers,
+  SET_ACTIVE_PLAYERS,
+  SET_PLAYER_ORDER
 } from './types';
 
 export const setCardBonus: ActionCreator<SetCardsBonusAction> = (quantity: number) => ({
@@ -52,5 +56,19 @@ export const setRemainingTime: ActionCreator<SetRemainingTimeAction> = (remainin
   type: SET_REMAINING_TIME,
   payload: {
     remainingTime
+  }
+});
+
+export const setActivePlayers: ActionCreator<SetActivePlayers> = (activePlayers) => ({
+  type: SET_ACTIVE_PLAYERS,
+  payload: {
+    activePlayers
+  }
+});
+
+export const setPlayerOrder: ActionCreator<SetPlayerOrder> = (playerOrder) => ({
+  type: SET_PLAYER_ORDER,
+  payload: {
+    playerOrder
   }
 });

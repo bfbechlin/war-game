@@ -17,7 +17,7 @@ export const attack = (from: Countries, to: Countries, quantity: number): boolea
     if (fromTroops < 2 || toTroops < 1) {
       break;
     }
-    const attackSucessful = Math.random() < 0.4;
+    const attackSucessful = Math.random() < 0.45;
     fromTroops -= attackSucessful ? 0 : 1;
     toTroops -= attackSucessful ? 1 : 0;
   }

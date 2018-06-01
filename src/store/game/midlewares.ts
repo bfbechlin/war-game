@@ -1,12 +1,6 @@
 import {
-//  Middleware,
   MiddlewareAPI,
-//  applyMiddleware,
-//  StoreEnhancer,
-//  createStore,
   Dispatch,
-//  Reducer,
-//  Action,
   Middleware,
   AnyAction
 } from 'redux';
@@ -14,7 +8,8 @@ import { NEXT_GAME_PHASE, SET_GAME_PHASE, DECREMENT_REMAINING_TIME, nextPhaseRes
 import { ApplicationState } from 'store/';
 import { decrementRemainingTime, setRemainingTime } from 'store/game/actions';
 import { nextGamePhase } from 'store/game/actions';
-import { interactionInit, nextTurnInit, gameInit } from 'core/transitions/gameTransitions';
+import { interactionInit, nextTurnInit, gameInit, endGameReducer } from 'core/transitions/gameTransitions';
+import cpuReducer from 'core/transitions/cpuActions';
 import { startClock, stopClock } from 'utils/clock';
 
 export interface ExtendedMiddleware<StateType> extends Middleware {
@@ -25,13 +20,13 @@ export const gamePhaseWatcher: ExtendedMiddleware<ApplicationState> = <S extends
   (next: Dispatch<S>) =>
     <A extends AnyAction>(action: A): A => {
       if (action.type === NEXT_GAME_PHASE || action.type === SET_GAME_PHASE) {
-        const { game, player } = getState();
+        const { game } = getState();
         const actualPhase = game.phase;
         const nextPhase = action.type === NEXT_GAME_PHASE ?
           nextPhaseResolver(game.phase) :
           action.payload.phase;
         if (actualPhase === 'INIT') {
-          gameInit(player);
+          gameInit(game.playerOrder);
         }
         if (nextPhase === 'FINAL') {
           stopClock();
@@ -39,29 +34,17 @@ export const gamePhaseWatcher: ExtendedMiddleware<ApplicationState> = <S extends
           if (nextPhase === 'DISTRIBUTION') {
             nextTurnInit();
           }
+
+          if (nextPhase === 'MOVE') {
+            endGameReducer();
+          }
           // Clock time
           stopClock();
-          dispatch(setRemainingTime(30));
+          dispatch(setRemainingTime(60));
           startClock(() => dispatch(decrementRemainingTime()));
 
           interactionInit(nextPhase);
-
-          if (game.mode === 'CPU') {
-            setTimeout(
-              () => {
-                // HERE CPU
-                // cpuAction(nextPhase); --> passing actual game phase
-                setTimeout(
-                  () => {
-                    dispatch(nextGamePhase());
-                  },
-                  2000
-                );
-              },
-              2000);
-            console.log('CPU');
-          }
-
+          cpuReducer(nextPhase);
         }
       }
       return next(action);

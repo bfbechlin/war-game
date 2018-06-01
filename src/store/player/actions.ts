@@ -4,6 +4,9 @@ import {
   INCREMENT_AVAILABLE_TROOPS,
   DecrementAvailableTroopsAction,
   DECREMENT_AVAILABLE_TROOPS,
+  NewPlayerAction,
+  NEW_PLAYER,
+  PlayerInfo
 } from './types';
 
 export const incrementAvailableTroops: ActionCreator<IncrementAvailableTroopsAction> = (player: string, quantity: number) => ({
@@ -19,5 +22,12 @@ export const decrementAvailableTroops: ActionCreator<DecrementAvailableTroopsAct
   payload: {
     player,
     quantity
+  }
+});
+
+export const newPlayer: ActionCreator<NewPlayerAction> = (player: PlayerInfo) => ({
+  type: NEW_PLAYER,
+  payload: {
+    player
   }
 });

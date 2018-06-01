@@ -1,4 +1,4 @@
-import { groupBy, values } from 'underscore';
+import { groupBy, values, sortBy as _sortBy } from 'underscore';
 
 export const intersection = <T>(array1: T[], array2: T[]) => (
   array1.filter((element: T) => array2.indexOf(element) > -1)
@@ -27,3 +27,5 @@ export const partition = <T>(array: T[], n: number): T[][] => {
   ));
   return values(result);
 };
+
+export const sortBy = _sortBy;
