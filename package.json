@@ -9,6 +9,8 @@
     "classnames": "^2.2.5",
     "history": "^4.7.2",
     "material-ui": "^0.20.0",
+    "mobx": "^5.0.2",
+    "mobx-react": "^5.2.3",
     "react": "^16.3.1",
     "react-dom": "^16.3.1",
     "react-redux": "^5.0.7",
@@ -34,16 +36,22 @@
   "devDependencies": {
     "@types/classnames": "^2.2.3",
     "@types/jest": "^22.2.2",
+    "@types/material-ui": "^0.21.1",
     "@types/node": "^9.6.2",
     "@types/react": "^16.3.10",
     "@types/react-dom": "^16.0.5",
     "@types/react-redux": "^5.0.16",
     "@types/react-router-redux": "^5.0.13",
-    "@types/material-ui": "^0.21.1",
     "@types/react-swipeable-views": "^0.12.1",
     "@types/react-transition-group": "^1.1.3",
     "@types/uuid": "^3.4.3",
+    "babel-plugin-transform-class-properties": "^6.24.1",
+    "babel-plugin-transform-decorators-legacy": "^1.3.5",
     "gh-pages": "^1.1.0",
     "typescript": "^2.8.1"
-  }
+  },
+  "plugins": [
+    "transform-decorators-legacy",
+    "transform-class-properties"
+  ]
 }
