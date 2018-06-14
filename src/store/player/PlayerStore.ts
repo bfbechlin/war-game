@@ -1,4 +1,4 @@
-import { observable } from 'mobx';
+import { observable, action } from 'mobx';
 import { PlayerInfo } from './types';
 
 class PlayerStore {
@@ -11,15 +11,15 @@ class PlayerStore {
     this.players = {};
   }
 
-  addPlayer(player: PlayerInfo) {
+  @action addPlayer(player: PlayerInfo) {
       this.players[player.name] = player;
   }
 
-  incrementTroops(playerId: string, quantity: number = 1) {
+  @action incrementTroops(playerId: string, quantity: number = 1) {
       this.players[playerId].availableTroops += quantity;
   }
 
-  decrementTroops(playerId: string, quantity: number = 1) {
+  @action decrementTroops(playerId: string, quantity: number = 1) {
     this.players[playerId].availableTroops -= quantity;
   }
 }
