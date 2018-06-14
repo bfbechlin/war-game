@@ -1,12 +1,13 @@
 import store from 'store/';
 import { Countries } from 'store/country/types';
 import { incrementTroops, decrementTroops, setTroops, changeOwner } from 'store/country/actions';
-import { decrementAvailableTroops } from 'store/player/actions';
+import playerStore from 'store/player/PlayerStore';
 
 export const addTroops = (country: Countries, quantity: number) => {
   const { turnOwner } = store.getState().game;
   store.dispatch(incrementTroops(country, quantity));
-  store.dispatch(decrementAvailableTroops(turnOwner, quantity));
+  // store.dispatch(decrementAvailableTroops(turnOwner, quantity));
+  playerStore.decrementTroops(turnOwner, quantity);
 };
 
 export const attack = (from: Countries, to: Countries, quantity: number): boolean => {

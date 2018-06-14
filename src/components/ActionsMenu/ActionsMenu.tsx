@@ -17,6 +17,8 @@ import DistributionStep from './DistributionStep';
 import AttackStep from './AttackStep';
 import MoveStep from './MoveStep';
 
+import playerStore from 'store/player/PlayerStore';
+
 export interface ActionsMenuProps extends ConnectedReduxProps {
 }
 
@@ -29,7 +31,7 @@ const phaseMappper = {
 };
 
 const ActionsMenu: React.SFC<Props> = (props: Props) => {
-  const { menu, game, player, country } = props;
+  const { menu, game, country } = props;
   const { turnOwner, phase } = game;
   const { selecteds, quantity } = menu;
   const activePlayer = isActivePlayer(game.turnOwner, game.activePlayers);
@@ -47,7 +49,7 @@ const ActionsMenu: React.SFC<Props> = (props: Props) => {
               <DistributionStep 
                 quantity={quantity}
                 player={turnOwner}
-                availableTroops={player[turnOwner].availableTroops}
+                availableTroops={playerStore.players[turnOwner].availableTroops}
                 selected={selectedFrom}
                 selectables={menu.selectables}
               /> :

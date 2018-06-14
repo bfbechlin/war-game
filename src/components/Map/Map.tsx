@@ -20,6 +20,8 @@ import {
   interactionStateTransducer,
   possibleChoiceTransducer } from 'core/transducers/map';
 
+import playerStore from 'store/player/PlayerStore';
+
 export interface MapProps extends ConnectedReduxProps {
 }
 
@@ -37,12 +39,13 @@ export class Map extends React.Component<Props, MapState> {
   }
 
   countriesData = (countries: Countries[], color: Color): CountryProps[] => {
-    const { players, gamePhase, viewMode, selectedables, selecteds, selectorType } = this.props;
+    const { gamePhase, viewMode, selectedables, selecteds, selectorType } = this.props;
     const countriesState = this.props.countries;
     return countries.map((country: Countries) => {
       const countryState = countriesState[country];
       const shape = countriesShape[country].shape;
-      const playerColor = countryState.owner ? players[countryState.owner].color : GREY; 
+      // const playerColor = countryState.owner ? players[countryState.owner].color : GREY; 
+      const playerColor = countryState.owner ? playerStore.players[countryState.owner].color : GREY; 
       return {
         name: country,
         troops: countryState.troops,

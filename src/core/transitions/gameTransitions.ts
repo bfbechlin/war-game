@@ -9,7 +9,7 @@ import { GamePhase } from 'store/game/types';
 
 import { setHover, massChangeOwner } from 'store/country/actions';
 import { setTurnOwner, setGamePhase } from 'store/game/actions';
-import { incrementAvailableTroops } from 'store/player/actions';
+import playerStore from 'store/player/PlayerStore';
 
 export const computeNewTroops = (player: string, country: CountryState) => {
   const countries = playerCountries(player, country);
@@ -45,7 +45,7 @@ export const nextTurnInit = () => {
   const nextPlayerIndex = (game.playerOrder.indexOf(game.turnOwner) + 1) % game.playerOrder.length;
   const newPlayer = game.playerOrder[nextPlayerIndex];
   // Change turn number
-  store.dispatch(incrementAvailableTroops(newPlayer, computeNewTroops(newPlayer, country)));
+  playerStore.incrementTroops(newPlayer, computeNewTroops(newPlayer, country));
   store.dispatch(setTurnOwner(newPlayer));
 };
 
