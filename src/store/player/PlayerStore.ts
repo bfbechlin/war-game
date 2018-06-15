@@ -11,6 +11,10 @@ class PlayerStore {
     this.players = {};
   }
 
+  getPlayer(id: string): PlayerInfo {
+    return this.players[id];
+  }
+
   @action addPlayer(player: PlayerInfo) {
       this.players[player.name] = player;
   }
