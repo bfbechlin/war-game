@@ -53,6 +53,32 @@ class CountryStore {
   constructor() {
     this.countries = countryInitState;
   }
+  
+  @action massChangeOwner(countries: string[], owner: string) {
+      countries.forEach(element => {
+        this.countries[element].owner = owner;
+      });
+  }
+
+  @action setTroops(countryName: string, quantity: number) {
+      this.countries[countryName].quantity = quantity;
+  }
+
+  @action incrementTroops(countryName: string, quantity: number) {
+      this.countries[countryName].quantity += quantity;
+  }
+
+  @action decrementTroops(countryName: string, quantity: number) {
+      this.countries[countryName].quantity -= quantity;
+  }
+
+  @action changeOwner(countryName: string, newOwner: string) {
+      this.countries[countryName].owner = newOwner;
+  }
+
+  @action setHover(countryName: string, hovered: boolean) {
+      this.countries[countryName].hovered = hovered;
+  }
 
 }
 
