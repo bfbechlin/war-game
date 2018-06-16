@@ -1,5 +1,8 @@
 import { observable, action } from 'mobx';
-import { GamePhase } from './types';
+import { GamePhase, nextPhaseResolver } from './types';
+import { startClock, stopClock } from 'utils/clock';
+import { interactionInit, nextTurnInit, gameInit, endGameReducer } from 'core/transitions/gameTransitions';
+import cpuReducer from 'core/transitions/cpuActions';
 
 /*
 const gameInitState: GameState = {
@@ -42,7 +45,33 @@ class GameStore {
   }
 
   @action nextGamePhase() {
-      // TODO: - MIDDLEWARE CODE
+      
+    const actualPhase = this.phase;
+    const nextPhase = nextPhaseResolver(actualPhase);
+
+    if (actualPhase === 'INIT') {
+      gameInit(this.playerOrder);
+    }
+    if (nextPhase === 'FINAL') {
+      stopClock();
+    } else {
+      if (nextPhase === 'DISTRIBUTION') {
+        nextTurnInit();
+      }
+
+      if (nextPhase === 'MOVE') {
+        endGameReducer();
+      }
+
+      // Clock time
+      stopClock();
+      this.setRemainingTime(60);
+      startClock(() => this.decrementRemainingTime());
+      interactionInit(nextPhase);
+      cpuReducer(nextPhase);
+
+      this.phase = nextPhase;
+    }
   }
 
   getGamePhase(): GamePhase {
@@ -50,8 +79,33 @@ class GameStore {
   }
 
   @action setGamePhase(phase: GamePhase) {
-    this.phase = phase;
-    // TODO: - MIDDLEWARE CODE
+
+    const actualPhase = this.phase;
+    const nextPhase = phase;
+
+    if (actualPhase === 'INIT') {
+      gameInit(this.playerOrder);
+    }
+    if (nextPhase === 'FINAL') {
+      stopClock();
+    } else {
+      if (nextPhase === 'DISTRIBUTION') {
+        nextTurnInit();
+      }
+
+      if (nextPhase === 'MOVE') {
+        endGameReducer();
+      }
+
+      // Clock time
+      stopClock();
+      this.setRemainingTime(60);
+      startClock(() => this.decrementRemainingTime());
+      interactionInit(nextPhase);
+      cpuReducer(nextPhase);
+
+      this.phase = nextPhase;
+    }
   }
 
   getTurnOwner() {
@@ -67,6 +121,9 @@ class GameStore {
   } 
 
   @action decrementRemainingTime() {
+    if (this.remainingTime === 1) {
+      this.nextGamePhase();
+    }
     this.remainingTime -= 1;
   }
 

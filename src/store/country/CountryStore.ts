@@ -1,4 +1,4 @@
-import { observable } from 'mobx';
+import { observable, action } from 'mobx';
 import { CountryState } from './types';
 
 const countryInitState: CountryState = {
