@@ -19,7 +19,7 @@ export const initialState: ApplicationState = {
   menu: menuStore.menuState, 
   player: playerStore.players, 
   game: gameStore.gameState, 
-}
+};
 
 const store = {
   game: gameStore,
