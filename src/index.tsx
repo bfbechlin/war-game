@@ -4,12 +4,12 @@ import App from './App';
 import registerServiceWorker from './registerServiceWorker';
 import './index.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Provider } from 'react-redux';
+import { Provider } from 'mobx-react';
 import store from 'store/';
 // import { nextGamePhase } from 'store/game/actions';
 
 ReactDOM.render(
-  <Provider store={store}>
+  <Provider store={store} >
     <App />
   </Provider>,
   document.getElementById('root') as HTMLElement
