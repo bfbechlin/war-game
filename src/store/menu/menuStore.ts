@@ -1,4 +1,5 @@
-import { observable, action } from 'mobx';
+import { observable, action, computed } from 'mobx';
+import { MenuState } from './types';
 
 class MenuStore {
 
@@ -6,6 +7,15 @@ class MenuStore {
   @observable selectables: string[];
   @observable selecteds: string[];
   @observable viewMode: string;
+
+  @computed get menuState(): MenuState {
+    return {
+      quantity: this.quantity,
+      selectables: this.selectables,
+      selecteds: this.selecteds,
+      viewMode: this.viewMode,
+    }
+  }
 
   constructor() {
     this.quantity = 1;

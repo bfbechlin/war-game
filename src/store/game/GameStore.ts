@@ -1,20 +1,8 @@
-import { observable, action } from 'mobx';
-import { GamePhase, nextPhaseResolver } from './types';
+import { observable, action, computed } from 'mobx';
+import { GamePhase, nextPhaseResolver, GameState } from './types';
 import { startClock, stopClock } from 'utils/clock';
 import { interactionInit, nextTurnInit, gameInit, endGameReducer } from 'core/transitions/gameTransitions';
 import cpuReducer from 'core/transitions/cpuActions';
-
-/*
-const gameInitState: GameState = {
-    round: 1,
-    phase: 'INIT',
-    remainingTime: 0,
-    turnOwner: '',
-    activePlayers: [],
-    playerOrder: [],
-    cardsBonus: 20,
-  };  
-*/
 
 class GameStore {
 
@@ -25,6 +13,18 @@ class GameStore {
   @observable activePlayers: string[];
   @observable playerOrder: string[];
   @observable cardsBonus: number;
+
+  @computed get gameState(): GameState {
+    return {
+      round: this.round,
+      phase: this.phase,
+      remainingTime: this.remainingTime,
+      turnOwner: this.turnOwner,
+      activePlayers: this.activePlayers,
+      playerOrder: this.playerOrder, 
+      cardsBonus: this.cardsBonus,
+    }
+  }
 
   constructor() {
     this.round = 1;
