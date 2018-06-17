@@ -2,14 +2,9 @@ import store from 'store/';
 import { filter, map, object, each } from 'utils/object';
 import { difference, shuffle, partition } from 'utils/array';
 import { CountryState, continentsInfo, ContinentInfo, countries as allCountries, Countries, CountryInfo } from 'store/country/types';
-import { setQuantity, setSelectables, setSelecteds } from 'store/menu/actions';
 import { playerCountries } from 'core/transducers/map';
 import { isActivePlayer } from 'core/transducers/player';
 import { GamePhase } from 'store/game/types';
-
-import { setHover, massChangeOwner } from 'store/country/actions';
-import { setTurnOwner, setGamePhase } from 'store/game/actions';
-import playerStore from 'store/player/PlayerStore';
 
 export const computeNewTroops = (player: string, country: CountryState) => {
   const countries = playerCountries(player, country);
@@ -22,31 +17,37 @@ export const computeNewTroops = (player: string, country: CountryState) => {
 };
 
 export const interactionInit = (phase: GamePhase) => {
-  const { game, country, menu } = store.getState();
+  const { game, country, menu, player } = store;
   menu.selecteds.forEach((countryName) => {
-    store.dispatch(setHover(countryName, false));
+    country.setHover(countryName, false);
+    // store.dispatch(setHover(countryName, false));
   });
   menu.selectables.forEach((countryName) => {
-    store.dispatch(setHover(countryName, false));
+    country.setHover(countryName, false);
+    // store.dispatch(setHover(countryName, false));
   });
-  store.dispatch(setSelecteds([]));
+
+  // store.dispatch(setSelecteds([]));
+  menu.setSelecteds([]);
   if (!isActivePlayer(game.turnOwner, game.activePlayers)) {
-    store.dispatch(setQuantity(0));
-    store.dispatch(setSelectables([]));
+    menu.setQuantity(0);
+    menu.setSelectables([]);
+    // store.dispatch(setQuantity(0));
+    // store.dispatch(setSelectables([]));
   } else {
-    store.dispatch(setQuantity(1));
-    const countries = playerCountries(game.turnOwner, country, phase === 'DISTRIBUTION' ? 0 : 1);
-    store.dispatch(setSelectables(countries));
+    menu.setQuantity(1);
+    const countries = playerCountries(game.turnOwner, country.countries, phase === 'DISTRIBUTION' ? 0 : 1);
+    menu.setSelectables(countries);
   }
 };
 
 export const nextTurnInit = () => {
-  const { game, country } = store.getState();
+  const { game, country, player } = store;
   const nextPlayerIndex = (game.playerOrder.indexOf(game.turnOwner) + 1) % game.playerOrder.length;
   const newPlayer = game.playerOrder[nextPlayerIndex];
   // Change turn number
-  playerStore.incrementTroops(newPlayer, computeNewTroops(newPlayer, country));
-  store.dispatch(setTurnOwner(newPlayer));
+  player.incrementTroops(newPlayer, computeNewTroops(newPlayer, country.countries));
+  game.setTurnOwner(newPlayer);
 };
 
 interface InitCountries {
@@ -57,16 +58,18 @@ export const gameInit = (players: string[]) => {
   each(
     object(players, partition(shuffle(allCountries), players.length)) as InitCountries,
     (countriesNames: Countries[], playerName: string) => {
-      store.dispatch(massChangeOwner(countriesNames, playerName));
+      store.country.massChangeOwner(countriesNames, playerName);
+      // store.dispatch(massChangeOwner(countriesNames, playerName));
     }
   );
 };
 
 export const endGameReducer = () => {
   // Verify each player objective. For now only if a player has all countries
-  const { country } = store.getState();
-  const randomPlayer = country.Brazil.owner;
+  const { country } = store;
+  const randomPlayer = country.countries.Brazil.owner;
   if (filter(country, (countryInfo: CountryInfo) => (countryInfo.owner !== randomPlayer)) === []) {
-    store.dispatch(setGamePhase('FINAL'));
+    store.game.setGamePhase('FINAL');
+    // dispatch(setGamePhase('FINAL'));
   }
 };

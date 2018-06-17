@@ -1,17 +1,15 @@
 import store from 'store/';
 import { Countries } from 'store/country/types';
-import { incrementTroops, decrementTroops, setTroops, changeOwner } from 'store/country/actions';
-import playerStore from 'store/player/PlayerStore';
 
 export const addTroops = (country: Countries, quantity: number) => {
-  const { turnOwner } = store.getState().game;
-  store.dispatch(incrementTroops(country, quantity));
+  const { game, player } = store;
+  store.country.incrementTroops(country, quantity);
   // store.dispatch(decrementAvailableTroops(turnOwner, quantity));
-  playerStore.decrementTroops(turnOwner, quantity);
+  player.decrementTroops(game.turnOwner, quantity);
 };
 
 export const attack = (from: Countries, to: Countries, quantity: number): boolean => {
-  const { country } = store.getState();
+  const { country } = store;
   let fromTroops = country[from].troops;
   let toTroops = country[to].troops;
   for (let i = 0; i < quantity; i++) {
@@ -24,18 +22,26 @@ export const attack = (from: Countries, to: Countries, quantity: number): boolea
   }
   
   if (toTroops === 0) {
-    store.dispatch(setTroops(to, 1)); 
-    store.dispatch(setTroops(from, fromTroops - 1));
-    store.dispatch(changeOwner(to, country[from].owner));
+    country.setTroops(to, 1);
+    country.setTroops(from, fromTroops - 1);
+    country.changeOwner(to, country.countries[from].owner);
+    // store.dispatch(setTroops(to, 1)); 
+    // store.dispatch(setTroops(from, fromTroops - 1));
+    // store.dispatch(changeOwner(to, country[from].owner));
     return true;
   } else {
-    store.dispatch(setTroops(from, fromTroops));
-    store.dispatch(setTroops(to, toTroops));  
+    // store.dispatch(setTroops(from, fromTroops));
+    // store.dispatch(setTroops(to, toTroops));  
+    country.setTroops(to, toTroops);
+    country.setTroops(from, fromTroops);
     return false;
   }
 };
 
 export const move = (from: Countries, to: Countries, quantity: number) => {
-  store.dispatch(decrementTroops(from, quantity));
-  store.dispatch(incrementTroops(to, quantity));
+  const { country } = store;
+  country.decrementTroops(from, quantity);
+  country.incrementTroops(to, quantity);
+  // store.dispatch(decrementTroops(from, quantity));
+  // store.dispatch(incrementTroops(to, quantity));
 };

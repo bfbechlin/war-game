@@ -1,7 +1,6 @@
 import store from 'store/';
 import { playerCountries, borderCountries } from 'core/transducers/map';
 import { GamePhase } from 'store/game/types';
-import { nextGamePhase } from 'store/game/actions';
 import { PlayerInfo } from 'store/player/types';
 import { Countries } from 'store/country/types';
 import { addTroops, attack, move } from 'core/transitions/gameActions';
@@ -9,7 +8,7 @@ import { isActivePlayer } from 'core/transducers/player';
 import { sortBy, shuffle } from 'utils/array';
 
 const distributeStep = (player: PlayerInfo) => {
-  const countries = store.getState().country;
+  const countries = store.country.countries;
   const myCountries = shuffle(playerCountries(player.name, countries));
   let availableTroops = player.availableTroops;
   myCountries.forEach((country) => {
@@ -23,11 +22,11 @@ const distributeStep = (player: PlayerInfo) => {
 };
 
 const attackStep = (player: PlayerInfo) => {
-  let countries = store.getState().country;
+  let countries = store.country.countries;
   const myCountries = playerCountries(player.name, countries);
   
   myCountries.forEach((myCountry) => {
-    countries = store.getState().country;
+    countries = store.country.countries;
     const myTroops = countries[myCountry].troops;
     const bdCountries = borderCountries(myCountry, countries, false);
     bdCountries.forEach((target) => {
@@ -41,7 +40,7 @@ const attackStep = (player: PlayerInfo) => {
 
 // RISK DESCENDING
 const countriesRiskLevel = (countries: Countries[]): Countries[] => {
-  const countryState = store.getState().country;
+  const countryState = store.country.countries;
   const risks = countries.map((country) => {
     const risk = borderCountries(country, countryState, false).length * 1000 + Math.abs(Math.random() * 999);
     return {name: country, risk};
@@ -56,10 +55,10 @@ const riskComparation = (countriesRisk: Countries[], from: Countries, to: Countr
 );
 
 const moveStep = (player: PlayerInfo) => {
-  let countries = store.getState().country;
+  let countries = store.country.countries;
   const countriesRiskOrderer = countriesRiskLevel(playerCountries(player.name, countries));
   countriesRiskOrderer.forEach((country) => {
-    countries = store.getState().country;
+    countries = store.country.countries;
     const bdCountries = borderCountries(country, countries, true);
     bdCountries.forEach((origin) => {
       const originTroops = countries[origin].troops;
@@ -71,7 +70,7 @@ const moveStep = (player: PlayerInfo) => {
 };
 
 export const cpuAction = (playerName: string, phase: GamePhase) => {
-  const player = store.getState().player[playerName];
+  const player = store.player.players[playerName];
   switch (phase) {
     case 'DISTRIBUTION':
       return distributeStep(player);
@@ -85,12 +84,12 @@ export const cpuAction = (playerName: string, phase: GamePhase) => {
 };
 
 export default (phase: GamePhase) => {
-  const { activePlayers, turnOwner } = store.getState().game;
+  const { activePlayers, turnOwner } = store.game;
   if (!isActivePlayer(turnOwner, activePlayers)) {
     setTimeout(
       () => {
         cpuAction(turnOwner, phase);
-        setTimeout(() => store.dispatch(nextGamePhase()), 2000);
+        setTimeout(() => store.game.nextGamePhase(), 2000);
       },
       2000);
   }
