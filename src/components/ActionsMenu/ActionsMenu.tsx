@@ -16,7 +16,7 @@ import AttackStep from './AttackStep';
 import MoveStep from './MoveStep';
 import playerStore from 'store/player/PlayerStore';
 import { AppStore } from 'store/';
-// import { inject, observer } from 'mobx-react';
+import { observer } from 'mobx-react';
 
 type Props = {
   store?: AppStore;
@@ -28,7 +28,7 @@ const phaseMappper = {
   'MOVE': 2 
 };
 
-@observer const ActionsMenu: React.SFC<Props> = (props: Props) => {
+const ActionsMenu: React.SFC<Props> = observer((props: Props) => {
 
   const menu = props.store!.menu.menuState;
   const game = props.store!.game.gameState;
@@ -96,6 +96,6 @@ const phaseMappper = {
       </Stepper>    
     </div>
   );
-};
+});
 
 export default ActionsMenu;
