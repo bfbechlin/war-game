@@ -1,18 +1,16 @@
 import * as React from 'react';
-import { connect } from 'react-redux';
 import { Countries } from 'store/country/types';
 import RaisedButton from 'material-ui/RaisedButton';
-import { ConnectedReduxProps } from 'store/';
 
 import CountrySelector, { SelectionAction } from './CountrySelector';
 import AmountSelector from './QuantitySelector';
 
 import { countrySelectionTransition } from 'core/transitions/countrySelection';
 import { addTroops } from 'core/transitions/gameActions';
-import { nextGamePhase } from 'store/game/actions';
-import { setQuantity } from 'store/menu/actions';
+import { AppStore } from 'store/';
 
-interface DistributionStepProps extends ConnectedReduxProps {
+interface DistributionStepProps {
+  store: AppStore;
   quantity: number;
   availableTroops: number;
   player: string;
@@ -21,22 +19,26 @@ interface DistributionStepProps extends ConnectedReduxProps {
 }
 
 const DistributionStep: React.SFC<DistributionStepProps> = (props: DistributionStepProps) => {
-  const { dispatch, selected, selectables, availableTroops, quantity } = props;
+  const { selected, selectables, availableTroops, quantity } = props;
 
   const onChangeQuantity = (value: number) => {
-    dispatch(setQuantity(value));
+    // dispatch(setQuantity(value));
+    props.store.menu.setQuantity(value);
   };
 
   const onAddTroops = () => {
     const diff = availableTroops - quantity;
+    console.log('Adding ' + quantity + ' troops to ' + selected);
     addTroops(selected!, quantity);
     if (diff < quantity) {
-      dispatch(setQuantity(diff));
+      // dispatch(setQuantity(diff));
+      props.store.menu.setQuantity(diff);
     }
   };
 
   const onFinish = () => {
-    dispatch(nextGamePhase('ATTACK'));
+    // dispatch(nextGamePhase('ATTACK'));
+    props.store.game.nextGamePhase();
   };
 
   const handleAction = (name: Countries, action: SelectionAction) => (event: any) => {
@@ -65,4 +67,4 @@ const DistributionStep: React.SFC<DistributionStepProps> = (props: DistributionS
   );
 };
 
-export default connect()(DistributionStep);
+export default DistributionStep;

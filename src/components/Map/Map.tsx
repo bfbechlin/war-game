@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { connect } from 'react-redux';
 
 import Continent  from './Continent';
 import { CountryProps } from './Country';
@@ -11,36 +10,44 @@ import { Color, GREY } from 'utils/colors';
 
 import { continentsInfo, ContinentInfo, Countries } from 'store/country/types';
 import { countrySelectionTransition, CountrySelection } from 'core/transitions/countrySelection';
-import { ConnectedReduxProps } from 'store/';
+import { AppStore } from 'store/';
 
 import { 
-  MapTransducer, 
+  MapTransducer,
   MapStateToProps, 
   selectableTransducer, 
   interactionStateTransducer,
   possibleChoiceTransducer } from 'core/transducers/map';
 
 import playerStore from 'store/player/PlayerStore';
+import { inject, observer } from 'mobx-react';
 
-export interface MapProps extends ConnectedReduxProps {
+export interface MapProps {
+  store?: AppStore;
 }
 
 type MapState = {
 };
 
-type Props = MapProps & MapStateToProps;
+type Props = MapProps;
 
+@inject('store')
+@observer
 export class Map extends React.Component<Props, MapState> {
   state: MapState = {
   };
 
   handleAction = (name: Countries, action: CountrySelection) => (event: any) => {
-    countrySelectionTransition(this.props.gamePhase, action, name);
+    countrySelectionTransition(this.props.store!.game.getGamePhase(), action, name);
   }
 
   countriesData = (countries: Countries[], color: Color): CountryProps[] => {
-    const { gamePhase, viewMode, selectedables, selecteds, selectorType } = this.props;
-    const countriesState = this.props.countries;
+
+    const customProps: MapStateToProps = MapTransducer(this.props.store!);
+
+    const { gamePhase, viewMode, selectedables, selecteds, selectorType } = customProps;
+    const countriesState = this.props.store!.country.countries;
+    
     return countries.map((country: Countries) => {
       const countryState = countriesState[country];
       const shape = countriesShape[country].shape;
@@ -78,4 +85,4 @@ export class Map extends React.Component<Props, MapState> {
   }
 }
 
-export default connect(MapTransducer)(Map);
+export default Map;

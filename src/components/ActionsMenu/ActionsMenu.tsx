@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { connect } from 'react-redux';
 import {
     Step,
     Stepper,
@@ -8,7 +7,6 @@ import {
    } from 'material-ui/Stepper';
 // import RaisedButton from 'material-ui/RaisedButton';
 // import FlatButton from 'material-ui/FlatButton';
-import { ApplicationState, ConnectedReduxProps } from 'store/';
 // import { GamePhase  } from 'store/game/types';
 // import { MenuState  } from 'store/menu/types';
 import { isActivePlayer } from 'core/transducers/player';
@@ -16,13 +14,13 @@ import { isActivePlayer } from 'core/transducers/player';
 import DistributionStep from './DistributionStep';
 import AttackStep from './AttackStep';
 import MoveStep from './MoveStep';
-
 import playerStore from 'store/player/PlayerStore';
+import { AppStore } from 'store/';
+// import { inject, observer } from 'mobx-react';
 
-export interface ActionsMenuProps extends ConnectedReduxProps {
-}
-
-type Props = ActionsMenuProps & ApplicationState;
+type Props = {
+  store?: AppStore;
+};
 
 const phaseMappper = {
   'DISTRIBUTION': 0,
@@ -30,13 +28,16 @@ const phaseMappper = {
   'MOVE': 2 
 };
 
-const ActionsMenu: React.SFC<Props> = (props: Props) => {
-  const { menu, game, country } = props;
+@observer const ActionsMenu: React.SFC<Props> = (props: Props) => {
+
+  const menu = props.store!.menu.menuState;
+  const game = props.store!.game.gameState;
+  const country = props.store!.country.countries;
   const { turnOwner, phase } = game;
   const { selecteds, quantity } = menu;
   const activePlayer = isActivePlayer(game.turnOwner, game.activePlayers);
-  const selectedTo = selecteds[1] ? selecteds[1] : null;
-  const selectedFrom = selecteds[0] ? selecteds[0] : null;
+  const selectedTo = selecteds.length >= 2 ? selecteds[1] : null;
+  const selectedFrom = selecteds.length >= 1  ? selecteds[0] : null;
   const maxAttack = selectedFrom ? country[selectedFrom].troops - 1 : 0;
 
   return (
@@ -47,6 +48,7 @@ const ActionsMenu: React.SFC<Props> = (props: Props) => {
           <StepContent>
             { activePlayer ?
               <DistributionStep 
+                store={props.store!}
                 quantity={quantity}
                 player={turnOwner}
                 availableTroops={playerStore.players[turnOwner].availableTroops}
@@ -62,6 +64,7 @@ const ActionsMenu: React.SFC<Props> = (props: Props) => {
           <StepContent>
             { activePlayer ?
               <AttackStep 
+                store={props.store!}
                 quantity={maxAttack === 0 ? 0 : quantity}
                 player={turnOwner}
                 maxAttack={maxAttack}
@@ -78,6 +81,7 @@ const ActionsMenu: React.SFC<Props> = (props: Props) => {
           <StepContent>
             { activePlayer ?
               <MoveStep 
+                store={props.store!}
                 quantity={maxAttack === 0 ? 0 : quantity}
                 player={turnOwner}
                 maxAttack={maxAttack}
@@ -94,8 +98,4 @@ const ActionsMenu: React.SFC<Props> = (props: Props) => {
   );
 };
 
-const mapStateToProps = (state: ApplicationState): ApplicationState => ( 
-  state
-);
-
-export default connect(mapStateToProps)(ActionsMenu);
+export default ActionsMenu;

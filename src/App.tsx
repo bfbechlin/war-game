@@ -1,11 +1,10 @@
 import * as React from 'react';
-import { connect } from 'react-redux';
+import { observer, inject } from 'mobx-react';
 
 import './App.css';
-import { ApplicationState, ConnectedReduxProps } from 'store/';
+import { AppStore } from 'store/';
 import { GamePhase } from 'store/game/types';
 import { PlayerInfo, DummyPlayer } from 'store/player/types';
-import { setViewMode } from 'store/menu/actions';
 import { ViewMode } from 'store/menu/types';
 
 // import { Tabs, Tab } from 'material-ui/Tabs';
@@ -35,12 +34,28 @@ interface AppState {
   slideIndex: number;
 }
 
-interface AppProps extends ConnectedReduxProps {
+type Props = {
+ store?: AppStore; 
+};
 
+interface StateToProps {
+  phase: GamePhase;
+  player: PlayerInfo | undefined;
+  time: number;
+  viewMode: ViewMode;
 }
 
-type Props = AppProps & StateToProps;
+const mapStateToProps = (state: AppStore): StateToProps => (
+  {
+    phase: state.game.getGamePhase(), 
+    player: state.game.getGamePhase() === 'INIT' ? undefined : state.player.getPlayer(state.game.getTurnOwner()),
+    time: state.game.getRemainingTime(),
+    viewMode: state.menu.getViewMode(),
+  }
+);
 
+@inject('store')
+@observer
 class App extends React.Component<Props, AppState> {
   constructor(props: Props) {
     super(props);
@@ -50,12 +65,14 @@ class App extends React.Component<Props, AppState> {
   }
 
   changeViewMode = () => {
-    const mode: ViewMode = this.props.viewMode === 'PLAYER' ? 'CONTINENT' : 'PLAYER';
-    this.props.dispatch(setViewMode(mode));
+    const mode: ViewMode = this.props.store!.menu.getViewMode() === 'PLAYER' ? 'CONTINENT' : 'PLAYER';
+    // this.props.dispatch(setViewMode(mode));
+    this.props.store!.menu.setViewMode(mode);
   }
 
   render() {
-    const { phase, time, player, viewMode } = this.props;
+    const customProps = mapStateToProps(this.props.store!);
+    const { phase, time, player, viewMode } = customProps;
     const muiTheme = getMuiTheme({
       palette: {
         primary1Color: player ? player.color.normal : '#78909c',
@@ -80,7 +97,7 @@ class App extends React.Component<Props, AppState> {
               <div className="col-md-3" style={{paddingRight: 0, paddingTop: 30, paddingBottom: 30}}>
                 <SideMenu current={this.state.slideIndex}>
                   <Paper zDepth={1} style={{height: '100%'}}>
-                    <ActionsMenu />
+                    <ActionsMenu store={this.props.store!}/>
                   </Paper>
                 </SideMenu>
               </div>
@@ -102,20 +119,4 @@ class App extends React.Component<Props, AppState> {
   }
 }
 
-interface StateToProps {
-  phase: GamePhase;
-  player: PlayerInfo | undefined;
-  time: number;
-  viewMode: ViewMode;
-}
-
-const mapStateToProps = (state: ApplicationState): StateToProps => (
-  {
-    phase: state.game.phase,
-    player: state.game.phase === 'INIT' ? undefined : state.player[state.game.turnOwner],
-    time: state.game.remainingTime,
-    viewMode: state.menu.viewMode
-  }
-);
-
-export default connect(mapStateToProps)(App);
+export default App;

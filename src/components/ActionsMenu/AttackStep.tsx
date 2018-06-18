@@ -1,18 +1,16 @@
 import * as React from 'react';
-import { connect } from 'react-redux';
 import { Countries } from 'store/country/types';
 import RaisedButton from 'material-ui/RaisedButton';
-import { ConnectedReduxProps } from 'store/';
 
 import CountrySelector, { SelectionAction } from './CountrySelector';
 import AmountSelector from './QuantitySelector';
 
 import { countrySelectionTransition } from 'core/transitions/countrySelection';
 import { attack } from 'core/transitions/gameActions';
-import { nextGamePhase } from 'store/game/actions';
-import { setQuantity } from 'store/menu/actions';
+import { AppStore } from 'store/';
 
-interface AttackStepProps extends ConnectedReduxProps {
+interface AttackStepProps {
+  store: AppStore;
   quantity: number;
   maxAttack: number;
   player: string;
@@ -22,14 +20,16 @@ interface AttackStepProps extends ConnectedReduxProps {
 }
 
 const AttackStep: React.SFC<AttackStepProps> = (props: AttackStepProps) => {
-  const { dispatch, selectedTo, selectedFrom, selectables, maxAttack, quantity } = props;
+  const { store, selectedTo, selectedFrom, selectables, maxAttack, quantity } = props;
 
   if (maxAttack < quantity) {
-    dispatch(setQuantity(maxAttack));
+    // dispatch(setQuantity(maxAttack));
+    store.menu.setQuantity(maxAttack);
   }
 
   const onChangeQuantity = (value: number) => {
-    dispatch(setQuantity(value));
+    // dispatch(setQuantity(value));
+    store.menu.setQuantity(value);
   };
 
   const onAttack = () => {
@@ -39,7 +39,8 @@ const AttackStep: React.SFC<AttackStepProps> = (props: AttackStepProps) => {
   };
 
   const onFinish = () => {
-    dispatch(nextGamePhase());
+    // dispatch(nextGamePhase());
+    store.game.nextGamePhase();
   };
 
   const handleAction = (name: Countries, action: SelectionAction) => (event: any) => {
@@ -83,4 +84,4 @@ const AttackStep: React.SFC<AttackStepProps> = (props: AttackStepProps) => {
   );
 };
 
-export default connect()(AttackStep);
+export default AttackStep;
