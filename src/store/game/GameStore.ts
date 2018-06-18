@@ -23,7 +23,7 @@ class GameStore {
       activePlayers: this.activePlayers,
       playerOrder: this.playerOrder, 
       cardsBonus: this.cardsBonus,
-    }
+    };
   }
 
   constructor() {

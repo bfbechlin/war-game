@@ -1,4 +1,4 @@
-import { ApplicationState } from 'store/';
+import { AppStore } from 'store/';
 import { CountryState, CountryInfo, Countries, borderCountries as bdCountries } from 'store/country/types';
 import { GamePhase } from 'store/game/types';
 import { PlayerState } from 'store/player/types';
@@ -21,15 +21,15 @@ export interface MapStateToProps {
 
 export type InteractionState = 'NORMAL' | 'HOVER' | 'SELECT';
 
-export const MapTransducer = (state: ApplicationState): MapStateToProps => (
+export const MapTransducer = (store: AppStore): MapStateToProps => (
   {
-    countries: state.country,
-    players: state.player,
-    gamePhase: state.game.phase,
-    viewMode: state.menu.viewMode,
-    selectedables: state.menu.selectables,
-    selecteds: state.menu.selecteds,
-    selectorType: selectionTypeTransducer(state.menu.selecteds, state.game.phase),
+    countries: store.country.countries,
+    players: store.player.players,
+    gamePhase: store.game.getGamePhase(),
+    viewMode: store.menu.getViewMode(),
+    selectedables: store.menu.getSelectables(),
+    selecteds: store.menu.getSelecteds(),
+    selectorType: selectionTypeTransducer(store.menu.getSelecteds(), store.game.getGamePhase()),
   }
 );
 

@@ -57,19 +57,20 @@ class CountryStore {
   @action massChangeOwner(countries: string[], owner: string) {
       countries.forEach(element => {
         this.countries[element].owner = owner;
+        this.countries[element].troops = 1;
       });
   }
 
   @action setTroops(countryName: string, quantity: number) {
-      this.countries[countryName].quantity = quantity;
+      this.countries[countryName].troops = quantity;
   }
 
   @action incrementTroops(countryName: string, quantity: number) {
-      this.countries[countryName].quantity += quantity;
+      this.countries[countryName].troops += quantity;
   }
 
   @action decrementTroops(countryName: string, quantity: number) {
-      this.countries[countryName].quantity -= quantity;
+      this.countries[countryName].troops -= quantity;
   }
 
   @action changeOwner(countryName: string, newOwner: string) {

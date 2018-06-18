@@ -1,12 +1,13 @@
 import { observable, action, computed } from 'mobx';
-import { MenuState } from './types';
+import { MenuState, ViewMode } from './types';
+import { Countries } from 'store/country/types';
 
 class MenuStore {
 
   @observable quantity: number;
-  @observable selectables: string[];
-  @observable selecteds: string[];
-  @observable viewMode: string;
+  @observable selectables: Countries[];
+  @observable selecteds: Countries[];
+  @observable viewMode: ViewMode;
 
   @computed get menuState(): MenuState {
     return {
@@ -14,7 +15,7 @@ class MenuStore {
       selectables: this.selectables,
       selecteds: this.selecteds,
       viewMode: this.viewMode,
-    }
+    };
   }
 
   constructor() {
@@ -32,27 +33,27 @@ class MenuStore {
     this.quantity = quantity;
   }
 
-  getSelectables() {
+  getSelectables(): Countries[] {
     return this.selectables;
   }
 
-  @action setSelectables(selectables: string[]) {
+  @action setSelectables(selectables: Countries[]) {
     this.selectables = selectables;
   }
 
-  getSelecteds() {
+  getSelecteds(): Countries[] {
     return this.selecteds;
   }
 
-  @action setSelecteds(selecteds: string[]) {
+  @action setSelecteds(selecteds: Countries[]) {
     this.selecteds = selecteds;
   }
 
-  getViewMode() {
+  getViewMode(): ViewMode {
     return this.viewMode;
   }
 
-  @action setViewMode(viewMode: string) {
+  @action setViewMode(viewMode: ViewMode) {
     this.viewMode = viewMode;
   }
 
