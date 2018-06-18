@@ -1,27 +1,32 @@
-import playerStore from './player/PlayerStore';
-import gameStore from './game/GameStore';
-import menuStore from './menu/MenuStore';
-import countryStore from './country/CountryStore';
-import { PlayerState } from './player/types';
-import { GameState } from './game/types';
-import { MenuState } from './menu/types';
-import { CountryState } from './country/types';
+import playerStore, { PlayerStore } from './player/PlayerStore';
+import gameStore, { GameStore } from './game/GameStore';
+import menuStore, { MenuStore } from './menu/MenuStore';
+import countryStore, { CountryStore } from './country/CountryStore';
 
+/*
 export interface ApplicationState {
   country: CountryState;
   menu: MenuState;
   player: PlayerState; 
   game: GameState;
 }
+*/
 
+export interface AppStore {
+  game: GameStore;
+  player: PlayerStore;
+  menu: MenuStore;
+  country: CountryStore;
+}
+/*
 export const initialState: ApplicationState = { 
   country: countryStore.countries, 
   menu: menuStore.menuState, 
   player: playerStore.players, 
   game: gameStore.gameState, 
 };
-
-const store = {
+*/
+const store: AppStore = {
   game: gameStore,
   player: playerStore,
   menu: menuStore,

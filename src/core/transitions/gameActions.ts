@@ -10,8 +10,8 @@ export const addTroops = (country: Countries, quantity: number) => {
 
 export const attack = (from: Countries, to: Countries, quantity: number): boolean => {
   const { country } = store;
-  let fromTroops = country[from].troops;
-  let toTroops = country[to].troops;
+  let fromTroops = country.countries[from].troops;
+  let toTroops = country.countries[to].troops;
   for (let i = 0; i < quantity; i++) {
     if (fromTroops < 2 || toTroops < 1) {
       break;

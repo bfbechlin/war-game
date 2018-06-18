@@ -7,7 +7,9 @@ import { isActivePlayer } from 'core/transducers/player';
 import { GamePhase } from 'store/game/types';
 
 export const computeNewTroops = (player: string, country: CountryState) => {
+  // console.log('computing troops for ' + player);
   const countries = playerCountries(player, country);
+  // console.log(countries);
   let newTroopsCounter = Math.ceil(countries.length / 2);
   const continentBonus = map <ContinentInfo, number> (continentsInfo, (continent: ContinentInfo) => (
     difference(continent.countries, countries).length === 0 ? continent.troopsBonus : 0
@@ -17,7 +19,7 @@ export const computeNewTroops = (player: string, country: CountryState) => {
 };
 
 export const interactionInit = (phase: GamePhase) => {
-  const { game, country, menu, player } = store;
+  const { game, country, menu } = store;
   menu.selecteds.forEach((countryName) => {
     country.setHover(countryName, false);
     // store.dispatch(setHover(countryName, false));
@@ -46,6 +48,7 @@ export const nextTurnInit = () => {
   const nextPlayerIndex = (game.playerOrder.indexOf(game.turnOwner) + 1) % game.playerOrder.length;
   const newPlayer = game.playerOrder[nextPlayerIndex];
   // Change turn number
+  // console.log(player.getPlayer(newPlayer));
   player.incrementTroops(newPlayer, computeNewTroops(newPlayer, country.countries));
   game.setTurnOwner(newPlayer);
 };
