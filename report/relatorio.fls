@@ -1,0 +1,282 @@
+PWD e:/UFRGS/war-game/report
+INPUT C:/Users/rcost/AppData/Local/MiKTeX/2.9/miktex/data/le/pdftex/pdflatex.fmt
+INPUT e:/UFRGS/war-game/report/relatorio.tex
+OUTPUT relatorio.log
+INPUT iiufrgs.cls
+INPUT iiufrgs.cls
+INPUT C:/Users/rcost/AppData/Local/Programs/MiKTeX 2.9/tex/latex/base/report.cls
+INPUT C:/Users/rcost/AppData/Local/Programs/MiKTeX 2.9/tex/latex/base/report.cls
+INPUT C:/Users/rcost/AppData/Local/Programs/MiKTeX 2.9/tex/latex/base/size12.clo
+INPUT C:/Users/rcost/AppData/Local/Programs/MiKTeX 2.9/tex/latex/base/size12.clo
+INPUT C:/Users/rcost/AppData/Local/Programs/MiKTeX 2.9/fonts/tfm/public/cm/cmr12.tfm
+INPUT C:/Users/rcost/AppData/Local/Programs/MiKTeX 2.9/tex/latex/tools/xspace.sty
+INPUT C:/Users/rcost/AppData/Local/Programs/MiKTeX 2.9/tex/latex/tools/xspace.sty
+INPUT C:/Users/rcost/AppData/Local/Programs/MiKTeX 2.9/tex/latex/graphics/keyval.sty
+INPUT C:/Users/rcost/AppData/Local/Programs/MiKTeX 2.9/tex/latex/graphics/keyval.sty
+INPUT C:/Users/rcost/AppData/Local/Programs/MiKTeX 2.9/tex/latex/base/fixltx2e.sty
+INPUT C:/Users/rcost/AppData/Local/Programs/MiKTeX 2.9/tex/latex/base/fixltx2e.sty
+INPUT C:/Users/rcost/AppData/Local/Programs/MiKTeX 2.9/tex/generic/babel/babel.sty
+INPUT C:/Users/rcost/AppData/Local/Programs/MiKTeX 2.9/tex/generic/babel/babel.sty
+INPUT C:/Users/rcost/AppData/Local/Programs/MiKTeX 2.9/tex/generic/babel/switch.def
+INPUT C:/Users/rcost/AppData/Local/Programs/MiKTeX 2.9/tex/latex/arabi/bblopts.cfg
+INPUT C:/Users/rcost/AppData/Local/Programs/MiKTeX 2.9/tex/latex/arabi/bblopts.cfg
+INPUT C:/Users/rcost/AppData/Local/Programs/MiKTeX 2.9/tex/latex/babel-english/english.ldf
+INPUT C:/Users/rcost/AppData/Local/Programs/MiKTeX 2.9/tex/latex/babel-english/english.ldf
+INPUT C:/Users/rcost/AppData/Local/Programs/MiKTeX 2.9/tex/generic/babel/babel.def
+INPUT C:/Users/rcost/AppData/Local/Programs/MiKTeX 2.9/tex/generic/babel/txtbabel.def
+INPUT C:/Users/rcost/AppData/Local/Programs/MiKTeX 2.9/tex/latex/babel-portuges/portuges.ldf
+INPUT C:/Users/rcost/AppData/Local/Programs/MiKTeX 2.9/tex/latex/babel-portuges/portuges.ldf
+INPUT brazilian.babel
+INPUT brazilian.babel
+INPUT english.babel
+INPUT english.babel
+INPUT C:/Users/rcost/AppData/Local/Programs/MiKTeX 2.9/tex/latex/lastpage/lastpage.sty
+INPUT C:/Users/rcost/AppData/Local/Programs/MiKTeX 2.9/tex/latex/lastpage/lastpage.sty
+INPUT C:/Users/rcost/AppData/Local/Programs/MiKTeX 2.9/tex/latex/tools/indentfirst.sty
+INPUT C:/Users/rcost/AppData/Local/Programs/MiKTeX 2.9/tex/latex/tools/indentfirst.sty
+INPUT iidefs.sty
+INPUT iidefs.sty
+INPUT C:/Users/rcost/AppData/Local/Programs/MiKTeX 2.9/tex/latex/graphics/graphicx.sty
+INPUT C:/Users/rcost/AppData/Local/Programs/MiKTeX 2.9/tex/latex/graphics/graphicx.sty
+INPUT C:/Users/rcost/AppData/Local/Programs/MiKTeX 2.9/tex/latex/graphics/graphics.sty
+INPUT C:/Users/rcost/AppData/Local/Programs/MiKTeX 2.9/tex/latex/graphics/graphics.sty
+INPUT C:/Users/rcost/AppData/Local/Programs/MiKTeX 2.9/tex/latex/graphics/trig.sty
+INPUT C:/Users/rcost/AppData/Local/Programs/MiKTeX 2.9/tex/latex/graphics/trig.sty
+INPUT C:/Users/rcost/AppData/Local/Programs/MiKTeX 2.9/tex/latex/graphics-cfg/graphics.cfg
+INPUT C:/Users/rcost/AppData/Local/Programs/MiKTeX 2.9/tex/latex/graphics-cfg/graphics.cfg
+INPUT C:/Users/rcost/AppData/Local/Programs/MiKTeX 2.9/tex/latex/graphics-def/pdftex.def
+INPUT C:/Users/rcost/AppData/Local/Programs/MiKTeX 2.9/tex/latex/graphics-def/pdftex.def
+INPUT C:/Users/rcost/AppData/Local/Programs/MiKTeX 2.9/tex/latex/setspace/setspace.sty
+INPUT C:/Users/rcost/AppData/Local/Programs/MiKTeX 2.9/tex/latex/setspace/setspace.sty
+INPUT C:/Users/rcost/AppData/Local/Programs/MiKTeX 2.9/tex/latex/ccaption/ccaption.sty
+INPUT C:/Users/rcost/AppData/Local/Programs/MiKTeX 2.9/tex/latex/ccaption/ccaption.sty
+INPUT C:/Users/rcost/AppData/Local/Programs/MiKTeX 2.9/tex/latex/titlesec/titlesec.sty
+INPUT C:/Users/rcost/AppData/Local/Programs/MiKTeX 2.9/tex/latex/titlesec/titlesec.sty
+INPUT C:/Users/rcost/AppData/Local/Programs/MiKTeX 2.9/tex/latex/fancyhdr/fancyhdr.sty
+INPUT C:/Users/rcost/AppData/Local/Programs/MiKTeX 2.9/tex/latex/fancyhdr/fancyhdr.sty
+INPUT C:/Users/rcost/AppData/Local/Programs/MiKTeX 2.9/tex/latex/xcolor/xcolor.sty
+INPUT C:/Users/rcost/AppData/Local/Programs/MiKTeX 2.9/tex/latex/xcolor/xcolor.sty
+INPUT C:/Users/rcost/AppData/Local/Programs/MiKTeX 2.9/tex/latex/graphics-cfg/color.cfg
+INPUT C:/Users/rcost/AppData/Local/Programs/MiKTeX 2.9/tex/latex/graphics-cfg/color.cfg
+INPUT C:/Users/rcost/AppData/Local/Programs/MiKTeX 2.9/tex/latex/colortbl/colortbl.sty
+INPUT C:/Users/rcost/AppData/Local/Programs/MiKTeX 2.9/tex/latex/colortbl/colortbl.sty
+INPUT C:/Users/rcost/AppData/Local/Programs/MiKTeX 2.9/tex/latex/tools/array.sty
+INPUT C:/Users/rcost/AppData/Local/Programs/MiKTeX 2.9/tex/latex/tools/array.sty
+INPUT C:/Users/rcost/AppData/Local/Programs/MiKTeX 2.9/tex/latex/graphics/dvipsnam.def
+INPUT C:/Users/rcost/AppData/Local/Programs/MiKTeX 2.9/tex/latex/graphics/dvipsnam.def
+INPUT C:/Users/rcost/AppData/Local/Programs/MiKTeX 2.9/tex/latex/xcolor/svgnam.def
+INPUT C:/Users/rcost/AppData/Local/Programs/MiKTeX 2.9/tex/latex/xcolor/svgnam.def
+INPUT C:/Users/rcost/AppData/Local/Programs/MiKTeX 2.9/tex/latex/koma-script/tocstyle.sty
+INPUT C:/Users/rcost/AppData/Local/Programs/MiKTeX 2.9/tex/latex/koma-script/tocstyle.sty
+INPUT C:/Users/rcost/AppData/Local/Programs/MiKTeX 2.9/tex/latex/hyperref/hyperref.sty
+INPUT C:/Users/rcost/AppData/Local/Programs/MiKTeX 2.9/tex/latex/hyperref/hyperref.sty
+INPUT C:/Users/rcost/AppData/Local/Programs/MiKTeX 2.9/tex/generic/oberdiek/hobsub-hyperref.sty
+INPUT C:/Users/rcost/AppData/Local/Programs/MiKTeX 2.9/tex/generic/oberdiek/hobsub-hyperref.sty
+INPUT C:/Users/rcost/AppData/Local/Programs/MiKTeX 2.9/tex/generic/oberdiek/hobsub-hyperref.sty
+INPUT C:/Users/rcost/AppData/Local/Programs/MiKTeX 2.9/tex/generic/oberdiek/hobsub-generic.sty
+INPUT C:/Users/rcost/AppData/Local/Programs/MiKTeX 2.9/tex/generic/oberdiek/hobsub-generic.sty
+INPUT C:/Users/rcost/AppData/Local/Programs/MiKTeX 2.9/tex/generic/ifxetex/ifxetex.sty
+INPUT C:/Users/rcost/AppData/Local/Programs/MiKTeX 2.9/tex/generic/ifxetex/ifxetex.sty
+INPUT C:/Users/rcost/AppData/Local/Programs/MiKTeX 2.9/tex/latex/oberdiek/auxhook.sty
+INPUT C:/Users/rcost/AppData/Local/Programs/MiKTeX 2.9/tex/latex/oberdiek/auxhook.sty
+INPUT C:/Users/rcost/AppData/Local/Programs/MiKTeX 2.9/tex/latex/oberdiek/kvoptions.sty
+INPUT C:/Users/rcost/AppData/Local/Programs/MiKTeX 2.9/tex/latex/oberdiek/kvoptions.sty
+INPUT C:/Users/rcost/AppData/Local/Programs/MiKTeX 2.9/tex/latex/hyperref/pd1enc.def
+INPUT C:/Users/rcost/AppData/Local/Programs/MiKTeX 2.9/tex/latex/hyperref/pd1enc.def
+INPUT C:/Users/rcost/AppData/Local/Programs/MiKTeX 2.9/tex/latex/00miktex/hyperref.cfg
+INPUT C:/Users/rcost/AppData/Local/Programs/MiKTeX 2.9/tex/latex/00miktex/hyperref.cfg
+INPUT C:/Users/rcost/AppData/Local/Programs/MiKTeX 2.9/tex/latex/hyperref/puenc.def
+INPUT C:/Users/rcost/AppData/Local/Programs/MiKTeX 2.9/tex/latex/hyperref/puenc.def
+INPUT C:/Users/rcost/AppData/Local/Programs/MiKTeX 2.9/tex/latex/url/url.sty
+INPUT C:/Users/rcost/AppData/Local/Programs/MiKTeX 2.9/tex/latex/url/url.sty
+INPUT C:/Users/rcost/AppData/Local/Programs/MiKTeX 2.9/tex/latex/hyperref/hpdftex.def
+INPUT C:/Users/rcost/AppData/Local/Programs/MiKTeX 2.9/tex/latex/hyperref/hpdftex.def
+INPUT C:/Users/rcost/AppData/Local/Programs/MiKTeX 2.9/tex/latex/oberdiek/rerunfilecheck.sty
+INPUT C:/Users/rcost/AppData/Local/Programs/MiKTeX 2.9/tex/latex/oberdiek/rerunfilecheck.sty
+INPUT C:/Users/rcost/AppData/Local/Programs/MiKTeX 2.9/tex/latex/oberdiek/hypcap.sty
+INPUT C:/Users/rcost/AppData/Local/Programs/MiKTeX 2.9/tex/latex/oberdiek/hypcap.sty
+INPUT C:/Users/rcost/AppData/Local/Programs/MiKTeX 2.9/tex/latex/psnfss/times.sty
+INPUT C:/Users/rcost/AppData/Local/Programs/MiKTeX 2.9/tex/latex/psnfss/times.sty
+INPUT C:/Users/rcost/AppData/Local/Programs/MiKTeX 2.9/tex/latex/base/fontenc.sty
+INPUT C:/Users/rcost/AppData/Local/Programs/MiKTeX 2.9/tex/latex/base/fontenc.sty
+INPUT C:/Users/rcost/AppData/Local/Programs/MiKTeX 2.9/tex/latex/base/t1enc.def
+INPUT C:/Users/rcost/AppData/Local/Programs/MiKTeX 2.9/tex/latex/base/t1enc.def
+INPUT C:/Users/rcost/AppData/Local/Programs/MiKTeX 2.9/fonts/tfm/jknappen/ec/ecrm1200.tfm
+INPUT abntex2cite.sty
+INPUT abntex2cite.sty
+INPUT C:/Users/rcost/AppData/Local/Programs/MiKTeX 2.9/tex/latex/base/ifthen.sty
+INPUT C:/Users/rcost/AppData/Local/Programs/MiKTeX 2.9/tex/latex/base/ifthen.sty
+INPUT C:/Users/rcost/AppData/Local/Programs/MiKTeX 2.9/tex/latex/tools/calc.sty
+INPUT C:/Users/rcost/AppData/Local/Programs/MiKTeX 2.9/tex/latex/tools/calc.sty
+INPUT abntex2abrev.sty
+INPUT abntex2abrev.sty
+INPUT C:/Users/rcost/AppData/Local/Programs/MiKTeX 2.9/tex/latex/l3packages/xparse/xparse.sty
+INPUT C:/Users/rcost/AppData/Local/Programs/MiKTeX 2.9/tex/latex/l3packages/xparse/xparse.sty
+INPUT C:/Users/rcost/AppData/Local/Programs/MiKTeX 2.9/tex/latex/l3kernel/expl3.sty
+INPUT C:/Users/rcost/AppData/Local/Programs/MiKTeX 2.9/tex/latex/l3kernel/expl3.sty
+INPUT C:/Users/rcost/AppData/Local/Programs/MiKTeX 2.9/tex/latex/l3kernel/expl3-code.tex
+INPUT C:/Users/rcost/AppData/Local/Programs/MiKTeX 2.9/tex/latex/l3kernel/expl3-code.tex
+INPUT C:/Users/rcost/AppData/Local/Programs/MiKTeX 2.9/fonts/tfm/public/cm/cmr10.tfm
+INPUT C:/Users/rcost/AppData/Local/Programs/MiKTeX 2.9/fonts/tfm/public/cm/cmr10.tfm
+INPUT C:/Users/rcost/AppData/Local/Programs/MiKTeX 2.9/fonts/tfm/public/cm/cmr10.tfm
+INPUT C:/Users/rcost/AppData/Local/Programs/MiKTeX 2.9/fonts/tfm/public/cm/cmr10.tfm
+INPUT C:/Users/rcost/AppData/Local/Programs/MiKTeX 2.9/fonts/tfm/public/cm/cmr10.tfm
+INPUT C:/Users/rcost/AppData/Local/Programs/MiKTeX 2.9/fonts/tfm/public/cm/cmr10.tfm
+INPUT C:/Users/rcost/AppData/Local/Programs/MiKTeX 2.9/fonts/tfm/public/cm/cmr10.tfm
+INPUT C:/Users/rcost/AppData/Local/Programs/MiKTeX 2.9/fonts/tfm/public/cm/cmr10.tfm
+INPUT C:/Users/rcost/AppData/Local/Programs/MiKTeX 2.9/tex/generic/unicode-data/UnicodeData.txt
+INPUT C:/Users/rcost/AppData/Local/Programs/MiKTeX 2.9/tex/generic/unicode-data/UnicodeData.txt
+INPUT C:/Users/rcost/AppData/Local/Programs/MiKTeX 2.9/tex/latex/l3kernel/l3pdfmode.def
+INPUT C:/Users/rcost/AppData/Local/Programs/MiKTeX 2.9/tex/latex/l3kernel/l3pdfmode.def
+INPUT C:/Users/rcost/AppData/Local/Programs/MiKTeX 2.9/tex/latex/ltxmisc/relsize.sty
+INPUT C:/Users/rcost/AppData/Local/Programs/MiKTeX 2.9/tex/latex/ltxmisc/relsize.sty
+INPUT C:/Users/rcost/AppData/Local/Programs/MiKTeX 2.9/tex/latex/ltxmisc/relsize.sty
+INPUT C:/Users/rcost/AppData/Local/Programs/MiKTeX 2.9/tex/latex/geometry/geometry.sty
+INPUT C:/Users/rcost/AppData/Local/Programs/MiKTeX 2.9/tex/latex/geometry/geometry.sty
+INPUT C:/Users/rcost/AppData/Local/Programs/MiKTeX 2.9/tex/latex/geometry/geometry.cfg
+INPUT C:/Users/rcost/AppData/Local/Programs/MiKTeX 2.9/tex/latex/geometry/geometry.cfg
+INPUT C:/Users/rcost/AppData/Local/Programs/MiKTeX 2.9/tex/latex/float/float.sty
+INPUT C:/Users/rcost/AppData/Local/Programs/MiKTeX 2.9/tex/latex/float/float.sty
+INPUT rel_mlp.def
+INPUT rel_mlp.def
+INPUT nominata.def
+INPUT nominata.def
+INPUT C:/Users/rcost/AppData/Local/Programs/MiKTeX 2.9/tex/latex/base/inputenc.sty
+INPUT C:/Users/rcost/AppData/Local/Programs/MiKTeX 2.9/tex/latex/base/inputenc.sty
+INPUT C:/Users/rcost/AppData/Local/Programs/MiKTeX 2.9/tex/latex/base/utf8.def
+INPUT C:/Users/rcost/AppData/Local/Programs/MiKTeX 2.9/tex/latex/base/utf8.def
+INPUT C:/Users/rcost/AppData/Local/Programs/MiKTeX 2.9/tex/latex/base/t1enc.dfu
+INPUT C:/Users/rcost/AppData/Local/Programs/MiKTeX 2.9/tex/latex/base/t1enc.dfu
+INPUT C:/Users/rcost/AppData/Local/Programs/MiKTeX 2.9/tex/latex/base/ot1enc.dfu
+INPUT C:/Users/rcost/AppData/Local/Programs/MiKTeX 2.9/tex/latex/base/ot1enc.dfu
+INPUT C:/Users/rcost/AppData/Local/Programs/MiKTeX 2.9/tex/latex/base/omsenc.dfu
+INPUT C:/Users/rcost/AppData/Local/Programs/MiKTeX 2.9/tex/latex/base/omsenc.dfu
+INPUT C:/Users/rcost/AppData/Local/Programs/MiKTeX 2.9/tex/latex/base/fontenc.sty
+INPUT C:/Users/rcost/AppData/Local/Programs/MiKTeX 2.9/tex/latex/base/fontenc.sty
+INPUT C:/Users/rcost/AppData/Local/Programs/MiKTeX 2.9/tex/latex/base/t1enc.def
+INPUT C:/Users/rcost/AppData/Local/Programs/MiKTeX 2.9/tex/latex/base/t1enc.def
+INPUT C:/Users/rcost/AppData/Local/Programs/MiKTeX 2.9/tex/latex/tools/enumerate.sty
+INPUT C:/Users/rcost/AppData/Local/Programs/MiKTeX 2.9/tex/latex/tools/enumerate.sty
+INPUT C:/Users/rcost/AppData/Local/Programs/MiKTeX 2.9/tex/latex/breakcites/breakcites.sty
+INPUT C:/Users/rcost/AppData/Local/Programs/MiKTeX 2.9/tex/latex/breakcites/breakcites.sty
+INPUT C:/Users/rcost/AppData/Local/Programs/MiKTeX 2.9/tex/latex/enumitem/enumitem.sty
+INPUT C:/Users/rcost/AppData/Local/Programs/MiKTeX 2.9/tex/latex/enumitem/enumitem.sty
+INPUT C:/Users/rcost/AppData/Local/Programs/MiKTeX 2.9/tex/latex/titlesec/titletoc.sty
+INPUT C:/Users/rcost/AppData/Local/Programs/MiKTeX 2.9/tex/latex/titlesec/titletoc.sty
+INPUT C:/Users/rcost/AppData/Local/Programs/MiKTeX 2.9/tex/latex/listings/listings.sty
+INPUT C:/Users/rcost/AppData/Local/Programs/MiKTeX 2.9/tex/latex/listings/listings.sty
+INPUT C:/Users/rcost/AppData/Local/Programs/MiKTeX 2.9/tex/latex/listings/lstmisc.sty
+INPUT C:/Users/rcost/AppData/Local/Programs/MiKTeX 2.9/tex/latex/listings/lstmisc.sty
+INPUT C:/Users/rcost/AppData/Local/Programs/MiKTeX 2.9/tex/latex/listings/listings.cfg
+INPUT C:/Users/rcost/AppData/Local/Programs/MiKTeX 2.9/tex/latex/listings/listings.cfg
+INPUT C:/Users/rcost/AppData/Local/Programs/MiKTeX 2.9/tex/latex/psnfss/mathptmx.sty
+INPUT C:/Users/rcost/AppData/Local/Programs/MiKTeX 2.9/tex/latex/psnfss/mathptmx.sty
+INPUT relatorio.aux
+INPUT relatorio.aux
+OUTPUT relatorio.aux
+INPUT C:/Users/rcost/AppData/Local/Programs/MiKTeX 2.9/tex/latex/psnfss/t1ptm.fd
+INPUT C:/Users/rcost/AppData/Local/Programs/MiKTeX 2.9/tex/latex/psnfss/t1ptm.fd
+INPUT C:/Users/rcost/AppData/Local/Programs/MiKTeX 2.9/fonts/tfm/adobe/times/ptmr8t.tfm
+INPUT C:/Users/rcost/AppData/Local/Programs/MiKTeX 2.9/tex/context/base/supp-pdf.mkii
+INPUT C:/Users/rcost/AppData/Local/Programs/MiKTeX 2.9/tex/context/base/supp-pdf.mkii
+INPUT C:/Users/rcost/AppData/Local/Programs/MiKTeX 2.9/tex/latex/oberdiek/epstopdf-base.sty
+INPUT C:/Users/rcost/AppData/Local/Programs/MiKTeX 2.9/tex/latex/oberdiek/epstopdf-base.sty
+INPUT C:/Users/rcost/AppData/Local/Programs/MiKTeX 2.9/tex/latex/oberdiek/grfext.sty
+INPUT C:/Users/rcost/AppData/Local/Programs/MiKTeX 2.9/tex/latex/oberdiek/grfext.sty
+INPUT C:/Users/rcost/AppData/Local/Programs/MiKTeX 2.9/fonts/tfm/adobe/times/ptmr8t.tfm
+INPUT C:/Users/rcost/AppData/Local/Programs/MiKTeX 2.9/fonts/tfm/adobe/times/ptmb8t.tfm
+INPUT C:/Users/rcost/AppData/Local/Programs/MiKTeX 2.9/fonts/tfm/adobe/times/ptmb8t.tfm
+INPUT C:/Users/rcost/AppData/Local/Programs/MiKTeX 2.9/tex/latex/psnfss/ot1ztmcm.fd
+INPUT C:/Users/rcost/AppData/Local/Programs/MiKTeX 2.9/tex/latex/psnfss/ot1ztmcm.fd
+INPUT C:/Users/rcost/AppData/Local/Programs/MiKTeX 2.9/fonts/tfm/adobe/times/zptmcm7t.tfm
+INPUT C:/Users/rcost/AppData/Local/Programs/MiKTeX 2.9/fonts/tfm/adobe/times/zptmcm7t.tfm
+INPUT C:/Users/rcost/AppData/Local/Programs/MiKTeX 2.9/fonts/tfm/adobe/times/zptmcm7t.tfm
+INPUT C:/Users/rcost/AppData/Local/Programs/MiKTeX 2.9/tex/latex/psnfss/omlztmcm.fd
+INPUT C:/Users/rcost/AppData/Local/Programs/MiKTeX 2.9/tex/latex/psnfss/omlztmcm.fd
+INPUT C:/Users/rcost/AppData/Local/Programs/MiKTeX 2.9/fonts/tfm/adobe/times/zptmcm7m.tfm
+INPUT C:/Users/rcost/AppData/Local/Programs/MiKTeX 2.9/fonts/tfm/adobe/times/zptmcm7m.tfm
+INPUT C:/Users/rcost/AppData/Local/Programs/MiKTeX 2.9/fonts/tfm/adobe/times/zptmcm7m.tfm
+INPUT C:/Users/rcost/AppData/Local/Programs/MiKTeX 2.9/tex/latex/psnfss/omsztmcm.fd
+INPUT C:/Users/rcost/AppData/Local/Programs/MiKTeX 2.9/tex/latex/psnfss/omsztmcm.fd
+INPUT C:/Users/rcost/AppData/Local/Programs/MiKTeX 2.9/fonts/tfm/adobe/times/zptmcm7y.tfm
+INPUT C:/Users/rcost/AppData/Local/Programs/MiKTeX 2.9/fonts/tfm/adobe/times/zptmcm7y.tfm
+INPUT C:/Users/rcost/AppData/Local/Programs/MiKTeX 2.9/fonts/tfm/adobe/times/zptmcm7y.tfm
+INPUT C:/Users/rcost/AppData/Local/Programs/MiKTeX 2.9/tex/latex/psnfss/omxztmcm.fd
+INPUT C:/Users/rcost/AppData/Local/Programs/MiKTeX 2.9/tex/latex/psnfss/omxztmcm.fd
+INPUT C:/Users/rcost/AppData/Local/Programs/MiKTeX 2.9/fonts/tfm/adobe/times/zptmcm7v.tfm
+INPUT C:/Users/rcost/AppData/Local/Programs/MiKTeX 2.9/fonts/tfm/adobe/times/zptmcm7v.tfm
+INPUT C:/Users/rcost/AppData/Local/Programs/MiKTeX 2.9/fonts/tfm/adobe/times/zptmcm7v.tfm
+INPUT C:/Users/rcost/AppData/Local/Programs/MiKTeX 2.9/tex/latex/psnfss/ot1ptm.fd
+INPUT C:/Users/rcost/AppData/Local/Programs/MiKTeX 2.9/tex/latex/psnfss/ot1ptm.fd
+INPUT C:/Users/rcost/AppData/Local/Programs/MiKTeX 2.9/fonts/tfm/adobe/times/ptmb7t.tfm
+INPUT C:/Users/rcost/AppData/Local/Programs/MiKTeX 2.9/fonts/tfm/adobe/times/ptmb7t.tfm
+INPUT C:/Users/rcost/AppData/Local/Programs/MiKTeX 2.9/fonts/tfm/adobe/times/ptmb7t.tfm
+INPUT C:/Users/rcost/AppData/Local/Programs/MiKTeX 2.9/fonts/tfm/adobe/times/ptmri7t.tfm
+INPUT C:/Users/rcost/AppData/Local/Programs/MiKTeX 2.9/fonts/tfm/adobe/times/ptmri7t.tfm
+INPUT C:/Users/rcost/AppData/Local/Programs/MiKTeX 2.9/fonts/tfm/adobe/times/ptmri7t.tfm
+INPUT C:/Users/rcost/AppData/Local/Programs/MiKTeX 2.9/tex/latex/hyperref/nameref.sty
+INPUT C:/Users/rcost/AppData/Local/Programs/MiKTeX 2.9/tex/latex/hyperref/nameref.sty
+INPUT C:/Users/rcost/AppData/Local/Programs/MiKTeX 2.9/tex/generic/oberdiek/gettitlestring.sty
+INPUT C:/Users/rcost/AppData/Local/Programs/MiKTeX 2.9/tex/generic/oberdiek/gettitlestring.sty
+INPUT relatorio.out
+INPUT relatorio.out
+INPUT relatorio.out
+INPUT relatorio.out
+OUTPUT relatorio.pdf
+INPUT ./relatorio.out
+INPUT ./relatorio.out
+OUTPUT relatorio.out
+INPUT C:/Users/rcost/AppData/Local/Programs/MiKTeX 2.9/fonts/vf/adobe/times/ptmr8t.vf
+INPUT C:/Users/rcost/AppData/Local/Programs/MiKTeX 2.9/fonts/tfm/adobe/times/ptmr8r.tfm
+INPUT C:/Users/rcost/AppData/Local/MiKTeX/2.9/pdftex/config/pdftex.map
+INPUT C:/Users/rcost/AppData/Local/Programs/MiKTeX 2.9/fonts/vf/adobe/times/ptmb8t.vf
+INPUT C:/Users/rcost/AppData/Local/Programs/MiKTeX 2.9/fonts/tfm/adobe/times/ptmb8r.tfm
+INPUT relatorio.toc
+INPUT relatorio.toc
+OUTPUT relatorio.toc
+INPUT C:/Users/rcost/AppData/Local/Programs/MiKTeX 2.9/fonts/vf/adobe/times/ptmb8t.vf
+INPUT C:/Users/rcost/AppData/Local/Programs/MiKTeX 2.9/fonts/tfm/adobe/times/ptmb8r.tfm
+INPUT C:/Users/rcost/AppData/Local/Programs/MiKTeX 2.9/fonts/tfm/adobe/times/ptmr8t.tfm
+INPUT C:/Users/rcost/AppData/Local/Programs/MiKTeX 2.9/fonts/vf/adobe/times/ptmr8t.vf
+INPUT C:/Users/rcost/AppData/Local/Programs/MiKTeX 2.9/fonts/tfm/adobe/times/ptmr8r.tfm
+INPUT C:/Users/rcost/AppData/Local/Programs/MiKTeX 2.9/fonts/tfm/adobe/times/ptmr8t.tfm
+INPUT C:/Users/rcost/AppData/Local/Programs/MiKTeX 2.9/tex/latex/psnfss/t1pcr.fd
+INPUT C:/Users/rcost/AppData/Local/Programs/MiKTeX 2.9/tex/latex/psnfss/t1pcr.fd
+INPUT C:/Users/rcost/AppData/Local/Programs/MiKTeX 2.9/fonts/tfm/adobe/courier/pcrr8t.tfm
+INPUT C:/Users/rcost/AppData/Local/Programs/MiKTeX 2.9/fonts/tfm/adobe/courier/pcrb8t.tfm
+INPUT C:/Users/rcost/AppData/Local/Programs/MiKTeX 2.9/fonts/tfm/adobe/courier/pcrr8t.tfm
+INPUT C:/Users/rcost/AppData/Local/Programs/MiKTeX 2.9/fonts/vf/adobe/times/ptmr8t.vf
+INPUT C:/Users/rcost/AppData/Local/Programs/MiKTeX 2.9/fonts/tfm/adobe/times/ptmr8r.tfm
+INPUT C:/Users/rcost/AppData/Local/Programs/MiKTeX 2.9/fonts/vf/adobe/courier/pcrb8t.vf
+INPUT C:/Users/rcost/AppData/Local/Programs/MiKTeX 2.9/fonts/tfm/adobe/courier/pcrb8r.tfm
+INPUT C:/Users/rcost/AppData/Local/Programs/MiKTeX 2.9/fonts/vf/adobe/courier/pcrr8t.vf
+INPUT C:/Users/rcost/AppData/Local/Programs/MiKTeX 2.9/fonts/tfm/adobe/courier/pcrr8r.tfm
+INPUT C:/Users/rcost/AppData/Local/Programs/MiKTeX 2.9/fonts/vf/adobe/courier/pcrr8t.vf
+INPUT C:/Users/rcost/AppData/Local/Programs/MiKTeX 2.9/fonts/tfm/adobe/courier/pcrr8r.tfm
+INPUT C:/Users/rcost/AppData/Local/Programs/MiKTeX 2.9/tex/latex/psnfss/omsptm.fd
+INPUT C:/Users/rcost/AppData/Local/Programs/MiKTeX 2.9/tex/latex/psnfss/omsptm.fd
+INPUT C:/Users/rcost/AppData/Local/Programs/MiKTeX 2.9/fonts/tfm/public/cm/cmsy10.tfm
+INPUT C:/Users/rcost/AppData/Local/Programs/MiKTeX 2.9/fonts/tfm/adobe/times/ptmri8t.tfm
+INPUT C:/Users/rcost/AppData/Local/Programs/MiKTeX 2.9/fonts/vf/adobe/times/ptmri8t.vf
+INPUT C:/Users/rcost/AppData/Local/Programs/MiKTeX 2.9/fonts/tfm/adobe/times/ptmri8r.tfm
+INPUT partialResults.png
+INPUT ./partialResults.png
+INPUT ./partialResults.png
+INPUT ./partialResults.png
+INPUT ./partialResults.png
+INPUT relatorio.aux
+INPUT ./relatorio.out
+INPUT ./relatorio.out
+INPUT C:/Users/rcost/AppData/Local/Programs/MiKTeX 2.9/fonts/enc/dvips/base/8r.enc
+INPUT C:/Users/rcost/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy10.pfb
+INPUT C:/Users/rcost/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy10.pfb
+INPUT C:/Users/rcost/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/urw/courier/ucrb8a.pfb
+INPUT C:/Users/rcost/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/urw/courier/ucrb8a.pfb
+INPUT C:/Users/rcost/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/urw/courier/ucrr8a.pfb
+INPUT C:/Users/rcost/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/urw/courier/ucrr8a.pfb
+INPUT C:/Users/rcost/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/urw/times/utmb8a.pfb
+INPUT C:/Users/rcost/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/urw/times/utmb8a.pfb
+INPUT C:/Users/rcost/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/urw/times/utmr8a.pfb
+INPUT C:/Users/rcost/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/urw/times/utmr8a.pfb
+INPUT C:/Users/rcost/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/urw/times/utmri8a.pfb
+INPUT C:/Users/rcost/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/urw/times/utmri8a.pfb

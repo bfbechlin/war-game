@@ -251,7 +251,7 @@ Juntamente com o NodeJS, é instalado o gerenciador de pacotes \textbf{NPM}, que
 Essas dependências são instaladas localmente dentro de uma pasta na mesma raiz do projeto, independente da plataforma e sem nenhuma ligação com sistema operacional do usuário. Isso aumenta a portabilidade do projeto e automatiza o processo de construção da aplicação, já que com um comando é baixado e instalado todas as dependências listadas no projeto.
 
 \subsection{Instalando a aplicação}
-Como citado anteriormente o projeto usa o \textbf{NodeJS} e \textbf{NPM}. No primeiro momento é necessário instalar as dependências externas do projeto, como até mesmo o \textbf{Typescript}, \textbf{Babel transpiler}, \textbf{Redux}, \textbf{React} e outros. \par
+Como citado anteriormente o projeto usa o \textbf{NodeJS} e \textbf{NPM}. No primeiro momento é necessário instalar as dependências externas do projeto, como até mesmo o \textbf{Typescript}, \textbf{Babel transpiler}, \textbf{Redux}, \textbf{React}, \textbf{MobX} e outros. \par
 Para realizar a instalação, execute via terminal o seguinte comando no diretório raíz do projeto:
 
 \begin{lstlisting}[language=JavaScript]
@@ -596,7 +596,22 @@ Diferente de outras linguagens que apresentam características funcionais, Types
 
 
 \section{Paradigma de orientação a objetos}
+Para...
 
+\subsection{MobX}
+O conjunto React+MobX é uma combinação não tão comum para aplicações React. Assim como o Redux, MobX serve para controlar o estado da aplicação fora dos componentes React garantindo a escalabilidade e manutenibilidade
+ do projeto, mas ao contrario da sua alternativa funcional Redux, MobX trabalha muito bem com o paradigma orientado a objetos, integrando as funcionalidades tanto de ações e redutores em classes, o que acaba convendo uma clareza
+ e familiraidade não vista antes na etapa funcional do projeto usando sua alternativa, Redux. O cerne do MobX está no uso dos decoradores \textbf{@observer} e \textbf{@observable}, \textbf{@observable} encapsula um objeto, array ou instancia de classe 
+  permitindo que o MobX tenha visão sobre o uso do seu respectivo \textbf{setter}, esse acesso especial permite framework reaja as mudanças em dados marcados como \textbf{@observable}. Para permitir as reaçoes dos componentes \textbf{React}
+   usamos o decorador \textbf{@observers}, ao encapsular os componentes marcados ele força a chamada do método \textbf{render} do componente toda vez que algum dado marcado como \textbf{@observable} acessado dento do componente mude seu valor.
+    Essa capacidade junto com uma série de otimizacões do framework permitem que a UI reaja rapidamente a mudanças no estado sem prejudicar a legibilidade do código.
+
+  \subsection{Nova estrutura do projeto}
+
+  \subsection{Stores}
+
+  \subsection{@action e @computed}
+  
 \chapter{Resultados}
 \begin{figure}[ht]
 \centering

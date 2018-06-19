@@ -1,6 +1,6 @@
-\select@language {brazilian}
-\select@language {brazilian}
-\select@language {brazilian}
+\babel@toc {brazilian}{}
+\babel@toc {brazilian}{}
+\babel@toc {brazilian}{}
 \contentsline {chapter}{1~Introdu\IeC {\c c}\IeC {\~a}o}{3}{CHAPTER.1}
 \contentsline {section}{\numberline {1.1}Vis\IeC {\~a}o geral da linguagem}{3}{section.1.1}
 \contentsline {section}{\numberline {1.2}Descri\IeC {\c c}\IeC {\~a}o do problema}{4}{section.1.2}
@@ -20,7 +20,11 @@
 \contentsline {subsection}{\numberline {2.4.2}Currying}{16}{subsection.2.4.2}
 \contentsline {subsection}{\numberline {2.4.3}Pattern matching}{17}{subsection.2.4.3}
 \contentsline {section}{\numberline {2.5}Paradigma de orienta\IeC {\c c}\IeC {\~a}o a objetos}{17}{section.2.5}
-\contentsline {chapter}{3~Resultados}{18}{CHAPTER.3}
-\contentsline {chapter}{4~Conclus\IeC {\~a}o}{19}{CHAPTER.4}
-\contentsline {chapter}{\xspace {}Refer{\^e}ncias}{20}{schapter.2}
+\contentsline {subsection}{\numberline {2.5.1}MobX}{18}{subsection.2.5.1}
+\contentsline {subsection}{\numberline {2.5.2}Nova estrutura do projeto}{18}{subsection.2.5.2}
+\contentsline {subsection}{\numberline {2.5.3}Stores}{18}{subsection.2.5.3}
+\contentsline {subsection}{\numberline {2.5.4}@action e @computed}{18}{subsection.2.5.4}
+\contentsline {chapter}{3~Resultados}{19}{CHAPTER.3}
+\contentsline {chapter}{4~Conclus\IeC {\~a}o}{20}{CHAPTER.4}
+\contentsline {chapter}{\xspace {}Refer{\^e}ncias}{21}{schapter.2}
 \contentsfinish 
