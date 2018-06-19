@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.19 (MiKTeX 2.9.6630 64-bit) (preloaded format=pdflatex 2018.5.8)  18 JUN 2018 22:34
+This is pdfTeX, Version 3.14159265-2.6-1.40.19 (MiKTeX 2.9.6630 64-bit) (preloaded format=pdflatex 2018.5.8)  19 JUN 2018 18:38
 entering extended mode
 **e:/UFRGS/war-game/report/relatorio.tex
 (e:/UFRGS/war-game/report/relatorio.tex
@@ -1263,13 +1263,13 @@ text indent calculated (toc, 2): 30.0pt
 number indent calculated (toc, 2): 39.0pt
 text noindent (toc, 2): 39.0pt
 number noindent (toc, 2): 0.0pt
-number indent by \l@... (toc, 1):  18.0pt
-text indent by \l@... (toc, 1):  27.60004pt
-number indent by parent (toc, 1):  18.0pt
-text indent calculated (toc, 1): 21.0pt
-number indent calculated (toc, 1): 18.0pt
-text noindent (toc, 1): 39.0pt
-number noindent (toc, 1): 0.0pt
+number indent by \l@... (toc, 2):  45.60004pt
+text indent by \l@... (toc, 2):  38.39996pt
+number indent by parent (toc, 2):  39.0pt
+text indent calculated (toc, 2): 30.0pt
+number indent calculated (toc, 2): 39.0pt
+text noindent (toc, 2): 39.0pt
+number noindent (toc, 2): 0.0pt
 number indent by \l@... (toc, 1):  18.0pt
 text indent by \l@... (toc, 1):  27.60004pt
 number indent by parent (toc, 1):  18.0pt
@@ -1291,6 +1291,13 @@ text indent calculated (toc, 2): 30.0pt
 number indent calculated (toc, 2): 39.0pt
 text noindent (toc, 2): 39.0pt
 number noindent (toc, 2): 0.0pt
+number indent by \l@... (toc, 2):  45.60004pt
+text indent by \l@... (toc, 2):  38.39996pt
+number indent by parent (toc, 2):  39.0pt
+text indent calculated (toc, 2): 30.0pt
+number indent calculated (toc, 2): 39.0pt
+text noindent (toc, 2): 39.0pt
+number noindent (toc, 2): 0.0pt
 number indent by \l@... (toc, 3):  84.0pt
 text indent by \l@... (toc, 3):  49.20007pt
 number indent by parent (toc, 3):  69.0pt
@@ -1340,6 +1347,20 @@ text indent calculated (toc, 1): 21.0pt
 number indent calculated (toc, 1): 18.0pt
 text noindent (toc, 1): 39.0pt
 number noindent (toc, 1): 0.0pt
+number indent by \l@... (toc, 2):  45.60004pt
+text indent by \l@... (toc, 2):  38.39996pt
+number indent by parent (toc, 2):  39.0pt
+text indent calculated (toc, 2): 30.0pt
+number indent calculated (toc, 2): 39.0pt
+text noindent (toc, 2): 39.0pt
+number noindent (toc, 2): 0.0pt
+number indent by \l@... (toc, 2):  45.60004pt
+text indent by \l@... (toc, 2):  38.39996pt
+number indent by parent (toc, 2):  39.0pt
+text indent calculated (toc, 2): 30.0pt
+number indent calculated (toc, 2): 39.0pt
+text noindent (toc, 2): 39.0pt
+number noindent (toc, 2): 0.0pt
 number indent by \l@... (toc, 2):  45.60004pt
 text indent by \l@... (toc, 2):  38.39996pt
 number indent by parent (toc, 2):  39.0pt
@@ -1466,170 +1487,192 @@ Package babel Info: Redefining portuges shorthand "|
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 284.
+(babel)             in language  on input line 288.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 284.
+(babel)             in language  on input line 288.
  [7]
-Underfull \vbox (badness 5681) has occurred while \output is active []
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 291.
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+
+Underfull \hbox (badness 10000) has occurred while \output is active
+\T1/ptm/m/n/10.95 8
+ []
 
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 313.
+(babel)             in language  on input line 298.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 313.
- [8]
+(babel)             in language  on input line 298.
+[8]
+Underfull \vbox (badness 3088) has occurred while \output is active []
+
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 342.
-LaTeX Font Info:    Try loading font information for OMS+ptm on input line 345.
+(babel)             in language  on input line 340.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 340.
+ [9]
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 354.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 356.
+LaTeX Font Info:    Try loading font information for OMS+ptm on input line 359.
 
 
 ("C:\Users\rcost\AppData\Local\Programs\MiKTeX 2.9\tex\latex\psnfss\omsptm.fd"
 File: omsptm.fd 
 )
 LaTeX Font Info:    Font shape `OMS/ptm/m/n' in size <12> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 345.
-Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 349.
-Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 349.
-[9]
-Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 360.
-Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 362.
-Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 363.
-Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 378.
-Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 378.
- [10]
-Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 411.
-Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 412.
-Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 412.
- [11]
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 359.
+
 Underfull \hbox (badness 10000) has occurred while \output is active
-\T1/ptm/m/n/10.95 12
+\T1/ptm/m/n/10.95 10
  []
 
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 444.
+(babel)             in language  on input line 374.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 444.
-[12]
+(babel)             in language  on input line 374.
+[10]
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 374.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 375.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 402.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 402.
+ [11]
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 423.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 430.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 430.
+ [12]
 Package babel Info: Redefining portuges shorthand "|
 (babel)             in language  on input line 470.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 487.
-Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 487.
+(babel)             in language  on input line 470.
  [13]
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 516.
+(babel)             in language  on input line 482.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 516.
+(babel)             in language  on input line 511.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 511.
  [14]
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 523.
+(babel)             in language  on input line 535.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 550.
+(babel)             in language  on input line 538.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 550.
+(babel)             in language  on input line 538.
  [15]
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 564.
+(babel)             in language  on input line 574.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 577.
-Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 577.
+(babel)             in language  on input line 574.
  [16]
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 593.
+(babel)             in language  on input line 576.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 598.
+(babel)             in language  on input line 599.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 601.
-
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
-Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 608.
-Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 608.
+(babel)             in language  on input line 599.
  [17]
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 609.
+(babel)             in language  on input line 605.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 611.
+(babel)             in language  on input line 610.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 613.
+(babel)             in language  on input line 612.
 
 Underfull \hbox (badness 10000) has occurred while \output is active
 \T1/ptm/m/n/10.95 18
  []
 
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 615.
+(babel)             in language  on input line 624.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 615.
+(babel)             in language  on input line 624.
 [18]
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 615.
-<partialResults.png, id=434, 1860.9525pt x 961.5925pt>
+(babel)             in language  on input line 628.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 630.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 632.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 634.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 636.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 638.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 638.
+ [19]
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 638.
+<partialResults.png, id=456, 1860.9525pt x 961.5925pt>
 File: partialResults.png Graphic file (type png)
 <use partialResults.png>
-Package pdftex.def Info: partialResults.png  used on input line 618.
+Package pdftex.def Info: partialResults.png  used on input line 641.
 (pdftex.def)             Requested size: 426.79135pt x 220.53069pt.
-Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 624.
-Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 624.
- [19
-
- <./partialResults.png (PNG copy)>]
-Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 624.
 
 Underfull \hbox (badness 10000) has occurred while \output is active
 \T1/ptm/m/n/10.95 20
  []
 
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 630.
+(babel)             in language  on input line 647.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 630.
+(babel)             in language  on input line 647.
 [20
 
-]
+ <./partialResults.png (PNG copy)>]
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 630.
- 
-AED: lastpage setting LastPage
+(babel)             in language  on input line 647.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 661.
+(babel)             in language  on input line 653.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 661.
-[21
+(babel)             in language  on input line 653.
+ [21
 
 ]
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 661.
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 661.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 661.
+(babel)             in language  on input line 653.
+ 
+AED: lastpage setting LastPage
+
+Underfull \hbox (badness 10000) has occurred while \output is active
+\T1/ptm/m/n/10.95 22
+ []
+
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 684.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 684.
+[22
+
+]
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 684.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 684.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 684.
  (relatorio.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 661.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 661.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 684.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 684.
 Package rerunfilecheck Info: File `relatorio.out' has not changed.
-(rerunfilecheck)             Checksum: 005A23E167F3B63A8A586C44FD42E8A2;4593.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 661.
+(rerunfilecheck)             Checksum: A93A55E8E282AD06797635DB864A8EA2;4965.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 684.
  ) 
 Here is how much of TeX's memory you used:
- 23189 strings out of 493305
- 385995 string characters out of 3129803
- 602162 words of memory out of 3000000
- 26216 multiletter control sequences out of 15000+200000
+ 23198 strings out of 493305
+ 386144 string characters out of 3129803
+ 678162 words of memory out of 3000000
+ 26219 multiletter control sequences out of 15000+200000
  559848 words of font info for 62 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
  48i,7n,45p,10391b,1911s stack positions out of 5000i,500n,10000p,200000b,50000s
@@ -1641,9 +1684,9 @@ e1/urw/courier/ucrr8a.pfb><C:/Users/rcost/AppData/Local/Programs/MiKTeX 2.9/fon
 ts/type1/urw/times/utmb8a.pfb><C:/Users/rcost/AppData/Local/Programs/MiKTeX 2.9
 /fonts/type1/urw/times/utmr8a.pfb><C:/Users/rcost/AppData/Local/Programs/MiKTeX
  2.9/fonts/type1/urw/times/utmri8a.pfb>
-Output written on relatorio.pdf (21 pages, 519151 bytes).
+Output written on relatorio.pdf (22 pages, 522889 bytes).
 PDF statistics:
- 543 PDF objects out of 1000 (max. 8388607)
- 279 named destinations out of 1000 (max. 500000)
- 222 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 565 PDF objects out of 1000 (max. 8388607)
+ 285 named destinations out of 1000 (max. 500000)
+ 246 words of extra memory for PDF output out of 10000 (max. 10000000)
 

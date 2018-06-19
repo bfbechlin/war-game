@@ -278,6 +278,16 @@ Para guardar esse objeto que contém os dados de estado é introduzido um concei
 A real alteração do estado é realizada dentro de \textbf{redutores}, que são basicamente funções que detalham o que cada ação deve gerar como resultado. Em geral, são criados com switchs com a variável seletora no tipo da ação e devem retornar um novo objeto que será substituído para representar o novo estado.\par
 A real utilidade Redux no caso do React é uma função de alta ordem disponível na pacote react-redux, onde é possível conectar os componentes React com a store. Nessa conexão com os componentes são injetados alguns atributos disponíveis na store como propriedades do componente React, através de uma função de mapeamento entre o estado e as propriedades. Essa função de mapeamento deve ser uma função pura, podendo ser realizado algumas manipulações antes de retornar as propriedades.
 
+\subsection{MobX}
+O conjunto React+MobX é uma combinação não tão comum para aplicações React. Assim como o Redux, MobX serve para controlar o estado da aplicação fora dos componentes React garantindo a escalabilidade e manutenibilidade
+ do projeto, mas ao contrario da sua alternativa funcional Redux, MobX trabalha muito bem com o paradigma orientado a objetos, integrando as funcionalidades tanto de ações e redutores em classes, o que acaba convendo uma clareza
+ e familiraidade não vista antes na etapa funcional do projeto usando sua alternativa, Redux. O cerne do MobX está no uso dos decoradores \textbf{@observer} e \textbf{@observable}, \textbf{@observable} encapsula um objeto, array ou instancia de classe 
+  permitindo que o MobX tenha visão sobre o uso do seu respectivo \textbf{setter}, esse acesso especial permite framework reaja as mudanças em dados marcados como \textbf{@observable}. Para permitir as reaçoes dos componentes \textbf{React}
+   usamos o decorador \textbf{@observers}, ao encapsular os componentes marcados ele força a chamada do método \textbf{render} do componente toda vez que algum dado marcado como \textbf{@observable} acessado dento do componente mude seu valor.
+    Essa capacidade junto com uma série de otimizacões do framework permitem que a UI reaja rapidamente a mudanças no estado sem prejudicar a legibilidade do código.
+
+    \par {@action e @computed}
+
 \section{TypeScript vs. JavaScript}
 Ao pé da letra JavaScript não é uma linguagem, mas sim uma definição feita pela ECMA foundation para servir como um contrato entre os navegadores e desenvolvedores de aplicações web sobre o que está disponível na sua engine de script. Isso nem sempre é totalmente cumprido e, com o processo de evolução da linguagem, vários navagores não implementam a especificação por completo. \par
 Esses problemas acabaram levando a soluções alternativas pela comunidade, como implementar as funcionalidadesnovas da linguagem usando elementos disponíveis no momento. Essa metodologia ficou conhecida como polyfill. Isso também foi evoluindo, criando um conjunto grandes de polyfills e então se começou a realizar o processo de transpilação, onde o código fonte JavaScript é transformado novamente em JavaScript, usando as funcionalidades das especificações antigas. \par
@@ -296,6 +306,8 @@ Outro ponto interessante nesse contexto é a possibilidade de usar grande parte 
    "classnames": "^2.2.5",
    "history": "^4.7.2",
    "material-ui": "^0.20.0",
+   "mobx": "^5.0.2",
+   "mobx-react": "^5.2.3",
    "react": "^16.3.1",
    "react-dom": "^16.3.1",
    "react-redux": "^5.0.7",
@@ -339,7 +351,9 @@ Outro ponto interessante nesse contexto é a possibilidade de usar grande parte 
 
 Esse processo é usado por outras linguagens além do TypeScript, como ClojureScript, CoffeeScript e outros.
 
-\section{Estrutura do projeto}
+\section{Paradigma funcional}
+
+\subsection{Estrutura do projeto}
 Na pasta \verb|src| se encontra todo o fonte do projeto com a seguinte hierarquia de pastas:
 \begin{itemize}
   \item \textbf{Components}: componentes React. Separado por componentes chaves, mas que possuem outros componentes relacionados/dependentes.
@@ -356,8 +370,6 @@ Na pasta \verb|src| se encontra todo o fonte do projeto com a seguinte hierarqui
 \par Existem arquivos soltos dentro da pasta \verb|src| que são os arquivos de ponto de entrada para a criação da aplicação.
 
 
-
-\section{Paradigma funcional}
 
 \subsection{Conceitos explorados nas funções}
 \subsubsection{utils/array}
@@ -596,21 +608,32 @@ Diferente de outras linguagens que apresentam características funcionais, Types
 
 
 \section{Paradigma de orientação a objetos}
-Para...
 
-\subsection{MobX}
-O conjunto React+MobX é uma combinação não tão comum para aplicações React. Assim como o Redux, MobX serve para controlar o estado da aplicação fora dos componentes React garantindo a escalabilidade e manutenibilidade
- do projeto, mas ao contrario da sua alternativa funcional Redux, MobX trabalha muito bem com o paradigma orientado a objetos, integrando as funcionalidades tanto de ações e redutores em classes, o que acaba convendo uma clareza
- e familiraidade não vista antes na etapa funcional do projeto usando sua alternativa, Redux. O cerne do MobX está no uso dos decoradores \textbf{@observer} e \textbf{@observable}, \textbf{@observable} encapsula um objeto, array ou instancia de classe 
-  permitindo que o MobX tenha visão sobre o uso do seu respectivo \textbf{setter}, esse acesso especial permite framework reaja as mudanças em dados marcados como \textbf{@observable}. Para permitir as reaçoes dos componentes \textbf{React}
-   usamos o decorador \textbf{@observers}, ao encapsular os componentes marcados ele força a chamada do método \textbf{render} do componente toda vez que algum dado marcado como \textbf{@observable} acessado dento do componente mude seu valor.
-    Essa capacidade junto com uma série de otimizacões do framework permitem que a UI reaja rapidamente a mudanças no estado sem prejudicar a legibilidade do código.
+\subsection{Estrutura do projeto}
+Na pasta \verb|src| se encontra todo o fonte do projeto com a seguinte hierarquia de pastas:
+\begin{itemize}
+  \item \textbf{Components}: componentes React. Separado por componentes chaves, mas que possuem outros componentes relacionados/dependentes.
+  \item \textbf{Core}: lógica de negócio em geral. Com as seguintes subpastas:
+    \begin{itemize}
+      \item \textbf{Transducers}: funções puras, como mapeamento de estado para propriedades, levantamento de possíveis países para atacar.
+      \item \textbf{Transitions}: funções que precisam ler o estado da aplicação para operar.
+    \end{itemize}
+  \item \textbf{Hocs}: componetes de alta ordem React.
+  \item \textbf{Store}: gerenciador de estado Redux. Separado por grupo de funcionalidades, contendo o seu redutor e suas ações.
+  \item \textbf{Utils}: utilidades em geral, como funções de alta ordem para manipulação de listas e objetos, cores e etc.
+\end{itemize}
 
-  \subsection{Nova estrutura do projeto}
+\par Existem arquivos soltos dentro da pasta \verb|src| que são os arquivos de ponto de entrada para a criação da aplicação.
 
-  \subsection{Stores}
+\subsection{Classes}
 
-  \subsection{@action e @computed}
+\subsection{Encapsulamento}
+
+\subsection{Singleton}
+
+\subsection{Métodos}
+
+\subsection{Herança}
   
 \chapter{Resultados}
 \begin{figure}[ht]
