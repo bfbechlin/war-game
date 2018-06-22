@@ -1,47 +1,54 @@
 import store from 'store/';
 import { Countries } from 'store/country/types';
 
-export const addTroops = (country: Countries, quantity: number) => {
-  const { game, player } = store;
-  store.country.incrementTroops(country, quantity);
-  // store.dispatch(decrementAvailableTroops(turnOwner, quantity));
-  player.decrementTroops(game.turnOwner, quantity);
-};
+interface GameActionResolverInterface {
 
-export const attack = (from: Countries, to: Countries, quantity: number): boolean => {
-  const { country } = store;
-  let fromTroops = country.countries[from].troops;
-  let toTroops = country.countries[to].troops;
-  for (let i = 0; i < quantity; i++) {
-    if (fromTroops < 2 || toTroops < 1) {
-      break;
+  addTroops(country: Countries, quantity: number): void;
+  attack(from: Countries, to: Countries, quantity: number): boolean;
+  move(from: Countries, to: Countries, quantity: number): void;
+
+}
+
+class GameActionResolver implements GameActionResolverInterface {
+
+  addTroops(country: Countries, quantity: number): void {
+    const { game, player } = store;
+    store.country.incrementTroops(country, quantity);
+    player.decrementTroops(game.turnOwner, quantity);
+  }
+
+  attack(from: Countries, to: Countries, quantity: number): boolean {
+    const { country } = store;
+    let fromTroops = country.countries[from].troops;
+    let toTroops = country.countries[to].troops;
+    for (let i = 0; i < quantity; i++) {
+      if (fromTroops < 2 || toTroops < 1) {
+        break;
+      }
+      const attackSucessful = Math.random() < 0.45;
+      fromTroops -= attackSucessful ? 0 : 1;
+      toTroops -= attackSucessful ? 1 : 0;
     }
-    const attackSucessful = Math.random() < 0.45;
-    fromTroops -= attackSucessful ? 0 : 1;
-    toTroops -= attackSucessful ? 1 : 0;
+    
+    if (toTroops === 0) {
+      country.setTroops(to, 1);
+      country.setTroops(from, fromTroops - 1);
+      country.changeOwner(to, country.countries[from].owner);
+      return true;
+    } else {
+      country.setTroops(to, toTroops);
+      country.setTroops(from, fromTroops);
+      return false;
+    }
   }
-  
-  if (toTroops === 0) {
-    country.setTroops(to, 1);
-    country.setTroops(from, fromTroops - 1);
-    country.changeOwner(to, country.countries[from].owner);
-    // store.dispatch(setTroops(to, 1)); 
-    // store.dispatch(setTroops(from, fromTroops - 1));
-    // store.dispatch(changeOwner(to, country[from].owner));
-    return true;
-  } else {
-    // store.dispatch(setTroops(from, fromTroops));
-    // store.dispatch(setTroops(to, toTroops));  
-    country.setTroops(to, toTroops);
-    country.setTroops(from, fromTroops);
-    return false;
+  move(from: Countries, to: Countries, quantity: number): void {
+    const { country } = store;
+    country.decrementTroops(from, quantity);
+    country.incrementTroops(to, quantity);
   }
-};
+}
 
-export const move = (from: Countries, to: Countries, quantity: number) => {
-  const { country } = store;
-  country.decrementTroops(from, quantity);
-  country.incrementTroops(to, quantity);
-  // store.dispatch(decrementTroops(from, quantity));
-  // store.dispatch(incrementTroops(to, quantity));
-};
+const gameActionResolver = new GameActionResolver();
+
+export default gameActionResolver;
+export { GameActionResolverInterface };

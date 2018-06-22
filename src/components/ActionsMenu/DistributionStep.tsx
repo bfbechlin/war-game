@@ -6,7 +6,7 @@ import CountrySelector, { SelectionAction } from './CountrySelector';
 import AmountSelector from './QuantitySelector';
 
 import { countrySelectionTransition } from 'core/transitions/countrySelection';
-import { addTroops } from 'core/transitions/gameActions';
+import gameActionResolver from 'core/transitions/gameActions';
 import { AppStore } from 'store/';
 
 interface DistributionStepProps {
@@ -29,7 +29,7 @@ const DistributionStep: React.SFC<DistributionStepProps> = (props: DistributionS
   const onAddTroops = () => {
     const diff = availableTroops - quantity;
     console.log('Adding ' + quantity + ' troops to ' + selected);
-    addTroops(selected!, quantity);
+    gameActionResolver.addTroops(selected!, quantity);
     if (diff < quantity) {
       // dispatch(setQuantity(diff));
       props.store.menu.setQuantity(diff);
