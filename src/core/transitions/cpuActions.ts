@@ -10,16 +10,18 @@ import { sortBy, shuffle } from 'utils/array';
 
 const distributeStep = (player: PlayerInfo) => {
   const countries = store.getState().country;
-  const myCountries = shuffle(playerCountries(player.name, countries));
   let availableTroops = player.availableTroops;
-  myCountries.forEach((country) => {
-    if (availableTroops > 0) {
-      addTroops(country, 1);
-      availableTroops -= 1;
-    } else {
-      return;
-    }
-  });
+  while (availableTroops > 0) {
+    const myCountries = shuffle(playerCountries(player.name, countries));
+    myCountries.forEach((country) => {
+      if (availableTroops > 0) {
+        addTroops(country, 1);
+        availableTroops -= 1;
+      } else {
+        return;
+      }
+    });
+  }
 };
 
 const attackStep = (player: PlayerInfo) => {
