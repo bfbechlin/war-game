@@ -7,10 +7,10 @@ import AmountSelector from './QuantitySelector';
 
 import { countrySelectionTransition } from 'core/transitions/countrySelection';
 import gameActionResolver from 'core/transitions/gameActions';
-import { AppStore } from 'store/';
+import { AppStoreInterface } from 'store/';
 
 interface DistributionStepProps {
-  store: AppStore;
+  store: AppStoreInterface;
   quantity: number;
   availableTroops: number;
   player: string;

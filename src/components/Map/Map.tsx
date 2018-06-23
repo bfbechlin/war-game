@@ -10,7 +10,7 @@ import { Color, GREY } from 'utils/colors';
 
 import { continentsInfo, ContinentInfo, Countries } from 'store/country/types';
 import { countrySelectionTransition, CountrySelection } from 'core/transitions/countrySelection';
-import { AppStore } from 'store/';
+import { AppStoreInterface } from 'store/';
 
 import { 
   MapTransducer,
@@ -19,11 +19,11 @@ import {
   interactionStateTransducer,
   possibleChoiceTransducer } from 'core/transducers/map';
 
-import playerStore from 'store/player/PlayerStore';
+import appStore from 'store/';
 import { inject, observer } from 'mobx-react';
 
 export interface MapProps {
-  store?: AppStore;
+  store?: AppStoreInterface;
 }
 
 type MapState = {
@@ -52,7 +52,7 @@ export class Map extends React.Component<Props, MapState> {
       const countryState = countriesState[country];
       const shape = countriesShape[country].shape;
       // const playerColor = countryState.owner ? players[countryState.owner].color : GREY; 
-      const playerColor = countryState.owner ? playerStore.players[countryState.owner].color : GREY; 
+      const playerColor = countryState.owner ? appStore.player.players[countryState.owner].color : GREY; 
       return {
         name: country,
         troops: countryState.troops,

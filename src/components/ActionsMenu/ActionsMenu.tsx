@@ -14,12 +14,11 @@ import { isActivePlayer } from 'core/transducers/player';
 import DistributionStep from './DistributionStep';
 import AttackStep from './AttackStep';
 import MoveStep from './MoveStep';
-import playerStore from 'store/player/PlayerStore';
-import { AppStore } from 'store/';
+import { AppStoreInterface } from 'store/';
 import { observer } from 'mobx-react';
 
 type Props = {
-  store?: AppStore;
+  store?: AppStoreInterface;
 };
 
 const phaseMappper = {
@@ -51,7 +50,7 @@ const ActionsMenu: React.SFC<Props> = observer((props: Props) => {
                 store={props.store!}
                 quantity={quantity}
                 player={turnOwner}
-                availableTroops={playerStore.players[turnOwner].availableTroops}
+                availableTroops={props.store!.player.players[turnOwner].availableTroops}
                 selected={selectedFrom}
                 selectables={menu.selectables}
               /> :

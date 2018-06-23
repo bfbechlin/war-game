@@ -1,7 +1,8 @@
-import playerStore, { PlayerStore } from './player/PlayerStore';
-import gameStore, { GameStore } from './game/GameStore';
-import menuStore, { MenuStore } from './menu/MenuStore';
-import countryStore, { CountryStore } from './country/CountryStore';
+import { PlayerStore } from './player/PlayerStore';
+import { GameStore } from './game/GameStore';
+import { MenuStore } from './menu/MenuStore';
+import { CountryStore } from './country/CountryStore';
+import { avatarName } from 'utils/name';
 
 /*
 export interface ApplicationState {
@@ -12,7 +13,7 @@ export interface ApplicationState {
 }
 */
 
-export interface AppStore {
+export interface AppStoreInterface {
   game: GameStore;
   player: PlayerStore;
   menu: MenuStore;
@@ -26,11 +27,40 @@ export const initialState: ApplicationState = {
   game: gameStore.gameState, 
 };
 */
-const store: AppStore = {
-  game: gameStore,
-  player: playerStore,
-  menu: menuStore,
-  country: countryStore,
-};
+class AppStore implements AppStoreInterface {
+
+  game: GameStore;
+  player: PlayerStore;
+  menu: MenuStore;
+  country: CountryStore;
+
+  constructor() {
+    this.game = new GameStore();
+    this.player = new PlayerStore();
+    this.menu = new MenuStore();
+    this.country = new CountryStore();
+  }
+
+  initGame(players: any, gameMode: any): void {
+    players.forEach((player: any) => {
+      this.player.addPlayer({
+        name: player.name,
+        cards: [],
+        availableTroops: 0,
+        color: player.color,
+        avatar: avatarName(player.name)
+      });
+  
+    });
+    const playerOrder = players.map((item: any) => (item.name));
+    const activePlayers = players.filter((item: any) => (item.controllable));
+    this.game.setPlayerOrder(playerOrder);
+    this.game.setTurnOwner(playerOrder[playerOrder.lenght - 1]);
+    this.game.setActivePlayers(activePlayers.map((item: any) => (item.name)));
+    this.game.nextGamePhase();
+  }
+}
+
+const store = new AppStore();
 
 export default store;

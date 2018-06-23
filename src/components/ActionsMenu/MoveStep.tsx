@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Countries } from 'store/country/types';
 import RaisedButton from 'material-ui/RaisedButton';
-import { AppStore } from 'store/';
+import { AppStoreInterface } from 'store/';
 
 import CountrySelector, { SelectionAction } from './CountrySelector';
 import AmountSelector from './QuantitySelector';
@@ -10,7 +10,7 @@ import { countrySelectionTransition } from 'core/transitions/countrySelection';
 import gameActionResolver from 'core/transitions/gameActions';
 
 interface AttackStepProps {
-  store: AppStore;
+  store: AppStoreInterface;
   quantity: number;
   maxAttack: number;
   player: string;

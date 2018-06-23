@@ -2,7 +2,7 @@ import * as React from 'react';
 import { observer, inject } from 'mobx-react';
 
 import './App.css';
-import { AppStore } from 'store/';
+import { AppStoreInterface } from 'store/';
 import { GamePhase } from 'store/game/types';
 import { PlayerInfo, DummyPlayer } from 'store/player/types';
 import { ViewMode } from 'store/menu/types';
@@ -35,7 +35,7 @@ interface AppState {
 }
 
 type Props = {
- store?: AppStore; 
+ store?: AppStoreInterface; 
 };
 
 interface StateToProps {
@@ -45,7 +45,7 @@ interface StateToProps {
   viewMode: ViewMode;
 }
 
-const mapStateToProps = (state: AppStore): StateToProps => (
+const mapStateToProps = (state: AppStoreInterface): StateToProps => (
   {
     phase: state.game.getGamePhase(), 
     player: state.game.getGamePhase() === 'INIT' ? undefined : state.player.getPlayer(state.game.getTurnOwner()),

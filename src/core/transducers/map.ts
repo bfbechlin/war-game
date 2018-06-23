@@ -1,4 +1,4 @@
-import { AppStore } from 'store/';
+import { AppStoreInterface } from 'store/';
 import { CountryState, CountryInfo, Countries, borderCountries as bdCountries } from 'store/country/types';
 import { GamePhase } from 'store/game/types';
 import { PlayerState } from 'store/player/types';
@@ -21,7 +21,7 @@ export interface MapStateToProps {
 
 export type InteractionState = 'NORMAL' | 'HOVER' | 'SELECT';
 
-export const MapTransducer = (store: AppStore): MapStateToProps => (
+export const MapTransducer = (store: AppStoreInterface): MapStateToProps => (
   {
     countries: store.country.countries,
     players: store.player.players,

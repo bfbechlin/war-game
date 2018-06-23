@@ -7,10 +7,10 @@ import AmountSelector from './QuantitySelector';
 
 import { countrySelectionTransition } from 'core/transitions/countrySelection';
 import gameActionResolver from 'core/transitions/gameActions';
-import { AppStore } from 'store/';
+import { AppStoreInterface } from 'store/';
 
 interface AttackStepProps {
-  store: AppStore;
+  store: AppStoreInterface;
   quantity: number;
   maxAttack: number;
   player: string;
