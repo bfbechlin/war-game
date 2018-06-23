@@ -248,10 +248,12 @@ O NodeJS é uma versão da V8, engine de JavaScript desenvolvida pelo Google par
 JavaScript em seu navegador Google Chrome, portada para plataforma. \par
 Um dos pontos importantes dessa engine de JavaScript é que ela é totalmente single thread, mas usa um modelo de eventos e I/O não bloqueante para lidar com essa limitação. Esse modelo tem se mostrado uma alternativa aos tradicionais com multi threads, tanto que o NodeJS vem sendo vastamente usado como servidor aplicação para aplicações web. \par
 Juntamente com o NodeJS, é instalado o gerenciador de pacotes \textbf{NPM}, que possui o maior ecosistema de bibliotecas open source do mundo.
-Essas dependências são instaladas localmente dentro de uma pasta na mesma raiz do projeto, independente da plataforma e sem nenhuma ligação com sistema operacional do usuário. Isso aumenta a portabilidade do projeto e automatiza o processo de construção da aplicação, já que com um comando é baixado e instalado todas as dependências listadas no projeto.
+Essas dependências são disponibilizadas localmente dentro de uma pasta na mesma raiz do projeto, independente da plataforma e sem instalação de fato no sistema operacional do desenvolvedor. 
+Isso aumenta a portabilidade do projeto e automatiza o processo de construção da aplicação, já que com um comando é baixado e instalado todas as dependências listadas no projeto. 
+Além disso, esse mecanismo facilita a manutenção de projetos já que o ambiente de desenvolvimento não fica poluído com bibliotecas compartilhadas.
 
 \subsection{Instalando a aplicação}
-Como citado anteriormente o projeto usa o \textbf{NodeJS} e \textbf{NPM}. No primeiro momento é necessário instalar as dependências externas do projeto, como até mesmo o \textbf{Typescript}, \textbf{Babel transpiler}, \textbf{Redux}, \textbf{React} e outros. \par
+Como citado anteriormente o projeto usa o \textbf{NodeJS} e \textbf{NPM}. No primeiro momento é necessário instalar as dependências externas do projeto, como até mesmo o \textbf{Typescript}, \textbf{Babel transpiler}, \textbf{Redux}, \textbf{React}, \textbf{MobX} e outros. \par
 Para realizar a instalação, execute via terminal o seguinte comando no diretório raíz do projeto:
 
 \begin{lstlisting}[language=JavaScript]
@@ -278,6 +280,16 @@ Para guardar esse objeto que contém os dados de estado é introduzido um concei
 A real alteração do estado é realizada dentro de \textbf{redutores}, que são basicamente funções que detalham o que cada ação deve gerar como resultado. Em geral, são criados com switchs com a variável seletora no tipo da ação e devem retornar um novo objeto que será substituído para representar o novo estado.\par
 A real utilidade Redux no caso do React é uma função de alta ordem disponível na pacote react-redux, onde é possível conectar os componentes React com a store. Nessa conexão com os componentes são injetados alguns atributos disponíveis na store como propriedades do componente React, através de uma função de mapeamento entre o estado e as propriedades. Essa função de mapeamento deve ser uma função pura, podendo ser realizado algumas manipulações antes de retornar as propriedades.
 
+\subsection{MobX}
+O conjunto React+MobX é uma combinação não tão comum para aplicações React. Assim como o Redux, MobX serve para controlar o estado da aplicação fora dos componentes React garantindo a escalabilidade e manutenibilidade
+ do projeto, mas ao contrario da sua alternativa funcional Redux, MobX trabalha muito bem com o paradigma orientado a objetos, integrando as funcionalidades tanto de ações e redutores em classes, o que acaba convendo uma clareza
+ e familiraidade não vista antes na etapa funcional do projeto usando sua alternativa, Redux. O cerne do MobX está no uso dos decoradores \textbf{@observer} e \textbf{@observable}, \textbf{@observable} encapsula um objeto, array ou instancia de classe 
+  permitindo que o MobX tenha visão sobre o uso do seu respectivo \textbf{setter}, esse acesso especial permite framework reaja as mudanças em dados marcados como \textbf{@observable}. Para permitir as reaçoes dos componentes \textbf{React}
+   usamos o decorador \textbf{@observers}, ao encapsular os componentes marcados ele força a chamada do método \textbf{render} do componente toda vez que algum dado marcado como \textbf{@observable} acessado dento do componente mude seu valor.
+    Essa capacidade junto com uma série de otimizacões do framework permitem que a UI reaja rapidamente a mudanças no estado sem prejudicar a legibilidade do código.
+
+    \par {@action e @computed}
+
 \section{TypeScript vs. JavaScript}
 Ao pé da letra JavaScript não é uma linguagem, mas sim uma definição feita pela ECMA foundation para servir como um contrato entre os navegadores e desenvolvedores de aplicações web sobre o que está disponível na sua engine de script. Isso nem sempre é totalmente cumprido e, com o processo de evolução da linguagem, vários navagores não implementam a especificação por completo. \par
 Esses problemas acabaram levando a soluções alternativas pela comunidade, como implementar as funcionalidadesnovas da linguagem usando elementos disponíveis no momento. Essa metodologia ficou conhecida como polyfill. Isso também foi evoluindo, criando um conjunto grandes de polyfills e então se começou a realizar o processo de transpilação, onde o código fonte JavaScript é transformado novamente em JavaScript, usando as funcionalidades das especificações antigas. \par
@@ -296,6 +308,8 @@ Outro ponto interessante nesse contexto é a possibilidade de usar grande parte 
    "classnames": "^2.2.5",
    "history": "^4.7.2",
    "material-ui": "^0.20.0",
+   "mobx": "^5.0.2",
+   "mobx-react": "^5.2.3",
    "react": "^16.3.1",
    "react-dom": "^16.3.1",
    "react-redux": "^5.0.7",
@@ -339,7 +353,9 @@ Outro ponto interessante nesse contexto é a possibilidade de usar grande parte 
 
 Esse processo é usado por outras linguagens além do TypeScript, como ClojureScript, CoffeeScript e outros.
 
-\section{Estrutura do projeto}
+\section{Paradigma funcional}
+
+\subsection{Estrutura do projeto}
 Na pasta \verb|src| se encontra todo o fonte do projeto com a seguinte hierarquia de pastas:
 \begin{itemize}
   \item \textbf{Components}: componentes React. Separado por componentes chaves, mas que possuem outros componentes relacionados/dependentes.
@@ -356,8 +372,6 @@ Na pasta \verb|src| se encontra todo o fonte do projeto com a seguinte hierarqui
 \par Existem arquivos soltos dentro da pasta \verb|src| que são os arquivos de ponto de entrada para a criação da aplicação.
 
 
-
-\section{Paradigma funcional}
 
 \subsection{Conceitos explorados nas funções}
 \subsubsection{utils/array}
@@ -468,6 +482,7 @@ return result;
 \end{lstlisting}
 
 \subsubsection{core/transducers/map}
+
 Para a compreensão funções dessa parte, é importante entender como o objeto de estado dos países está estruturado.
 \begin{lstlisting}[language=JavaScript]
 export interface CountryState {
@@ -505,17 +520,17 @@ A função \textbf{playerCountries} utiliza a função de alta ordem filter defi
 
 \begin{lstlisting}[language=JavaScript]
 export const playerCountries = (player: string, countries: CountryState, minTroops: number = 0) => (
-filter(countries, (country: CountryInfo) => ( country.owner === player && country.troops > minTroops))
+  filter(countries, (country: CountryInfo) => ( country.owner === player && country.troops > minTroops))
 );
 \end{lstlisting}
 
 A função \textbf{borderCountries} recebe como parâmetro um Country, o identificador do jogador ao qual pertence, e os Countries que compõem as regiões possíveis do mapa, assim partindo de uma mapa de adjacência ela retorna os países adjacentes àquele Country passado como parâmetro que não pertencem ao seu dono, ou seja, apenas Countries adjacentes comandados por inimigos. Esta função é usada para resolver os possíveis ataques partindo de uma região específica
 \begin{lstlisting}[language = JavaScript]
 export const borderCountries = (country: Countries, countries: CountryState, player: string, sameOrigin: boolean = true) => {
-const borders = bdCountries[country] ? bdCountries[country] : [];
-return sameOrigin ?
- intersection(borders, playerCountries(player, countries)) :
- difference(borders, playerCountries(player, countries)) ;
+  const borders = bdCountries[country] ? bdCountries[country] : [];
+  return sameOrigin ?
+  intersection(borders, playerCountries(player, countries)) :
+  difference(borders, playerCountries(player, countries)) ;
 };
 \end{lstlisting}
 
@@ -525,13 +540,13 @@ return sameOrigin ?
 O processo de contagem de regiões para a definição de quantas tropas estão disponíveis para o jogador é representado pela função \textbf{computeNewTroops}, que recebe um identificador de jogador e um CountryState, retornando o resultado do cálculo de suas tropas disponíveis resultantes de tanto do seu número de territorios conquistados como o seu domínio sobre continentes.
 \begin{lstlisting}[language=JavaScript]
 export const computeNewTroops = (player: string, country: CountryState) => {
-const countries = playerCountries(player, country);
-let newTroopsCounter = Math.ceil(countries.length / 2);
-const continentBonus = map <ContinentInfo, number> (continentsInfo, (continent: ContinentInfo) => (
- difference(continent.countries, countries).length === 0 ? continent.troopsBonus : 0
-));
-newTroopsCounter += continentBonus.reduce((acc, value) => (acc + value), 0);
-return newTroopsCounter;
+  const countries = playerCountries(player, country);
+  let newTroopsCounter = Math.ceil(countries.length / 2);
+  const continentBonus = map <ContinentInfo, number> (continentsInfo, (continent: ContinentInfo) => (
+    difference(continent.countries, countries).length === 0 ? continent.troopsBonus : 0
+  ));
+  newTroopsCounter += continentBonus.reduce((acc, value) => (acc + value), 0);
+  return newTroopsCounter;
 };
 \end{lstlisting}
 
@@ -540,24 +555,131 @@ A função \textbf{gameInit} decide o estado inicial do jogo a partir do jogador
 \begin{lstlisting}[language = JavaScript]
 
 export const gameInit = (players: PlayerState) => {
-each(
- object(keys(players), partition(shuffle(allCountries), lenght(players))) as InitCountries,
- (countriesNames: Countries[], playerName: string) => {
-   store.dispatch(massChangeOwner(countriesNames, playerName));
- }
-);
+  each(
+    object(keys(players), partition(shuffle(allCountries), lenght(players))) as InitCountries,
+    (countriesNames: Countries[], playerName: string) => {
+      store.dispatch(massChangeOwner(countriesNames, playerName));
+    }
+  );
 };
 \end{lstlisting}
 
 A função \textbf{endGameVerify} tem o propósito de verificar se as condições para o término do jogo estão presentes verificando o estado atual da aplicação. Para fins de simplicidade o objetivo de todos os jogadores é dominar todos os países.
 \begin{lstlisting}[language = JavaScript]
 export const endGameVerify = () => {
-// Verify each player objective. For now only if a player has all countries
-const { country } = store.getState();
-const randomPlayer = country.Brazil.owner;
-return filter(country, (countryInfo: CountryInfo) => (countryInfo.owner !== randomPlayer)) === [];
+  const { country } = store.getState();
+  const randomPlayer = country.Brazil.owner;
+  return filter(country, (countryInfo: CountryInfo) => (countryInfo.owner !== randomPlayer)) === [];
 };
+\end{lstlisting}
 
+\subsubsection{core/transictions/cpuActions}
+
+A função \textbf{distributeStep} tem o propósito de fazer com que os jogadores controlados pelo computador distribuam suas tropas aleatoriamente.
+\begin{lstlisting}[language=JavaScript]
+const distributeStep = (player: PlayerInfo) => {
+  const countries = store.getState().country;
+  let availableTroops = player.availableTroops;
+  while (availableTroops > 0) {
+    const myCountries = shuffle(playerCountries(player.name, countries));
+    myCountries.forEach((country) => {
+      if (availableTroops > 0) {
+        addTroops(country, 1);
+        availableTroops -= 1;
+      } else {
+        return;
+      }
+    });
+  }
+};
+\end{lstlisting}
+
+A função \textbf{attackStep} tem o propósito de fazer com que os jogadores controlados pelo computador ataquem os países que possuem menos da metade das suas tropas e também somente efetuar o ataque caso tenha mais de 3 unidades de tropas no país em questão.
+\begin{lstlisting}[language=JavaScript]
+const attackStep = (player: PlayerInfo) => {
+  let countries = store.getState().country;
+  const myCountries = playerCountries(player.name, countries);
+  
+  myCountries.forEach((myCountry) => {
+    countries = store.getState().country;
+    const myTroops = countries[myCountry].troops;
+    const bdCountries = borderCountries(myCountry, countries, false);
+    bdCountries.forEach((target) => {
+      const targetTroops = countries[target].troops;
+      if (myTroops > 3 && myTroops > targetTroops * 2) {
+        attack(myCountry, target, myTroops - 1);
+      }
+    });
+  });
+};
+\end{lstlisting}
+
+A função \textbf{countriesRiskLevel} tem o propósito de medir e ordernar os países pelo nível de risco. 
+Esse nível de risco é dado pela quantidade de países que fazem fronteira com ele e que não possuem a seu dono.
+Nesse processo é induzido uma aleatoriedade caso existam empates.
+O retorno é a uma lista de países ordenados em forma descente com base no risco.
+\begin{lstlisting}[language=JavaScript]
+const countriesRiskLevel = (countries: Countries[]): Countries[] => {
+  const countryState = store.getState().country;
+  const risks = countries.map((country) => {
+    const risk = borderCountries(country, countryState, false).length * 1000 + Math.abs(Math.random() * 999);
+    return {name: country, risk};
+  });
+  const ordered = sortBy(risks, (item) => (item.risk)); 
+  return ordered.map((item) => item.name);
+};
+\end{lstlisting}
+
+A função \textbf{moveStep} tem o propósito de realizar as movimentações de países usando a definição de risco listada acima.
+\begin{lstlisting}[language=JavaScript]
+const moveStep = (player: PlayerInfo) => {
+  let countries = store.getState().country;
+  const countriesRiskOrderer = countriesRiskLevel(playerCountries(player.name, countries));
+  countriesRiskOrderer.forEach((country) => {
+    countries = store.getState().country;
+    const bdCountries = borderCountries(country, countries, true);
+    bdCountries.forEach((origin) => {
+      const originTroops = countries[origin].troops;
+      if (originTroops > 1 && riskComparation(countriesRiskOrderer, origin, country)) {
+        move(origin, country, originTroops - 1);
+      }
+    });
+  });
+};
+\end{lstlisting}
+
+A função \textbf{cpuAction} tem o objetivo de selecionar a ação que deve ser tomada com base na fase que o jogo se encontra.
+\begin{lstlisting}[language=JavaScript]
+export const cpuAction = (playerName: string, phase: GamePhase) => {
+  const player = store.getState().player[playerName];
+  switch (phase) {
+    case 'DISTRIBUTION':
+      return distributeStep(player);
+    case 'ATTACK':
+      return attackStep(player);
+    case 'MOVE':
+      return moveStep(player);
+    default:
+      return;
+  }
+};
+\end{lstlisting}
+
+A função anonima realiza a verificação se o jogador deve tomar as ações calculadas pelo computador, ou seja, se o jogador é um BOT. 
+Caso seja um BOT então resolve as ações necessárias para aquele turno. 
+Também é adicionado um atraso até a resolução da ação para melhor interação e visualização do sistema.
+\begin{lstlisting}[language=JavaScript]
+export default (phase: GamePhase) => {
+  const { activePlayers, turnOwner } = store.getState().game;
+  if (!isActivePlayer(turnOwner, activePlayers)) {
+    setTimeout(
+      () => {
+        cpuAction(turnOwner, phase);
+        setTimeout(() => store.dispatch(nextGamePhase()), 2000);
+      },
+      2000);
+  }
+};
 
 \end{lstlisting}
 
@@ -597,6 +719,32 @@ Diferente de outras linguagens que apresentam características funcionais, Types
 
 \section{Paradigma de orientação a objetos}
 
+\subsection{Estrutura do projeto}
+Na pasta \verb|src| se encontra todo o fonte do projeto com a seguinte hierarquia de pastas:
+\begin{itemize}
+  \item \textbf{Components}: componentes React. Separado por componentes chaves, mas que possuem outros componentes relacionados/dependentes.
+  \item \textbf{Core}: lógica de negócio em geral. Com as seguintes subpastas:
+    \begin{itemize}
+      \item \textbf{Transducers}: funções puras, como mapeamento de estado para propriedades, levantamento de possíveis países para atacar.
+      \item \textbf{Transitions}: funções que precisam ler o estado da aplicação para operar.
+    \end{itemize}
+  \item \textbf{Hocs}: componetes de alta ordem React.
+  \item \textbf{Store}: gerenciador de estado Redux. Separado por grupo de funcionalidades, contendo o seu redutor e suas ações.
+  \item \textbf{Utils}: utilidades em geral, como funções de alta ordem para manipulação de listas e objetos, cores e etc.
+\end{itemize}
+
+\par Existem arquivos soltos dentro da pasta \verb|src| que são os arquivos de ponto de entrada para a criação da aplicação.
+
+\subsection{Classes}
+
+\subsection{Encapsulamento}
+
+\subsection{Singleton}
+
+\subsection{Métodos}
+
+\subsection{Herança}
+  
 \chapter{Resultados}
 \begin{figure}[ht]
 \centering

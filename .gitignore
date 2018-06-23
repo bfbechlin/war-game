@@ -26,5 +26,5 @@ yarn-error.log*
 report/*.pdf
 report/*.aux
 report/*.log
-report/*.aux
-
+report/*.out
+report/*.toc
