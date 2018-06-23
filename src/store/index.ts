@@ -1,7 +1,7 @@
 import { PlayerStore } from './player/PlayerStore';
 import { GameStore } from './game/GameStore';
 import { MenuStore } from './menu/MenuStore';
-import { CountryStore } from './country/CountryStore';
+import { CountryStore, CountryStoreInterface } from './country/CountryStore';
 import { avatarName } from 'utils/name';
 
 /*
@@ -32,7 +32,7 @@ class AppStore implements AppStoreInterface {
   game: GameStore;
   player: PlayerStore;
   menu: MenuStore;
-  country: CountryStore;
+  country: CountryStoreInterface;
 
   constructor() {
     this.game = new GameStore();

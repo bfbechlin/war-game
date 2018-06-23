@@ -46,7 +46,17 @@ const countryInitState: CountryState = {
     'Venezuela':              { troops: 0, owner: '', hovered: false },
   };
 
-class CountryStore {
+interface CountryStoreInterface {
+    countries: CountryState;
+    setTroops(countryName: string, quantity: number): void;
+    massChangeOwner(countries: string[], owner: string): void;
+    incrementTroops(countryName: string, quantity: number): void;
+    decrementTroops(countryName: string, quantity: number): void;
+    changeOwner(countryName: string, newOwner: string): void;
+    setHover(countryName: string, hovered: boolean): void;
+}
+
+class CountryStore implements CountryStoreInterface {
 
   @observable countries: CountryState;
 
@@ -83,7 +93,4 @@ class CountryStore {
 
 }
 
-const countryStore = new CountryStore();
-
-export default countryStore;
-export { CountryStore };
+export { CountryStore, CountryStoreInterface };
