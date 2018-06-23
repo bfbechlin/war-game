@@ -3,7 +3,7 @@ import { playerCountries, borderCountries } from 'core/transducers/map';
 import { GamePhase } from 'store/game/types';
 import { PlayerInfo } from 'store/player/types';
 import { Countries } from 'store/country/types';
-import gameActionResolver, { GameActionResolverInterface } from 'core/transitions/gameActions';
+import gameActionResolver from 'core/transitions/gameActions';
 import { isActivePlayer } from 'core/transducers/player';
 import { sortBy, shuffle } from 'utils/array';
 
