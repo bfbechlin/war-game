@@ -4,7 +4,35 @@ import { startClock, stopClock } from 'utils/clock';
 import { interactionInit, nextTurnInit, gameInit, endGameReducer } from 'core/transitions/gameTransitions';
 import cpuReducer from 'core/transitions/cpuActions';
 
-class GameStore {
+interface GameStoreInterface {
+
+  round: number;
+  phase: GamePhase;
+  remainingTime: number;
+  turnOwner: string;
+  activePlayers: string[];
+  playerOrder: string[];
+  cardsBonus: number;
+  readonly gameState: GameState;
+  getCardBonus(): number;
+  setCardBonus(quantity: number): void;
+  nextGamePhase(): void;
+  getGamePhase(): GamePhase;
+  setGamePhase(phase: GamePhase): void;
+  getTurnOwner(): string;
+  setTurnOwner(player: string): void;
+  getRemainingTime(): number;
+  decrementRemainingTime(): void;
+  setRemainingTime(remainingTime: number): void;
+  getActivePlayers(): string[];
+  setActivePlayers(activePlayers: string[]): void;
+  getPlayerOrder(): string[];
+  setPlayerOrder(playerOrder: string[]): void;
+
+}
+
+
+class GameStore implements GameStoreInterface {
 
   @observable round: number;
   @observable phase: GamePhase;
@@ -108,7 +136,7 @@ class GameStore {
     }
   }
 
-  getTurnOwner() {
+  getTurnOwner(): string {
     return this.turnOwner;
   }
 
@@ -149,7 +177,7 @@ class GameStore {
 
 }
 
-const gameStore = new GameStore();
+//const gameStore = new GameStore();
 
-export default gameStore;
-export { GameStore };
+//export default gameStore;
+export { GameStore, GameStoreInterface };
