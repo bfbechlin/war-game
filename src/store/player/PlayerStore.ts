@@ -1,7 +1,17 @@
 import { observable, action } from 'mobx';
 import { PlayerInfo } from './types';
 
-class PlayerStore {
+interface PlayerStoreInterface {
+
+    players: {[id: string]: PlayerInfo};
+    getPlayer(id: String): PlayerInfo;
+    addPlayer(player: PlayerInfo): void;
+    incrementTroops(playerId: String, quantity: number) : void;
+    decrementTroops(playerId: String, quantity: number) : void;
+}
+
+
+class PlayerStore implements PlayerStoreInterface {
 
   // TODO: convert PlayerInfo to Player class
 
@@ -28,7 +38,7 @@ class PlayerStore {
   }
 }
 
-const playerStore = new PlayerStore();
+// const playerStore = new PlayerStore();
 
-export default playerStore;
-export { PlayerStore };
+// export default playerStore;
+export { PlayerStore, PlayerStoreInterface };
