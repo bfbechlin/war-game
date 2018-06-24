@@ -2,7 +2,26 @@ import { observable, action, computed } from 'mobx';
 import { MenuState, ViewMode } from './types';
 import { Countries } from 'store/country/types';
 
-class MenuStore {
+interface MenuStoreInterface {
+
+  quantity: number;
+  selectables: Countries[];
+  selecteds: Countries[];
+  viewMode: ViewMode;
+  readonly menuState: MenuState;
+  getQuantity(): void;
+  setQuantity(quantity: number): void;
+  getSelectables(): Countries[];
+  setSelectables(selectables: Countries[]): void;
+  getSelecteds(): Countries[];
+  setSelecteds(selecteds: Countries[]): void;
+  getViewMode(): ViewMode;
+  setViewMode(viewMode: ViewMode): void;
+
+}
+
+
+class MenuStore implements MenuStoreInterface {
 
   @observable quantity: number;
   @observable selectables: Countries[];
@@ -59,7 +78,7 @@ class MenuStore {
 
 }
 
-const menuStore = new MenuStore();
+//const menuStore = new MenuStore();
 
-export default menuStore;
-export { MenuStore };
+//export default menuStore;
+export { MenuStore , MenuStoreInterface };
