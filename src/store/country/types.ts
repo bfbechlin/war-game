@@ -235,7 +235,7 @@ export const borderCountries: BorderCountry = {
   'Egypt': ['East Africa', 'North Africa', 'Middle East'],
   'Congo': ['East Africa', 'North Africa', 'South Africa'],
   'Madagascar': ['South Africa'],
-  'South Africa': ['East Africa', 'Congo'],
+  'South Africa': ['East Africa', 'Congo', 'Madagascar'],
   'North Africa': ['East Africa', 'Egypt', 'Congo'],
   'Afghanistan': ['Ukraine', 'Ural', 'China', 'India', 'Middle East'],
   'India': ['Middle East', 'Afghanistan', 'China', 'Siam'],

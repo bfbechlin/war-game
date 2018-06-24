@@ -8,7 +8,7 @@ import { isActivePlayer } from 'core/transducers/player';
 import { GamePhase } from 'store/game/types';
 
 import { setHover, massChangeOwner } from 'store/country/actions';
-import { setTurnOwner, setGamePhase } from 'store/game/actions';
+import { setTurnOwner } from 'store/game/actions';
 import { incrementAvailableTroops } from 'store/player/actions';
 
 export const computeNewTroops = (player: string, country: CountryState) => {
@@ -62,11 +62,8 @@ export const gameInit = (players: string[]) => {
   );
 };
 
-export const endGameReducer = () => {
-  // Verify each player objective. For now only if a player has all countries
+export const endGameVerify = () => {
   const { country } = store.getState();
   const randomPlayer = country.Brazil.owner;
-  if (filter(country, (countryInfo: CountryInfo) => (countryInfo.owner !== randomPlayer)) === []) {
-    store.dispatch(setGamePhase('FINAL'));
-  }
+  return filter(country, (countryInfo: CountryInfo) => (countryInfo.owner !== randomPlayer)).length === 0;
 };
