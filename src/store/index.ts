@@ -1,8 +1,9 @@
-import { PlayerStore } from './player/PlayerStore';
+import { PlayerStore, PlayerStoreInterface } from './player/PlayerStore';
 import { GameStore } from './game/GameStore';
 import { MenuStore } from './menu/MenuStore';
 import { CountryStore, CountryStoreInterface } from './country/CountryStore';
 import { avatarName } from 'utils/name';
+import { GameActionResolverInterface, GameActionResolverDelegate, GameActionResolver } from 'core/transitions/gameActions';
 
 /*
 export interface ApplicationState {
@@ -14,10 +15,11 @@ export interface ApplicationState {
 */
 
 export interface AppStoreInterface {
+  gameActionResolver: GameActionResolverInterface;
   game: GameStore;
-  player: PlayerStore;
+  player: PlayerStoreInterface;
   menu: MenuStore;
-  country: CountryStore;
+  country: CountryStoreInterface;
 }
 /*
 export const initialState: ApplicationState = { 
@@ -27,18 +29,21 @@ export const initialState: ApplicationState = {
   game: gameStore.gameState, 
 };
 */
-class AppStore implements AppStoreInterface {
+class AppStore implements GameActionResolverDelegate, AppStoreInterface {
 
   game: GameStore;
-  player: PlayerStore;
+  player: PlayerStoreInterface;
   menu: MenuStore;
   country: CountryStoreInterface;
+
+  gameActionResolver: GameActionResolverInterface;
 
   constructor() {
     this.game = new GameStore();
     this.player = new PlayerStore();
     this.menu = new MenuStore();
     this.country = new CountryStore();
+    this.gameActionResolver = new GameActionResolver(this);
   }
 
   initGame(players: any, gameMode: any): void {

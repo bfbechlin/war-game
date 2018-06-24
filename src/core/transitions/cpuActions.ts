@@ -3,7 +3,6 @@ import { playerCountries, borderCountries } from 'core/transducers/map';
 import { GamePhase } from 'store/game/types';
 import { PlayerInfo } from 'store/player/types';
 import { Countries } from 'store/country/types';
-import gameActionResolver from 'core/transitions/gameActions';
 import { isActivePlayer } from 'core/transducers/player';
 import { sortBy, shuffle } from 'utils/array';
 
@@ -13,7 +12,7 @@ const distributeStep = (player: PlayerInfo) => {
   let availableTroops = player.availableTroops;
   myCountries.forEach((country) => {
     if (availableTroops > 0) {
-      gameActionResolver.addTroops(country, 1);
+      store.gameActionResolver.addTroops(country, 1);
       availableTroops -= 1;
     } else {
       return;
@@ -32,7 +31,7 @@ const attackStep = (player: PlayerInfo) => {
     bdCountries.forEach((target) => {
       const targetTroops = countries[target].troops;
       if (myTroops > 3 && myTroops > targetTroops * 2) {
-        gameActionResolver.attack(myCountry, target, myTroops - 1);
+        store.gameActionResolver.attack(myCountry, target, myTroops - 1);
       }
     });
   });
@@ -63,7 +62,7 @@ const moveStep = (player: PlayerInfo) => {
     bdCountries.forEach((origin) => {
       const originTroops = countries[origin].troops;
       if (originTroops > 1 && riskComparation(countriesRiskOrderer, origin, country)) {
-        gameActionResolver.move(origin, country, originTroops - 1);
+        store.gameActionResolver.move(origin, country, originTroops - 1);
       }
     });
   });

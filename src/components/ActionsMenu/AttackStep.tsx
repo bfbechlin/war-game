@@ -6,7 +6,6 @@ import CountrySelector, { SelectionAction } from './CountrySelector';
 import AmountSelector from './QuantitySelector';
 
 import { countrySelectionTransition } from 'core/transitions/countrySelection';
-import gameActionResolver from 'core/transitions/gameActions';
 import { AppStoreInterface } from 'store/';
 
 interface AttackStepProps {
@@ -33,7 +32,7 @@ const AttackStep: React.SFC<AttackStepProps> = (props: AttackStepProps) => {
   };
 
   const onAttack = () => {
-    if (selectedFrom && selectedTo && gameActionResolver.attack(selectedFrom, selectedTo, quantity)) {
+    if (selectedFrom && selectedTo && store.gameActionResolver.attack(selectedFrom, selectedTo, quantity)) {
       countrySelectionTransition('ATTACK', 'SELECTION-OUT', selectedTo!);  
     }
   };

@@ -6,10 +6,9 @@ interface PlayerStoreInterface {
     players: {[id: string]: PlayerInfo};
     getPlayer(id: String): PlayerInfo;
     addPlayer(player: PlayerInfo): void;
-    incrementTroops(playerId: String, quantity: number) : void;
-    decrementTroops(playerId: String, quantity: number) : void;
+    incrementTroops(playerId: String, quantity: number): void;
+    decrementTroops(playerId: String, quantity: number): void;
 }
-
 
 class PlayerStore implements PlayerStoreInterface {
 
