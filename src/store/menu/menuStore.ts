@@ -3,7 +3,6 @@ import { MenuState, ViewMode } from './types';
 import { Countries } from 'store/country/types';
 
 interface MenuStoreInterface {
-
   quantity: number;
   selectables: Countries[];
   selecteds: Countries[];
@@ -17,13 +16,10 @@ interface MenuStoreInterface {
   setSelecteds(selecteds: Countries[]): void;
   getViewMode(): ViewMode;
   setViewMode(viewMode: ViewMode): void;
-
 }
-
-
 class MenuStore implements MenuStoreInterface {
 
-  @observable quantity: number;
+  @observable quantity: number; 
   @observable selectables: Countries[];
   @observable selecteds: Countries[];
   @observable viewMode: ViewMode;
@@ -78,7 +74,4 @@ class MenuStore implements MenuStoreInterface {
 
 }
 
-//const menuStore = new MenuStore();
-
-//export default menuStore;
 export { MenuStore , MenuStoreInterface };

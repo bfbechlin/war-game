@@ -1,6 +1,7 @@
 import { PlayerStore, PlayerStoreInterface } from './player/PlayerStore';
 import { GameStore } from './game/GameStore';
 import { MenuStore } from './menu/MenuStore';
+import { MenuStore, MenuStoreInterface } from './menu/MenuStore';
 import { CountryStore, CountryStoreInterface } from './country/CountryStore';
 import { avatarName } from 'utils/name';
 import { GameActionResolverInterface, GameActionResolverDelegate, GameActionResolver } from 'core/transitions/gameActions';
