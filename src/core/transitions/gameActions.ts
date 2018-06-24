@@ -1,18 +1,17 @@
-import store from 'store/';
 import { Countries } from 'store/country/types';
 import { CountryStoreInterface } from 'store/country/CountryStore';
-import { GameStore } from 'store/game/GameStore';
+import { GameStoreInterface } from 'store/game/GameStore';
 import { PlayerStoreInterface } from 'store/player/PlayerStore';
 
 interface GameActionResolverDelegate {
   country: CountryStoreInterface;
-  game: GameStore;
+  game: GameStoreInterface;
   player: PlayerStoreInterface;
 }
 
 interface GameActionResolverInterface {
 
-  delegate?: GameActionResolverDelegate;
+  delegate: GameActionResolverDelegate;
   addTroops(country: Countries, quantity: number): void;
   attack(from: Countries, to: Countries, quantity: number): boolean;
   move(from: Countries, to: Countries, quantity: number): void;
@@ -28,13 +27,13 @@ class GameActionResolver implements GameActionResolverInterface {
   }
 
   addTroops(country: Countries, quantity: number): void {
-    const { game, player } = store;
-    store.country.incrementTroops(country, quantity);
+    const { game, player } = this.delegate;
+    this.delegate.country.incrementTroops(country, quantity);
     player.decrementTroops(game.turnOwner, quantity);
   }
 
   attack(from: Countries, to: Countries, quantity: number): boolean {
-    const { country } = store;
+    const { country } = this.delegate;
     let fromTroops = country.countries[from].troops;
     let toTroops = country.countries[to].troops;
     for (let i = 0; i < quantity; i++) {
@@ -58,7 +57,7 @@ class GameActionResolver implements GameActionResolverInterface {
     }
   }
   move(from: Countries, to: Countries, quantity: number): void {
-    const { country } = store;
+    const { country } = this.delegate;
     country.decrementTroops(from, quantity);
     country.incrementTroops(to, quantity);
   }

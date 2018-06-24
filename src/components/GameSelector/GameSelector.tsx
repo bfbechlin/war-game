@@ -6,8 +6,7 @@ import FloatingActionButton from 'material-ui/FloatingActionButton';
 import RaisedButton from 'material-ui/RaisedButton';
 import ContentAdd from 'material-ui/svg-icons/content/add';
 
-import { initGame } from 'core/transitions/gameSetup';
-
+import store from 'store/';
 import { Color, colors } from 'utils/colors';
 
 export interface GameSelectorProps {
@@ -97,7 +96,7 @@ class GameSelector extends React.Component<GameSelectorProps, GameSelectorState>
           <FloatingActionButton onClick={this.handleNewPlayer} disabled={this.state.players.length > 5}>
             <ContentAdd />
           </FloatingActionButton>
-          <RaisedButton label={'START'} primary={true} onClick={(event: any) => initGame(this.state.players, this.state.index === 0 ? 'PVP' : 'CPU')}/>
+          <RaisedButton label={'START'} primary={true} onClick={(event: any) => store.initGame(this.state.players, this.state.index === 0 ? 'PVP' : 'CPU')}/>
         </div>
       </div>
     );

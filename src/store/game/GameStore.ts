@@ -2,10 +2,11 @@ import { observable, action, computed } from 'mobx';
 import { GamePhase, nextPhaseResolver, GameState } from './types';
 import { startClock, stopClock } from 'utils/clock';
 import { interactionInit, nextTurnInit, gameInit, endGameReducer } from 'core/transitions/gameTransitions';
-import cpuReducer from 'core/transitions/cpuActions';
+import { CPUActionResolverInterface } from 'core/transitions/cpuActions';
 
 interface GameStoreInterface {
 
+  delegate: GameStoreDelegate;
   round: number;
   phase: GamePhase;
   remainingTime: number;
@@ -31,6 +32,9 @@ interface GameStoreInterface {
 
 }
 
+class GameStoreDelegate {
+  cpuActionResolver: CPUActionResolverInterface;
+}
 
 class GameStore implements GameStoreInterface {
 
@@ -54,7 +58,10 @@ class GameStore implements GameStoreInterface {
     };
   }
 
-  constructor() {
+  delegate: GameStoreDelegate;
+
+  constructor(delegate: GameStoreDelegate) {
+    this.delegate = delegate;
     this.round = 1;
     this.phase = 'INIT';
     this.remainingTime = 0;
@@ -96,7 +103,7 @@ class GameStore implements GameStoreInterface {
       this.setRemainingTime(60);
       startClock(() => this.decrementRemainingTime());
       interactionInit(nextPhase);
-      cpuReducer(nextPhase);
+      this.delegate.cpuActionResolver.resolveCPUAction(nextPhase);
 
       this.phase = nextPhase;
     }
@@ -130,7 +137,7 @@ class GameStore implements GameStoreInterface {
       this.setRemainingTime(60);
       startClock(() => this.decrementRemainingTime());
       interactionInit(nextPhase);
-      cpuReducer(nextPhase);
+      this.delegate.cpuActionResolver.resolveCPUAction(nextPhase);
 
       this.phase = nextPhase;
     }
@@ -177,7 +184,8 @@ class GameStore implements GameStoreInterface {
 
 }
 
-//const gameStore = new GameStore();
+// const gameStore = new GameStore();
 
-//export default gameStore;
-export { GameStore, GameStoreInterface };
+// export default gameStore;
+
+export { GameStore, GameStoreInterface, GameStoreDelegate };

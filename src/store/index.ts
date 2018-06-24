@@ -1,10 +1,10 @@
 import { PlayerStore, PlayerStoreInterface } from './player/PlayerStore';
-import { GameStore } from './game/GameStore';
-import { MenuStore } from './menu/MenuStore';
+import { GameStore, GameStoreInterface, GameStoreDelegate } from './game/GameStore';
 import { MenuStore, MenuStoreInterface } from './menu/MenuStore';
 import { CountryStore, CountryStoreInterface } from './country/CountryStore';
 import { avatarName } from 'utils/name';
 import { GameActionResolverInterface, GameActionResolverDelegate, GameActionResolver } from 'core/transitions/gameActions';
+import { CPUActionResolverDelegate, CPUActionResolverInterface, CPUActionResolver } from 'core/transitions/cpuActions';
 
 /*
 export interface ApplicationState {
@@ -17,9 +17,9 @@ export interface ApplicationState {
 
 export interface AppStoreInterface {
   gameActionResolver: GameActionResolverInterface;
-  game: GameStore;
+  game: GameStoreInterface;
   player: PlayerStoreInterface;
-  menu: MenuStore;
+  menu: MenuStoreInterface;
   country: CountryStoreInterface;
 }
 /*
@@ -30,7 +30,7 @@ export const initialState: ApplicationState = {
   game: gameStore.gameState, 
 };
 */
-class AppStore implements GameActionResolverDelegate, AppStoreInterface {
+class AppStore implements AppStoreInterface, GameActionResolverDelegate, CPUActionResolverDelegate, GameStoreDelegate {
 
   game: GameStore;
   player: PlayerStoreInterface;
@@ -38,13 +38,15 @@ class AppStore implements GameActionResolverDelegate, AppStoreInterface {
   country: CountryStoreInterface;
 
   gameActionResolver: GameActionResolverInterface;
+  cpuActionResolver: CPUActionResolverInterface;
 
   constructor() {
-    this.game = new GameStore();
+    this.game = new GameStore(this);
     this.player = new PlayerStore();
     this.menu = new MenuStore();
     this.country = new CountryStore();
     this.gameActionResolver = new GameActionResolver(this);
+    this.cpuActionResolver = new CPUActionResolver(this);
   }
 
   initGame(players: any, gameMode: any): void {
