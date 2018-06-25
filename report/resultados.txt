@@ -1,0 +1,19 @@
+Resultados
+
+A aplicação que desenvolvemos possui suporte para até 6 jogadores, sendo que é possível configura-los para que sejam controlados pela própria aplicação como BOTs. 
+
+A seguir será abordado as etapas principais para uso da aplicação.
+
+* Página inicial 
+
+A aplicação inicia diretamente na etapa de seleção de jogadores como pode ser vista na figura abaixo.
+
+## IMAGE
+
+Nesse etapa é possível adicionar novos jogadores e também renomea-los. Caso se deseje adicionar jogadores controlados pela aplicação é necessário usar a aba CPU onde é habilitado a alteração de modo de jogo de cada jogador.
+
+## IMAGE
+
+Ao iniciar o jogo cada jogador terá 1 minuto para realizar os passos de distribuição de tropas, atacar inimigos e movimentação. A ordem é definida exatamente como a descrita na etapa de configuração do jogo. 
+
+A primeira etapa é a de distribuição onde é possível selecionar o país que se deseja através do mapa ou pela caixa de texto disponível no lado direito da tela. Logo abaixo da caixa de seleção de países 
