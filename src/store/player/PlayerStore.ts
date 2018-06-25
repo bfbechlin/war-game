@@ -8,7 +8,6 @@ interface PlayerStoreInterface {
     addPlayer(player: PlayerInfo): void;
     incrementTroops(playerId: String, quantity: number): void;
     decrementTroops(playerId: String, quantity: number): void;
-    isActivePlayer(turnOwner: string, activePlayers: string[]): void;
 }
 
 class PlayerStore implements PlayerStoreInterface {
@@ -37,9 +36,6 @@ class PlayerStore implements PlayerStoreInterface {
     this.players[playerId].availableTroops -= quantity;
   }
 
-  isActivePlayer(turnOwner: string, activePlayers: string[]) {
-    return activePlayers.indexOf(turnOwner) > -1;
-   } 
 }
 
 export { PlayerStore, PlayerStoreInterface };

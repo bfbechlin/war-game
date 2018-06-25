@@ -57,7 +57,7 @@ class GameTransitionResolver implements GameTransitionResolverInterface {
     });
     
     menu.setSelecteds([]);
-    if (!this.delegate.player.isActivePlayer(game.turnOwner, game.activePlayers)) {
+    if (!this.delegate.game.isActivePlayer()) {
       menu.setQuantity(0);
       menu.setSelectables([]);
     } else {

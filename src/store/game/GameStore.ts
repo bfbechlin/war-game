@@ -29,6 +29,7 @@ interface GameStoreInterface {
   setActivePlayers(activePlayers: string[]): void;
   getPlayerOrder(): string[];
   setPlayerOrder(playerOrder: string[]): void;
+  isActivePlayer(): void;
 
 }
 
@@ -71,6 +72,10 @@ class GameStore implements GameStoreInterface {
     this.playerOrder = [];
     this.cardsBonus = 20;
   }
+
+  isActivePlayer() {
+    return this.activePlayers.indexOf(this.turnOwner) > -1;
+   } 
 
   getCardBonus(): number {
     return this.cardsBonus;

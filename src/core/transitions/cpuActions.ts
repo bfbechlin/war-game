@@ -104,8 +104,8 @@ class CPUActionResolver implements CPUActionResolverInterface {
   }
 
   resolveCPUAction(phase: GamePhase): void {
-    const { activePlayers, turnOwner } = this.delegate.game;
-    if (!this.delegate.player.isActivePlayer(turnOwner, activePlayers)) {
+    const { turnOwner } = this.delegate.game;
+    if (!this.delegate.game.isActivePlayer()) {
       setTimeout(
         () => {
           this.cpuAction(turnOwner, phase);
