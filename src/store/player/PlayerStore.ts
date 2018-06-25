@@ -38,9 +38,8 @@ class PlayerStore implements PlayerStoreInterface {
   }
 
   isActivePlayer(turnOwner: string, activePlayers: string[]) {
-    activePlayers.indexOf(turnOwner) > -1 
+    return activePlayers.indexOf(turnOwner) > -1;
    } 
 }
-
 
 export { PlayerStore, PlayerStoreInterface };

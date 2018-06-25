@@ -1,11 +1,11 @@
 import { filter, map, object, each } from 'utils/object';
 import { difference, shuffle, partition } from 'utils/array';
 import { continentsInfo, ContinentInfo, countries as allCountries, Countries, CountryInfo } from 'store/country/types';
-import { playerCountries } from 'core/transducers/map';
 import { GameStoreInterface } from 'store/game/GameStore';
 import { CountryStoreInterface } from 'store/country/CountryStore';
 import { PlayerStoreInterface } from 'store/player/PlayerStore';
-import { MenuStoreInterface } from 'store/menu/menuStore';
+import { MenuStoreInterface } from 'store/menu/MenuStore';
+import { GamePhase } from 'store/game/types';
 
 interface GameTransitionResolverDelegate {
   country: CountryStoreInterface;
@@ -17,7 +17,7 @@ interface GameTransitionResolverDelegate {
 interface GameTransitionResolverInterface {
   delegate: GameTransitionResolverDelegate;
   computeNewTroops(player: string): void;
-  interactionInit(): void;
+  interactionInit(phase: GamePhase): void;
   nextTurnInit(): void;
   gameInit(players: string[]): void;
   endGameReducer(): void;
@@ -37,7 +37,7 @@ class GameTransitionResolver implements GameTransitionResolverInterface {
 
   computeNewTroops(player: string) {
     
-    const countries = playerCountries(player, this.delegate.country.countries);
+    const countries = this.delegate.country.playerCountries(player, 0);
     
     let newTroopsCounter = Math.ceil(countries.length / 2);
     const continentBonus = map <ContinentInfo, number> (continentsInfo, (continent: ContinentInfo) => (
@@ -47,7 +47,7 @@ class GameTransitionResolver implements GameTransitionResolverInterface {
     return newTroopsCounter;
   }
 
-  interactionInit() {
+  interactionInit(phase: GamePhase) {
     const { game, country, menu } = this.delegate;
     menu.selecteds.forEach((countryName) => {
       country.setHover(countryName, false);
@@ -62,7 +62,8 @@ class GameTransitionResolver implements GameTransitionResolverInterface {
       menu.setSelectables([]);
     } else {
       menu.setQuantity(1);
-      const countries = playerCountries(game.turnOwner, country.countries, this.delegate.game.phase === 'DISTRIBUTION' ? 0 : 1);
+      console.log(phase, phase === 'DISTRIBUTION' ? 0 : 1);
+      const countries = this.delegate.country.playerCountries(game.turnOwner, phase === 'DISTRIBUTION' ? 0 : 1);
       menu.setSelectables(countries);
     }
   }
@@ -71,13 +72,9 @@ class GameTransitionResolver implements GameTransitionResolverInterface {
     const { game, player } = this.delegate;
     const nextPlayerIndex = (game.playerOrder.indexOf(game.turnOwner) + 1) % game.playerOrder.length;
     const newPlayer = game.playerOrder[nextPlayerIndex];
-    // Change turn number
-    // console.log(player.getPlayer(newPlayer));
     player.incrementTroops(newPlayer, this.computeNewTroops(newPlayer));
     game.setTurnOwner(newPlayer);
 }
-
-
 
   gameInit(players: string[]) {
     each(
@@ -99,4 +96,4 @@ endGameReducer() {
 
 }
 
-export{ GameTransitionResolverInterface, GameTransitionResolverDelegate, GameTransitionResolver };
+export { GameTransitionResolverInterface, GameTransitionResolverDelegate, GameTransitionResolver };

@@ -1,8 +1,8 @@
 import { observable, action, computed } from 'mobx';
 import { GamePhase, nextPhaseResolver, GameState } from './types';
 import { startClock, stopClock } from 'utils/clock';
-import { interactionInit, nextTurnInit, gameInit, endGameReducer } from 'core/transitions/gameTransitions';
 import { CPUActionResolverInterface } from 'core/transitions/cpuActions';
+import { GameTransitionResolverInterface } from 'core/transitions/gameTransitions';
 
 interface GameStoreInterface {
 
@@ -34,6 +34,7 @@ interface GameStoreInterface {
 
 class GameStoreDelegate {
   cpuActionResolver: CPUActionResolverInterface;
+  gameTransitionResolver: GameTransitionResolverInterface;
 }
 
 class GameStore implements GameStoreInterface {
@@ -85,24 +86,24 @@ class GameStore implements GameStoreInterface {
     const nextPhase = nextPhaseResolver(actualPhase);
 
     if (actualPhase === 'INIT') {
-      gameInit(this.playerOrder);
+      this.delegate.gameTransitionResolver.gameInit(this.playerOrder);
     }
     if (nextPhase === 'FINAL') {
       stopClock();
     } else {
       if (nextPhase === 'DISTRIBUTION') {
-        nextTurnInit();
+        this.delegate.gameTransitionResolver.nextTurnInit();
       }
 
       if (nextPhase === 'MOVE') {
-        endGameReducer();
+        this.delegate.gameTransitionResolver.endGameReducer();
       }
 
       // Clock time
       stopClock();
       this.setRemainingTime(60);
       startClock(() => this.decrementRemainingTime());
-      interactionInit(nextPhase);
+      this.delegate.gameTransitionResolver.interactionInit(nextPhase);
       this.delegate.cpuActionResolver.resolveCPUAction(nextPhase);
 
       this.phase = nextPhase;
@@ -119,24 +120,24 @@ class GameStore implements GameStoreInterface {
     const nextPhase = phase;
 
     if (actualPhase === 'INIT') {
-      gameInit(this.playerOrder);
+      this.delegate.gameTransitionResolver.gameInit(this.playerOrder);
     }
     if (nextPhase === 'FINAL') {
       stopClock();
     } else {
       if (nextPhase === 'DISTRIBUTION') {
-        nextTurnInit();
+        this.delegate.gameTransitionResolver.nextTurnInit();
       }
 
       if (nextPhase === 'MOVE') {
-        endGameReducer();
+        this.delegate.gameTransitionResolver.endGameReducer();
       }
 
       // Clock time
       stopClock();
       this.setRemainingTime(60);
       startClock(() => this.decrementRemainingTime());
-      interactionInit(nextPhase);
+      this.delegate.gameTransitionResolver.interactionInit(nextPhase);
       this.delegate.cpuActionResolver.resolveCPUAction(nextPhase);
 
       this.phase = nextPhase;

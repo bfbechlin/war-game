@@ -1,11 +1,9 @@
 import { AppStoreInterface } from 'store/';
-import { CountryState, CountryInfo, Countries, borderCountries as bdCountries } from 'store/country/types';
+import { CountryState, CountryInfo, Countries } from 'store/country/types';
 import { GamePhase } from 'store/game/types';
 import { PlayerState } from 'store/player/types';
 import { ViewMode } from 'store/menu/types';
 import { SelectionType, selectionTypeTransducer } from './menu';
-import { filter } from 'utils/object';
-import { intersection, difference } from 'utils/array';
 
 // const borderCountries: Countries[] = [];
 
@@ -60,21 +58,4 @@ export const possibleChoiceTransducer =
     selectorType: SelectionType
   ): boolean => {
   return selectorType === 'TO' && (gamePhase === 'ATTACK' || gamePhase === 'MOVE') && countryOnList(country, selectablesCountries);
-};
-
-export const playerCountries = (player: string, countries: CountryState, minTroops: number = 0): Countries[] => (
-  filter (countries, (country: CountryInfo) => ( country.owner === player && country.troops > minTroops)) as Countries[]
-);
-
-/**
- * sameOrigin:
- *  true -> ATTACK
- *  false -> MOVE
- */
-export const borderCountries = (country: Countries, countries: CountryState, sameOrigin: boolean = true): Countries[] => {
-  const player = countries[country].owner;
-  const borders = bdCountries[country] ? bdCountries[country] : [];
-  return sameOrigin ? 
-    intersection(borders, playerCountries(player, countries)) as Countries[] :
-    difference(borders, playerCountries(player, countries)) as Countries[] ;
 };

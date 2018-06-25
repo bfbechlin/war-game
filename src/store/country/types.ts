@@ -170,7 +170,7 @@ export interface BorderCountry {
   [index: string]: Countries[]; 
 }
 
-export const borderCountries: BorderCountry = {
+export const countryBorders: BorderCountry = {
   'Brazil': ['Peru', 'Venezuela', 'Argentina', 'North Africa'],
   'East Africa': ['North Africa', 'Egypt', 'South Africa', 'Congo'],
   'Egypt': ['East Africa', 'North Africa', 'Middle East'],

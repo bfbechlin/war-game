@@ -9,7 +9,7 @@ import { map } from 'utils/object';
 import { Color, GREY } from 'utils/colors';
 
 import { continentsInfo, ContinentInfo, Countries } from 'store/country/types';
-import { countrySelectionTransition, CountrySelection } from 'core/transitions/countrySelection';
+import { CountrySelection } from 'core/transitions/countrySelection';
 import { AppStoreInterface } from 'store/';
 
 import { 
@@ -38,7 +38,7 @@ export class Map extends React.Component<Props, MapState> {
   };
 
   handleAction = (name: Countries, action: CountrySelection) => (event: any) => {
-    countrySelectionTransition(this.props.store!.game.getGamePhase(), action, name);
+    this.props.store!.countrySelectionResolver.countrySelectionTransition(action, name);
   }
 
   countriesData = (countries: Countries[], color: Color): CountryProps[] => {

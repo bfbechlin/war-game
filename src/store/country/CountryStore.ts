@@ -1,5 +1,9 @@
 import { observable, action } from 'mobx';
-import { CountryState } from './types';
+import { CountryState, Countries, countryBorders, CountryInfo } from './types';
+import { MenuStoreInterface } from 'store/menu/MenuStore';
+import { GameStoreInterface } from 'store/game/GameStore';
+import { filter } from 'utils/object';
+import { intersection, difference } from 'utils/array';
 
 const countryInitState: CountryState = {
     'East Africa':            { troops: 0, owner: '', hovered: false },
@@ -47,6 +51,8 @@ const countryInitState: CountryState = {
   };
 
 interface CountryStoreInterface {
+
+    delegate: CountryStoreDelegate;
     countries: CountryState;
     setTroops(countryName: string, quantity: number): void;
     massChangeOwner(countries: string[], owner: string): void;
@@ -54,13 +60,23 @@ interface CountryStoreInterface {
     decrementTroops(countryName: string, quantity: number): void;
     changeOwner(countryName: string, newOwner: string): void;
     setHover(countryName: string, hovered: boolean): void;
+    playerCountries(player: string, minTroops: number): Countries[];
+    borderCountries(country: Countries, sameOrigin: boolean): Countries[];
+}
+
+interface CountryStoreDelegate {
+    menu: MenuStoreInterface;
+    game: GameStoreInterface;
 }
 
 class CountryStore implements CountryStoreInterface {
 
+  delegate: CountryStoreDelegate;
+
   @observable countries: CountryState;
 
-  constructor() {
+  constructor(delegate: CountryStoreDelegate) {
+    this.delegate = delegate;
     this.countries = countryInitState;
   }
   
@@ -91,6 +107,24 @@ class CountryStore implements CountryStoreInterface {
       this.countries[countryName].hovered = hovered;
   }
 
+playerCountries(player: string, minTroops: number = 0): Countries[] {
+    console.log(filter(this.countries, (country: CountryInfo) => ( country.owner === player && country.troops > minTroops)));
+    return filter(this.countries, (country: CountryInfo) => ( country.owner === player && country.troops > minTroops)) as Countries[];
+}
+  
+  /**
+   * sameOrigin:
+   *  true -> ATTACK
+   *  false -> MOVE
+   */
+  borderCountries(country: Countries, sameOrigin: boolean = true): Countries[] {
+    const player = this.countries[country].owner;
+    const borders = countryBorders[country] ? countryBorders[country] : [];
+    return sameOrigin ? 
+      intersection(borders, this.playerCountries(player)) as Countries[] :
+      difference(borders, this.playerCountries(player)) as Countries[] ;
+  }
+
 }
 
-export { CountryStore, CountryStoreInterface };
+export { CountryStore, CountryStoreInterface, CountryStoreDelegate };

@@ -6,8 +6,6 @@ import { AppStoreInterface } from 'store/';
 import CountrySelector, { SelectionAction } from './CountrySelector';
 import AmountSelector from './QuantitySelector';
 
-import { countrySelectionTransition } from 'core/transitions/countrySelection';
-
 interface AttackStepProps {
   store: AppStoreInterface;
   quantity: number;
@@ -33,7 +31,7 @@ const AttackStep: React.SFC<AttackStepProps> = (props: AttackStepProps) => {
 
   const onAttack = () => {
     if (store.gameActionResolver.move(selectedFrom!, selectedTo!, quantity)) {
-      countrySelectionTransition('MOVE', 'SELECTION-OUT', selectedTo!);  
+      store.countrySelectionResolver.countrySelectionTransition('SELECTION-OUT', selectedTo!);  
     }
   };
 
@@ -43,7 +41,7 @@ const AttackStep: React.SFC<AttackStepProps> = (props: AttackStepProps) => {
   };
 
   const handleAction = (name: Countries, action: SelectionAction) => (event: any) => {
-    countrySelectionTransition('MOVE', action, name);
+    store.countrySelectionResolver.countrySelectionTransition(action, name);
   };
 
   return (
@@ -55,7 +53,7 @@ const AttackStep: React.SFC<AttackStepProps> = (props: AttackStepProps) => {
         onAction={handleAction}
         onFocus={() => { 
           if (selectedFrom) {
-            countrySelectionTransition('MOVE', 'SELECTION-OUT', selectedFrom) ;
+            store.countrySelectionResolver.countrySelectionTransition('SELECTION-OUT', selectedFrom) ;
           }
         }}
       />
@@ -66,7 +64,7 @@ const AttackStep: React.SFC<AttackStepProps> = (props: AttackStepProps) => {
         onAction={handleAction}
         onFocus={() => { 
           if (selectedTo) {
-            countrySelectionTransition('MOVE', 'SELECTION-OUT', selectedTo) ;
+            store.countrySelectionResolver.countrySelectionTransition('SELECTION-OUT', selectedTo) ;
           }
         }}
       />

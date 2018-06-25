@@ -5,6 +5,8 @@ import { CountryStore, CountryStoreInterface } from './country/CountryStore';
 import { avatarName } from 'utils/name';
 import { GameActionResolverInterface, GameActionResolverDelegate, GameActionResolver } from 'core/transitions/gameActions';
 import { CPUActionResolverDelegate, CPUActionResolverInterface, CPUActionResolver } from 'core/transitions/cpuActions';
+import { CountrySelectionResolverInterface, CountrySelectionResolver } from 'core/transitions/countrySelection';
+import { GameTransitionResolverDelegate, GameTransitionResolverInterface, GameTransitionResolver } from 'core/transitions/gameTransitions';
 
 /*
 export interface ApplicationState {
@@ -16,11 +18,15 @@ export interface ApplicationState {
 */
 
 export interface AppStoreInterface {
+
   gameActionResolver: GameActionResolverInterface;
+  countrySelectionResolver: CountrySelectionResolverInterface;
+  cpuActionResolver: CPUActionResolverInterface;
   game: GameStoreInterface;
   player: PlayerStoreInterface;
   menu: MenuStoreInterface;
   country: CountryStoreInterface;
+
 }
 /*
 export const initialState: ApplicationState = { 
@@ -30,13 +36,19 @@ export const initialState: ApplicationState = {
   game: gameStore.gameState, 
 };
 */
-class AppStore implements AppStoreInterface, GameActionResolverDelegate, CPUActionResolverDelegate, GameStoreDelegate {
+class AppStore implements AppStoreInterface, 
+                          GameActionResolverDelegate, 
+                          CPUActionResolverDelegate, 
+                          GameStoreDelegate,
+                          GameTransitionResolverDelegate {
 
   game: GameStore;
   player: PlayerStoreInterface;
   menu: MenuStore;
   country: CountryStoreInterface;
 
+  gameTransitionResolver: GameTransitionResolverInterface;
+  countrySelectionResolver: CountrySelectionResolverInterface;
   gameActionResolver: GameActionResolverInterface;
   cpuActionResolver: CPUActionResolverInterface;
 
@@ -44,10 +56,12 @@ class AppStore implements AppStoreInterface, GameActionResolverDelegate, CPUActi
     this.game = new GameStore(this);
     this.player = new PlayerStore();
     this.menu = new MenuStore();
-    this.country = new CountryStore();
+    this.country = new CountryStore(this);
     this.gameActionResolver = new GameActionResolver(this);
     this.cpuActionResolver = new CPUActionResolver(this);
-  }
+    this.countrySelectionResolver = new CountrySelectionResolver(this);
+    this.gameTransitionResolver = new GameTransitionResolver(this);
+    }
 
   initGame(players: any, gameMode: any): void {
     players.forEach((player: any) => {

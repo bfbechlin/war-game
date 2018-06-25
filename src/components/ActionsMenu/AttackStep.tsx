@@ -5,7 +5,6 @@ import RaisedButton from 'material-ui/RaisedButton';
 import CountrySelector, { SelectionAction } from './CountrySelector';
 import AmountSelector from './QuantitySelector';
 
-import { countrySelectionTransition } from 'core/transitions/countrySelection';
 import { AppStoreInterface } from 'store/';
 
 interface AttackStepProps {
@@ -33,7 +32,7 @@ const AttackStep: React.SFC<AttackStepProps> = (props: AttackStepProps) => {
 
   const onAttack = () => {
     if (selectedFrom && selectedTo && store.gameActionResolver.attack(selectedFrom, selectedTo, quantity)) {
-      countrySelectionTransition('ATTACK', 'SELECTION-OUT', selectedTo!);  
+      store.countrySelectionResolver.countrySelectionTransition('SELECTION-OUT', selectedTo!);  
     }
   };
 
@@ -43,7 +42,7 @@ const AttackStep: React.SFC<AttackStepProps> = (props: AttackStepProps) => {
   };
 
   const handleAction = (name: Countries, action: SelectionAction) => (event: any) => {
-    countrySelectionTransition('ATTACK', action, name);
+    store.countrySelectionResolver.countrySelectionTransition(action, name);
   };
 
   return (
@@ -55,7 +54,7 @@ const AttackStep: React.SFC<AttackStepProps> = (props: AttackStepProps) => {
         onAction={handleAction}
         onFocus={() => { 
           if (selectedFrom) {
-            countrySelectionTransition('ATTACK', 'SELECTION-OUT', selectedFrom) ;
+            store.countrySelectionResolver.countrySelectionTransition('SELECTION-OUT', selectedFrom) ;
           }
         }}
       />
@@ -66,7 +65,7 @@ const AttackStep: React.SFC<AttackStepProps> = (props: AttackStepProps) => {
         onAction={handleAction}
         onFocus={() => { 
           if (selectedTo) {
-            countrySelectionTransition('ATTACK', 'SELECTION-OUT', selectedTo) ;
+            store.countrySelectionResolver.countrySelectionTransition('SELECTION-OUT', selectedTo) ;
           }
         }}
       />

@@ -9,7 +9,6 @@ import {
 // import FlatButton from 'material-ui/FlatButton';
 // import { GamePhase  } from 'store/game/types';
 // import { MenuState  } from 'store/menu/types';
-import { isActivePlayer } from 'core/transducers/player';
 
 import DistributionStep from './DistributionStep';
 import AttackStep from './AttackStep';
@@ -34,7 +33,7 @@ const ActionsMenu: React.SFC<Props> = observer((props: Props) => {
   const country = props.store!.country.countries;
   const { turnOwner, phase } = game;
   const { selecteds, quantity } = menu;
-  const activePlayer = isActivePlayer(game.turnOwner, game.activePlayers);
+  const activePlayer = props.store!.player.isActivePlayer(game.turnOwner, game.activePlayers);
   const selectedTo = selecteds.length >= 2 ? selecteds[1] : null;
   const selectedFrom = selecteds.length >= 1  ? selecteds[0] : null;
   const maxAttack = selectedFrom ? country[selectedFrom].troops - 1 : 0;

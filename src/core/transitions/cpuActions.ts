@@ -1,8 +1,6 @@
-import { playerCountries, borderCountries } from 'core/transducers/map';
 import { GamePhase } from 'store/game/types';
 import { PlayerInfo } from 'store/player/types';
 import { Countries } from 'store/country/types';
-import { isActivePlayer } from 'core/transducers/player';
 import { sortBy, shuffle } from 'utils/array';
 import { GameActionResolverInterface } from 'core/transitions/gameActions';
 import { GameStoreInterface } from 'store/game/GameStore';
@@ -20,7 +18,6 @@ interface CPUActionResolverInterface {
 
   delegate: CPUActionResolverDelegate;
   resolveCPUAction(phase: GamePhase): void;
-  // cpuAction(playerName: string, phase: GamePhase): void;
 
 }
 
@@ -33,8 +30,7 @@ class CPUActionResolver implements CPUActionResolverInterface {
   }
 
   distributeStep(player: PlayerInfo): void {
-    const countries = this.delegate.country.countries;
-    const myCountries = shuffle(playerCountries(player.name, countries));
+    const myCountries = shuffle(this.delegate.country.playerCountries(player.name, 0));
     let availableTroops = player.availableTroops;
     myCountries.forEach((country) => {
       if (availableTroops > 0) {
@@ -48,12 +44,12 @@ class CPUActionResolver implements CPUActionResolverInterface {
 
   attackStep(player: PlayerInfo): void {
     let countries = this.delegate.country.countries;
-    const myCountries = playerCountries(player.name, countries);
+    const myCountries = this.delegate.country.playerCountries(player.name, 2);
     
     myCountries.forEach((myCountry) => {
       countries = this.delegate.country.countries;
       const myTroops = countries[myCountry].troops;
-      const bdCountries = borderCountries(myCountry, countries, false);
+      const bdCountries = this.delegate.country.borderCountries(myCountry, false);
       bdCountries.forEach((target) => {
         const targetTroops = countries[target].troops;
         if (myTroops > 3 && myTroops > targetTroops * 2) {
@@ -65,10 +61,10 @@ class CPUActionResolver implements CPUActionResolverInterface {
 
   moveStep(player: PlayerInfo): void {
     let countries = this.delegate.country.countries;
-    const countriesRiskOrderer = this.countriesRiskLevel(playerCountries(player.name, countries));
+    const countriesRiskOrderer = this.countriesRiskLevel(this.delegate.country.playerCountries(player.name, 0));
     countriesRiskOrderer.forEach((country) => {
       countries = this.delegate.country.countries;
-      const bdCountries = borderCountries(country, countries, true);
+      const bdCountries = this.delegate.country.borderCountries(country, true);
       bdCountries.forEach((origin) => {
         const originTroops = countries[origin].troops;
         if (originTroops > 1 && this.riskComparation(countriesRiskOrderer, origin, country)) {
@@ -80,9 +76,8 @@ class CPUActionResolver implements CPUActionResolverInterface {
 
   // RISK DESCENDING
   countriesRiskLevel = (countries: Countries[]): Countries[] => {
-    const countryState = this.delegate.country.countries;
     const risks = countries.map((country) => {
-      const risk = borderCountries(country, countryState, false).length * 1000 + Math.abs(Math.random() * 999);
+      const risk = this.delegate.country.borderCountries(country, false).length * 1000 + Math.abs(Math.random() * 999);
       return {name: country, risk};
     });
     const ordered = sortBy(risks, (item) => (item.risk)); 
@@ -110,7 +105,7 @@ class CPUActionResolver implements CPUActionResolverInterface {
 
   resolveCPUAction(phase: GamePhase): void {
     const { activePlayers, turnOwner } = this.delegate.game;
-    if (!isActivePlayer(turnOwner, activePlayers)) {
+    if (!this.delegate.player.isActivePlayer(turnOwner, activePlayers)) {
       setTimeout(
         () => {
           this.cpuAction(turnOwner, phase);

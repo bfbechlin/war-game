@@ -5,7 +5,6 @@ import RaisedButton from 'material-ui/RaisedButton';
 import CountrySelector, { SelectionAction } from './CountrySelector';
 import AmountSelector from './QuantitySelector';
 
-import { countrySelectionTransition } from 'core/transitions/countrySelection';
 import { AppStoreInterface } from 'store/';
 
 interface DistributionStepProps {
@@ -41,7 +40,7 @@ const DistributionStep: React.SFC<DistributionStepProps> = (props: DistributionS
   };
 
   const handleAction = (name: Countries, action: SelectionAction) => (event: any) => {
-    countrySelectionTransition('DISTRIBUTION', action, name);
+    props.store.countrySelectionResolver.countrySelectionTransition(action, name);
   };
 
   return (
@@ -53,7 +52,7 @@ const DistributionStep: React.SFC<DistributionStepProps> = (props: DistributionS
         onAction={handleAction}
         onFocus={() => { 
           if (selected) {
-            countrySelectionTransition('DISTRIBUTION', 'SELECTION-OUT', selected) ;
+            props.store.countrySelectionResolver.countrySelectionTransition('SELECTION-OUT', selected) ;
           }
         }}
       />
