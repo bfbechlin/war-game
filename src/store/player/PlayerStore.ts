@@ -8,6 +8,7 @@ interface PlayerStoreInterface {
     addPlayer(player: PlayerInfo): void;
     incrementTroops(playerId: String, quantity: number): void;
     decrementTroops(playerId: String, quantity: number): void;
+    isActivePlayer(turnOwner: string, activePlayers: string[]): void;
 }
 
 class PlayerStore implements PlayerStoreInterface {
@@ -35,9 +36,11 @@ class PlayerStore implements PlayerStoreInterface {
   @action decrementTroops(playerId: string, quantity: number = 1) {
     this.players[playerId].availableTroops -= quantity;
   }
+
+  isActivePlayer(turnOwner: string, activePlayers: string[]) {
+    activePlayers.indexOf(turnOwner) > -1 
+   } 
 }
 
-// const playerStore = new PlayerStore();
 
-// export default playerStore;
 export { PlayerStore, PlayerStoreInterface };

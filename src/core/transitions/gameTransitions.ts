@@ -1,9 +1,7 @@
-//import store from 'store/';
 import { filter, map, object, each } from 'utils/object';
 import { difference, shuffle, partition } from 'utils/array';
 import { continentsInfo, ContinentInfo, countries as allCountries, Countries, CountryInfo } from 'store/country/types';
 import { playerCountries } from 'core/transducers/map';
-import { isActivePlayer } from 'core/transducers/player';
 import { GameStoreInterface } from 'store/game/GameStore';
 import { CountryStoreInterface } from 'store/country/CountryStore';
 import { PlayerStoreInterface } from 'store/player/PlayerStore';
@@ -59,7 +57,7 @@ class GameTransitionResolver implements GameTransitionResolverInterface {
     });
     
     menu.setSelecteds([]);
-    if (!isActivePlayer(game.turnOwner, game.activePlayers)) {
+    if (!this.delegate.player.isActivePlayer(game.turnOwner, game.activePlayers)) {
       menu.setQuantity(0);
       menu.setSelectables([]);
     } else {
