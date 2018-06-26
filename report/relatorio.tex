@@ -248,8 +248,8 @@ O NodeJS é uma versão da V8, engine de JavaScript desenvolvida pelo Google par
 JavaScript em seu navegador Google Chrome, portada para plataforma. \par
 Um dos pontos importantes dessa engine de JavaScript é que ela é totalmente single thread, mas usa um modelo de eventos e I/O não bloqueante para lidar com essa limitação. Esse modelo tem se mostrado uma alternativa aos tradicionais com multi threads, tanto que o NodeJS vem sendo vastamente usado como servidor aplicação para aplicações web. \par
 Juntamente com o NodeJS, é instalado o gerenciador de pacotes \textbf{NPM}, que possui o maior ecosistema de bibliotecas open source do mundo.
-Essas dependências são disponibilizadas localmente dentro de uma pasta na mesma raiz do projeto, independente da plataforma e sem instalação de fato no sistema operacional do desenvolvedor. 
-Isso aumenta a portabilidade do projeto e automatiza o processo de construção da aplicação, já que com um comando é baixado e instalado todas as dependências listadas no projeto. 
+Essas dependências são disponibilizadas localmente dentro de uma pasta na mesma raiz do projeto, independente da plataforma e sem instalação de fato no sistema operacional do desenvolvedor.
+Isso aumenta a portabilidade do projeto e automatiza o processo de construção da aplicação, já que com um comando é baixado e instalado todas as dependências listadas no projeto.
 Além disso, esse mecanismo facilita a manutenção de projetos já que o ambiente de desenvolvimento não fica poluído com bibliotecas compartilhadas.
 
 \subsection{Instalando a aplicação}
@@ -283,7 +283,7 @@ A real utilidade Redux no caso do React é uma função de alta ordem disponíve
 \subsection{MobX}
 O conjunto React+MobX é uma combinação não tão comum para aplicações React. Assim como o Redux, MobX serve para controlar o estado da aplicação fora dos componentes React garantindo a escalabilidade e manutenibilidade
  do projeto, mas ao contrario da sua alternativa funcional Redux, MobX trabalha muito bem com o paradigma orientado a objetos, integrando as funcionalidades tanto de ações e redutores em classes, o que acaba convendo uma clareza
- e familiraidade não vista antes na etapa funcional do projeto usando sua alternativa, Redux. O cerne do MobX está no uso dos decoradores \textbf{@observer} e \textbf{@observable}, \textbf{@observable} encapsula um objeto, array ou instancia de classe 
+ e familiraidade não vista antes na etapa funcional do projeto usando sua alternativa, Redux. O cerne do MobX está no uso dos decoradores \textbf{@observer} e \textbf{@observable}, \textbf{@observable} encapsula um objeto, array ou instancia de classe
   permitindo que o MobX tenha visão sobre o uso do seu respectivo \textbf{setter}, esse acesso especial permite framework reaja as mudanças em dados marcados como \textbf{@observable}. Para permitir as reaçoes dos componentes \textbf{React}
    usamos o decorador \textbf{@observers}, ao encapsular os componentes marcados ele força a chamada do método \textbf{render} do componente toda vez que algum dado marcado como \textbf{@observable} acessado dento do componente mude seu valor.
     Essa capacidade junto com uma série de otimizacões do framework permitem que a UI reaja rapidamente a mudanças no estado sem prejudicar a legibilidade do código.
@@ -599,7 +599,7 @@ A função \textbf{attackStep} tem o propósito de fazer com que os jogadores co
 const attackStep = (player: PlayerInfo) => {
   let countries = store.getState().country;
   const myCountries = playerCountries(player.name, countries);
-  
+
   myCountries.forEach((myCountry) => {
     countries = store.getState().country;
     const myTroops = countries[myCountry].troops;
@@ -614,7 +614,7 @@ const attackStep = (player: PlayerInfo) => {
 };
 \end{lstlisting}
 
-A função \textbf{countriesRiskLevel} tem o propósito de medir e ordernar os países pelo nível de risco. 
+A função \textbf{countriesRiskLevel} tem o propósito de medir e ordernar os países pelo nível de risco.
 Esse nível de risco é dado pela quantidade de países que fazem fronteira com ele e que não possuem a seu dono.
 Nesse processo é induzido uma aleatoriedade caso existam empates.
 O retorno é a uma lista de países ordenados em forma descente com base no risco.
@@ -625,7 +625,7 @@ const countriesRiskLevel = (countries: Countries[]): Countries[] => {
     const risk = borderCountries(country, countryState, false).length * 1000 + Math.abs(Math.random() * 999);
     return {name: country, risk};
   });
-  const ordered = sortBy(risks, (item) => (item.risk)); 
+  const ordered = sortBy(risks, (item) => (item.risk));
   return ordered.map((item) => item.name);
 };
 \end{lstlisting}
@@ -665,8 +665,8 @@ export const cpuAction = (playerName: string, phase: GamePhase) => {
 };
 \end{lstlisting}
 
-A função anonima realiza a verificação se o jogador deve tomar as ações calculadas pelo computador, ou seja, se o jogador é um BOT. 
-Caso seja um BOT então resolve as ações necessárias para aquele turno. 
+A função anonima realiza a verificação se o jogador deve tomar as ações calculadas pelo computador, ou seja, se o jogador é um BOT.
+Caso seja um BOT então resolve as ações necessárias para aquele turno.
 Também é adicionado um atraso até a resolução da ação para melhor interação e visualização do sistema.
 \begin{lstlisting}[language=JavaScript]
 export default (phase: GamePhase) => {
@@ -736,6 +736,109 @@ Na pasta \verb|src| se encontra todo o fonte do projeto com a seguinte hierarqui
 \par Existem arquivos soltos dentro da pasta \verb|src| que são os arquivos de ponto de entrada para a criação da aplicação.
 
 \subsection{Classes}
+Foram criadas classes para as \textbf{stores}, que têm os métodos como a representação de cada action que antes era exportada como constante na abordagem funcional. Cada classe tem os atributos da entidade que antes eram apenas alterados pelo estado do jogo, e agora fazem parte do objeto da classe. Exemplo as actions do menu:
+\begin{lstlisting}[language=JavaScript]
+import { ActionCreator } from 'redux';
+import { Countries } from 'store/country/types';
+import {
+  ViewMode,
+  SetQuantityAction,
+  SET_QUANTITY,
+  SetSelectablesAction,
+  SET_SELECTABLES,
+  SetSelectedsAction,
+  SET_SELECTEDS,
+  SetViewModeAction,
+  SET_VIEW_MODE,
+} from './types';
+
+export const setQuantity: ActionCreator<SetQuantityAction> = (quantity: number) => ({
+  type: SET_QUANTITY,
+  payload: {
+    quantity
+  }
+});
+
+[...]
+
+export const setViewMode: ActionCreator<SetViewModeAction> = (viewMode: ViewMode) => ({
+  type: SET_VIEW_MODE,
+  payload: {
+    viewMode
+  }
+});
+\end{lstlisting}
+
+Que agora, em classe, passou a ser:
+
+\begin{lstlisting}[language=JavaScript]
+import { observable, action, computed } from 'mobx';
+import { MenuState, ViewMode } from './types';
+import { Countries } from 'store/country/types';
+
+interface MenuStoreInterface {
+  quantity: number;
+  selectables: Countries[];
+  selecteds: Countries[];
+  viewMode: ViewMode;
+  readonly menuState: MenuState;
+  getQuantity(): void;
+  setQuantity(quantity: number): void;
+  getSelectables(): Countries[];
+  setSelectables(selectables: Countries[]): void;
+  getSelecteds(): Countries[];
+  setSelecteds(selecteds: Countries[]): void;
+  getViewMode(): ViewMode;
+  setViewMode(viewMode: ViewMode): void;
+}
+class MenuStore implements MenuStoreInterface {
+
+  @observable quantity: number;
+  @observable selectables: Countries[];
+  @observable selecteds: Countries[];
+  @observable viewMode: ViewMode;
+
+  @computed get menuState(): MenuState {
+    return {
+      quantity: this.quantity,
+      selectables: this.selectables,
+      selecteds: this.selecteds,
+      viewMode: this.viewMode,
+    };
+  }
+
+  constructor() {
+    this.quantity = 1;
+    this.selectables = ['Brazil', 'Peru', 'Venezuela', 'North Africa'];
+    this.selecteds = [];
+    this.viewMode = 'PLAYER';
+  }
+
+  getQuantity() {
+    return this.quantity;
+  }
+
+  @action setQuantity(quantity: number) {
+    this.quantity = quantity;
+  }
+
+[...]
+
+  @action setViewMode(viewMode: ViewMode) {
+    this.viewMode = viewMode;
+  }
+
+}
+
+export { MenuStore , MenuStoreInterface };
+\end{lstlisting}
+
+Os conceitos de delegates e resolvers serão explicados nas seções que seguem.
+
+
+\subsection{Delegates}
+Para as classes foram usados \textbf{Delegates}, que podem ser considerados \textit{placeholders} para métodos e atributos. Isso garante que os métodos implementados que tenham as mesmas assinaturas que os métodos do delegate sejam chamados toda vez que o delegate é chamado.\par
+Também, seguindo o conceito de Delegates, foram implementados \textbf{Resolvers}, que consistem na compilação dos métodos soltos e funções anônimas que antes eram importadas como constantes em classes que implementam uma interface visível para a store. Com os delegats, todos os métodos de resolução (Resolvers) garantidamente têm as informações necessárias para atuar sobre o estado atual do jogo.
 
 \subsection{Encapsulamento}
 
@@ -744,7 +847,7 @@ Na pasta \verb|src| se encontra todo o fonte do projeto com a seguinte hierarqui
 \subsection{Métodos}
 
 \subsection{Herança}
-  
+
 \chapter{Resultados}
 \begin{figure}[ht]
 \centering
