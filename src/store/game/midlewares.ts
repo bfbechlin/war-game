@@ -8,7 +8,7 @@ import { NEXT_GAME_PHASE, SET_GAME_PHASE, DECREMENT_REMAINING_TIME, nextPhaseRes
 import { ApplicationState } from 'store/';
 import { decrementRemainingTime, setRemainingTime } from 'store/game/actions';
 import { nextGamePhase } from 'store/game/actions';
-import { interactionInit, nextTurnInit, gameInit, endGameVerify } from 'core/transitions/gameTransitions';
+import { interactionInit, nextTurnInit, gameInit, playerRemoveVerify, endGameVerify } from 'core/transitions/gameTransitions';
 import cpuReducer from 'core/transitions/cpuActions';
 import { startClock, stopClock } from 'utils/clock';
 
@@ -36,6 +36,7 @@ export const gamePhaseWatcher: ExtendedMiddleware<ApplicationState> = <S extends
           }
 
           if (nextPhase === 'MOVE') {
+            playerRemoveVerify();
             if (endGameVerify()) {
               action.type = SET_GAME_PHASE;
               action.payload.phase = 'FINAL';

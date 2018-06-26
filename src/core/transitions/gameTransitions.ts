@@ -8,7 +8,7 @@ import { isActivePlayer } from 'core/transducers/player';
 import { GamePhase } from 'store/game/types';
 
 import { setHover, massChangeOwner } from 'store/country/actions';
-import { setTurnOwner } from 'store/game/actions';
+import { setTurnOwner, setPlayerOrder } from 'store/game/actions';
 import { incrementAvailableTroops } from 'store/player/actions';
 
 export const computeNewTroops = (player: string, country: CountryState) => {
@@ -60,6 +60,18 @@ export const gameInit = (players: string[]) => {
       store.dispatch(massChangeOwner(countriesNames, playerName));
     }
   );
+};
+
+export const playerRemoveVerify = () => {
+  const { country } = store.getState();
+  let players = store.getState().game.playerOrder;
+  let newPlayerOrder = [...players];
+  players.forEach((player) => {
+    if (filter(country, (countryInfo: CountryInfo) => (countryInfo.owner === player)).length === 0) {
+      newPlayerOrder.splice(newPlayerOrder.indexOf(player), 1);
+      store.dispatch(setPlayerOrder(newPlayerOrder));
+    }
+  });
 };
 
 export const endGameVerify = () => {
