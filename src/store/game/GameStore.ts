@@ -101,7 +101,10 @@ class GameStore implements GameStoreInterface {
       }
 
       if (nextPhase === 'MOVE') {
-        this.delegate.gameTransitionResolver.endGameReducer();
+        if (this.delegate.gameTransitionResolver.endGameVerify()) { 
+          this.setGamePhase('FINAL');
+          return; 
+        } 
       }
 
       // Clock time

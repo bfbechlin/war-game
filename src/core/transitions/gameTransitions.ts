@@ -20,7 +20,7 @@ interface GameTransitionResolverInterface {
   interactionInit(phase: GamePhase): void;
   nextTurnInit(): void;
   gameInit(players: string[]): void;
-  endGameReducer(): void;
+  endGameVerify(): void;
 }
 
 interface InitCountries {
@@ -74,7 +74,7 @@ class GameTransitionResolver implements GameTransitionResolverInterface {
     const newPlayer = game.playerOrder[nextPlayerIndex];
     player.incrementTroops(newPlayer, this.computeNewTroops(newPlayer));
     game.setTurnOwner(newPlayer);
-}
+  }
 
   gameInit(players: string[]) {
     each(
@@ -85,13 +85,10 @@ class GameTransitionResolver implements GameTransitionResolverInterface {
     );
   }
 
-endGameReducer() {
-    // Verify each player objective. For now only if a player has all countries
+  endGameVerify() { 
     const { country } = this.delegate;
-    const randomPlayer = country.countries.Brazil.owner;
-    if (filter(country, (countryInfo: CountryInfo) => (countryInfo.owner !== randomPlayer)) === []) {
-      this.delegate.game.setGamePhase('FINAL');
-    }
+    const randomPlayer = country.countries.Brazil.owner; 
+    return filter(country, (countryInfo: CountryInfo) => (countryInfo.owner !== randomPlayer)).length === 0; 
   }
 
 }
