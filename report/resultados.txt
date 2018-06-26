@@ -1,3 +1,5 @@
+Estrutura do documento
+
 Resultados
 
 A aplicação que desenvolvemos possui suporte para até 6 jogadores, sendo que é possível configura-los para que sejam controlados pela própria aplicação como BOTs. 
@@ -8,12 +10,42 @@ A seguir será abordado as etapas principais para uso da aplicação.
 
 A aplicação inicia diretamente na etapa de seleção de jogadores como pode ser vista na figura abaixo.
 
-## IMAGE
+## landing.png
 
 Nesse etapa é possível adicionar novos jogadores e também renomea-los. Caso se deseje adicionar jogadores controlados pela aplicação é necessário usar a aba CPU onde é habilitado a alteração de modo de jogo de cada jogador.
 
-## IMAGE
+## setup.png
 
-Ao iniciar o jogo cada jogador terá 1 minuto para realizar os passos de distribuição de tropas, atacar inimigos e movimentação. A ordem é definida exatamente como a descrita na etapa de configuração do jogo. 
+Ao iniciar o jogo cada jogador terá 1 minuto para realizar os passos de distribuição de tropas, atacar inimigos e movimentação. Caso o tempo se esgote a fase será automaticamente trocada para a próxima no fluxo normal de jogo, entretanto, caso se deseje acelarar o processo é possível usar o botão finish para forçar a troca de etapa. 
+A ordem de jogadores é definida exatamente como a descrita na etapa de configuração do jogo. 
 
-A primeira etapa é a de distribuição onde é possível selecionar o país que se deseja através do mapa ou pela caixa de texto disponível no lado direito da tela. Logo abaixo da caixa de seleção de países 
+## initGame.png
+
+Ao lado direito da tela está o menu de ações do jogo, onde cada jogador pode realizar sua interação com o jogo. Outro meio de selecionar países é utilizando o mapa onde é facilitado usando indicações visuais quais países podem ser selecionados, importante resaltar é que caso se use as caixas de seleção os países também são resaltados no mapa para facilitar a visualização.
+Como a conquista de um continente inteiro influência na quantidade de tropas recebidas o jogo disponibiliza uma forma de visualização por continentes para facilitar a visualização de fronteiras.
+
+## continentView.png
+
+A primeira etapa é a de distribuição de tropas, onde se seleciona um país que esteja sobre o controle do jogador ativo do turno, a quantidade de tropas que se deseja colocar nesse país e então se confirma a operação usando o botão "Add Troops".
+
+## distribution.png
+
+A segunda etapa é o de ataque a países inimigos, onde se seleciona um país origem do jogador ativo no turno do jogo, um outro destino que não seja do jogador ativo, a quantidade de vezes que se deseja atacar e então se confirma a operação usando o botão "attack". Importante ressaltar que ataques só podem ser realizados entre países que fazem fronteira. Para cada ataque é realizado um sorteio onde o defensor tem 55% de chances de vitória sobre o atacante, ou seja, caso se ataque 3 vezes um país para cada ataque será realizado o sorteio citado.
+
+## attack.png
+
+A última etapa é a de movimentação entre países aliados, onde se seleciona um país origem do jogador ativo no turno do jogo, um outro destino também do jogador ativo, a quantidade de tropas que se deseja mover e então se confirma a operação usando o botão "move". As movimentações também só podem ser realizadas entre países que fazem fronteira.
+
+## move.png
+
+Caso se use algum jogador controlado pelo computador no turno desse jogador as ações serão bloqueadas pois são todas resolvidas pela própria aplicação.
+
+## bot.png
+
+O jogo termina quando um jogador conquistar todos os países e esse jogador é o vencedor.
+
+## endGame.png
+
+
+Conclusão
+
