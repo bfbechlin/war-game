@@ -849,17 +849,118 @@ Também, seguindo o conceito de Delegates, foram implementados \textbf{Resolvers
 \subsection{Herança}
 
 \chapter{Resultados}
-\begin{figure}[ht]
+
+O link \texttt{https://bfbechlin.github.io/war-game/} fornece a página pública do projeto, através da ferramenta GitHub Pages, disponibilizada pelo próprio GitHub.
+
+A aplicação que desenvolvemos possui suporte para até 6 jogadores, sendo que é possível configurá-los para que sejam controlados pela própria aplicação como BOTs.
+
+A seguir será abordado as etapas principais para uso da aplicação. A aplicação inicia diretamente na etapa de seleção de jogadores como pode ser vista na figura \ref{fig:landing} abaixo.
+
+\begin{figure}[h!]
 \centering
-     \includegraphics[width=1.0\textwidth]{partialResults}
-      \caption{War Game}
-       \label{normal_case}
+  \includegraphics[width=1.0\textwidth]{images/landing.png}
+  \caption{Página inicial}
+  \label{fig:landing}
 \end{figure}
-\par O link \texttt{https://bfbechlin.github.io/war-game/} fornece a página pública do projeto, através da ferramenta GitHub Pages, disponibilizada pelo próprio GitHub.
+
+Na primeira tela é possível adicionar novos jogadores e também renomeá-los. 
+Caso seja desejado adicionar jogadores controlados pela computador é necessário usar a aba CPU onde é habilitado a alteração de modo de jogo de cada jogador. 
+A figura \ref{fig:setup} está uma configuração de exemplo.
+
+\begin{figure}[h!]
+\centering
+  \includegraphics[width=1.0\textwidth]{images/setup.png}
+  \caption{Configuração do jogo}
+  \label{fig:setup}
+\end{figure}
+
+Ao iniciar o jogo cada jogador terá 1 minuto para realizar os passos de distribuição de tropas, atacar inimigos e movimentação. Caso o tempo se esgote a fase será automaticamente trocada para a próxima no fluxo normal de jogo, entretanto, caso se deseje acelerar o processo é possível usar o botão finish para forçar a troca de etapa.
+A ordem de jogadores é definida exatamente como a descrita na etapa de configuração do jogo. 
+Na figura \ref{fig:initGame} está retratado o início do jogo.
+
+\begin{figure}[h!]
+\centering
+  \includegraphics[width=1.0\textwidth]{images/initGame.png}
+  \caption{Início do jogo}
+  \label{fig:initGame}
+\end{figure}
+
+Ao lado direito da tela está o menu de ações do jogo, onde cada jogador pode realizar sua interação com o jogo. Outro meio de selecionar países é utilizando o mapa onde é facilitado usando indicações visuais quais países podem ser selecionados, importante ressaltar é que caso se use as caixas de seleção os países também são ressaltados no mapa para facilitar a visualização.
+Como a conquista de um continente inteiro influência na quantidade de tropas recebidas o jogo disponibiliza uma forma de visualização por continentes para facilitar a visualização de fronteiras. 
+A figura \ref{fig:continentView} mostra a visualização em modo continente.
+
+\begin{figure}[h!]
+\centering
+  \includegraphics[width=1.0\textwidth]{images/continentView.png}
+  \caption{Visualização em modo continente}
+  \label{fig:continentView}
+\end{figure}
+
+A primeira etapa é a de distribuição de tropas, onde se seleciona um país que esteja sobre o controle do jogador ativo do turno, a quantidade de tropas que se deseja colocar nesse país e então se confirma a operação usando o botão \textit{Add Troops}.
+A figura \ref{fig:distribution} mostra esse etapa do jogo.
+
+\begin{figure}[h!]
+\centering
+  \includegraphics[width=1.0\textwidth]{images/distribution.png}
+  \caption{Etapa de distribuição de tropas}
+  \label{fig:distribution}
+\end{figure}
+
+A segunda etapa é o de ataque a países inimigos, onde se seleciona um país origem do jogador ativo no turno do jogo, um outro destino que não seja do jogador ativo, a quantidade de vezes que se deseja atacar e então se confirma a operação usando o botão \textit{Attack}. Importante ressaltar que ataques só podem ser realizados entre países que fazem fronteira. 
+Para cada ataque é realizado um sorteio onde o defensor tem $55\%$ de chances de vitória sobre o atacante, ou seja, caso se ataque 3 vezes um país para cada ataque será realizado o sorteio citado.
+A figura \ref{fig:attack} demonstra essa etapa.
+
+\begin{figure}[h!]
+\centering
+  \includegraphics[width=1.0\textwidth]{images/attack.png}
+  \caption{Etapa de ataque a países inimigos}
+  \label{fig:attack}
+\end{figure}
+
+A última etapa é a de movimentação entre países aliados, onde se seleciona um país origem do jogador ativo no turno do jogo, um outro destino também do jogador ativo, a quantidade de tropas que se deseja mover e então se confirma a operação usando o botão \textit{Move}. 
+As movimentações também só podem ser realizadas entre países que fazem fronteira.
+A figura \ref{fig:move} retrata a fase de movimentação de tropas.
+
+\begin{figure}[h!]
+\centering
+  \includegraphics[width=1.0\textwidth]{images/move.png}
+  \caption{Etapa de movimentação de tropas}
+  \label{fig:move}
+\end{figure}
+
+Caso se use algum jogador controlado pelo computador no turno desse jogador as ações serão bloqueadas pois são todas resolvidas pela própria aplicação.
+A figura \label{fig:bot} mostra um jogador controlado pelo computador na etapa de ataque.
+
+\begin{figure}[h!]
+\centering
+  \includegraphics[width=1.0\textwidth]{images/bot.png}
+  \caption{Turno do jogador controlado pelo computador}
+  \label{fig:bot}
+\end{figure}
+
+O jogo termina quando um jogador conquistar todos os países e esse jogador é o vencedor. 
+A figura \label{fig:endGame} mostra o fim do jogo com o jogador chamado \textit{BOT} vencendo a partida.
+
+\begin{figure}[h!]
+\centering
+  \includegraphics[width=1.0\textwidth]{images/endGame.png}
+  \caption{Fim do jogo}
+  \label{fig:endGame}
+\end{figure}
 
 \chapter{Conclusão}
-A aplicação ainda está em fase de desenvolvimento, suportando o modo jogador contra jogador e somente com o objetivo de conquista de todos os países, tanto a os objetivos quanto às trocas de cartas existentes no jogo original já estão na arquitetura necessitando de trabalho em sua interface gráfico. A interface gráfica também irá receber melhorias até o fim do processo de desenvolvimento. \par
-Quanto ao desenvolvimento, até o momento estamos bem satisfeitos com as escolhas realizadas. As bibliotecas escolhidas tem grande sinergia com o paradigma funcional, como também a linguagem Typescript.
+Ao final do trabalho notamos que a linguagem é bem indicada para esse tipo de problema, com muita interação com o usuário e necessidade de lidar com ações disparadas assincronamente.
+Ela possui um conceito interessante de pilha de execução, eventos e de animação que fazem com seja possível executar procedimentos com contextos totalmente diferentes mesmo que executando efetivamente sobre uma única thread.
+Além disso possui um escalonador super otimizado para interação com usuário possibilitando até mesmo uma fila específica para procedimentos de animação que tendem a ser escalonada a cada 1 / 60 segundos.
+Isso também é nos guiou para não criar grandes pontos de computação extensiva, já que no momento em que o procedimento entra em execução ele irá até encontrar um ponto de parada.
+Mesmo tomando cuidado com essa limitação esse problema pode ser notado quando um jogador é controlado pelo computador e realiza muitas ações em um curto espaço do tempo, fazendo assim que tanto a interação quanto a atualização da tela são congeladas rapidamente,
+esse problema é agravado com o aumento de países sobre o controle do computador. Isso poderia ser solucionado gerando eventos e dando um espaço de tempo entre as modificações, especificamente com o uso do comando timeout.
+Nesse trabalho também podemos notar como a definição de uso de alguns frameworks e bibliotecas podem acabar por guiar toda a solução.
+Nesse contexto, o React possui uma limitação quanto a entradas de valores em seus componentes, já que realiza otimizações para checar se houveram diferenças nas entradas que devam disparar um novo ciclo de renderização do componente.
+Dessa maneira ele sempre faz com que as variáveis de estados sejam de alguma forma observadas por ele e estejam disponíveis em toda a árvore de componentes. Isso acarreta que se caso alguma variável de estado seja alterada sem a devida notificação, por algum agente externo, não seja disparado nenhum novo ciclo de renderização.
+Esse tipo de solução leva a uso extensivo de padrão de projeto singleton, onde todos os componentes quando queiram usar algumas variáveis de estados acessem sempre a mesma instância que contenha essas variáveis.
+Em relação ao Typescript concordamos que ele é importante para grandes projetos com times distribuídos em relação ao Javascript comum, adicionando  uma nova camada de verificação e garantia para os desenvolvedores com o uso de checagem estática. Entretanto, os conceitos introduzidos com a especificação ainda são bem novos, além da própria especificação estar evoluindo muito rapidamente. Por exemplo no início do projeto optamos por typescript 2.8.1 lançado em março e nesse mês de junho já se encontrar na versão 2.9.2. Esse evolução rápida acaba gerando confusão, já que muitas das soluções proposta pela comunidade para integração com as bibliotecas e para a arquitetura de projeto sejam invalidadas ou devam sofrer atualização muito rapidamente. Isso gera um nível de insegurança ao desenvolver já é necessário ler muitos conteúdos diferentes para optar por um tipo de solução e ele não possua um feedback tão grande da comunidade se essa escolha é realmente a melhor a ser tomada.
+
 
 \bibliographystyle{abntex2-alf}
 
