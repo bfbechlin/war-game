@@ -723,138 +723,378 @@ Diferente de outras linguagens que apresentam características funcionais, Types
 Na pasta \verb|src| se encontra todo o fonte do projeto com a seguinte hierarquia de pastas:
 \begin{itemize}
   \item \textbf{Components}: componentes React. Separado por componentes chaves, mas que possuem outros componentes relacionados/dependentes.
-  \item \textbf{Core}: lógica de negócio em geral. Com as seguintes subpastas:
+  \item \textbf{Core}: lógica de negócio da aplicação. Com as seguintes subpastas:
     \begin{itemize}
-      \item \textbf{Transducers}: funções puras, como mapeamento de estado para propriedades, levantamento de possíveis países para atacar.
-      \item \textbf{Transitions}: funções que precisam ler o estado da aplicação para operar.
+      \item \textbf{Transducers}: funçoes para a passagem do estado da aplicção entre os componentes React.
+      \item \textbf{Transitions}: resolvers que resolvem a lógica da aplicação mudando o estado do jogo através de delegates.
     \end{itemize}
   \item \textbf{Hocs}: componetes de alta ordem React.
-  \item \textbf{Store}: gerenciador de estado Redux. Separado por grupo de funcionalidades, contendo o seu redutor e suas ações.
+  \item \textbf{Store}: gaerenciador da aplicação, com subpastas para cada principal estrutura que compoe o estado da mesma.
   \item \textbf{Utils}: utilidades em geral, como funções de alta ordem para manipulação de listas e objetos, cores e etc.
 \end{itemize}
 
 \par Existem arquivos soltos dentro da pasta \verb|src| que são os arquivos de ponto de entrada para a criação da aplicação.
 
 \subsection{Classes}
-Foram criadas classes para as \textbf{stores}, que têm os métodos como a representação de cada action que antes era exportada como constante na abordagem funcional. Cada classe tem os atributos da entidade que antes eram apenas alterados pelo estado do jogo, e agora fazem parte do objeto da classe. Exemplo as actions do menu:
+
+A partir do ECMASCript 2015 (ECMAScript 6), o conceito de orientação a objetos surgiu em JavaScript, substituindo o modelo de funções e heranças baseadas em protótipos. Antes disso, o TypeScript já permitia o uso de orientação a objetos, que eram traduzidos e compilados para JavaScript. As definições de classes seguem o padrão das linguagens orientadas a objetos mais conhecidas, como Java e C++. 
+Em TypeScript os atributos são vistos, por padrão, como públicos. Dessa forma, se apenas declararmos \verb|nome: string;|, esse atributo poderá ser acessado livremente por quem instanciar um objeto da classe. Atributos privados ou protegidos precisam ser acessados através de métodos \textit{getters/setters} da classe, como em outras linguagens. Typescript conta também com o modificador de acesso \verb|readonly|, que obriga o atributo ser setado no momento da inicialização da classe, sem poder ter seu valor alterado posteriormente. A keyword usada na linguagem para o acesso de atributos é \verb|this|.
+Há também suporte para classes abstratas, que regem o comportamento mínimo de classes que derivam dela, permitindo nelas detalhes de implementação. Interfaces também são suportadas mas elas, por sua vez, não permitem detalhes de implementação, apenas os protótipos dos métodos e parâmetros que a classe que conformar com a interface deve implementar.
+
+\subsection{Singleton}
+
+Todo o controle o do jogo é feito através de um \textit{singleton} da classe \verb|AppStore|, esse \textit{singleton} é responsável por toda engine do jogo é composto de 2 partes principais,
+as \textbf{stores} e os \textbf{resolvers}.
+
+
+\begin{lstlisting}[language=JavaScript]
+ class AppStore implements AppStoreInterface,
+                         GameActionResolverDelegate,
+                         CPUActionResolverDelegate,
+                         GameStoreDelegate,
+                         GameTransitionResolverDelegate {
+
+ game: GameStore;
+ player: PlayerStoreInterface;
+ menu: MenuStore;
+ country: CountryStoreInterface;
+
+ gameTransitionResolver: GameTransitionResolverInterface;
+ countrySelectionResolver: CountrySelectionResolverInterface;
+ gameActionResolver: GameActionResolverInterface;
+ cpuActionResolver: CPUActionResolverInterface;
+
+  [...]
+
+ initGame(players: any, gameMode: any): void { ... }
+
+ }
+
+ const store = new AppStore();
+
+ export default store;
+ \end{lstlisting}
+
+
+As \textit{stores}: \verb|CountryStore|, \verb|PlayerStore|, \verb|GameStore| e \verb|MenuStore|, são responsáveis por armazenar corretamente cada um uma das partes da aplicação e realizar algumas funções contingentes às partes as quais
+são responsáveis.
+
+\begin{lstlisting}[language=JavaScript]
+
+ class GameStore implements GameStoreInterface {
+
+   @observable round: number;
+   @observable phase: GamePhase;
+   @observable remainingTime: number;
+   @observable turnOwner: string;
+   @observable activePlayers: string[];
+   @observable playerOrder: string[];
+   @observable cardsBonus: number;
+
+ }
+
+\end{lstlisting}
+
+Os resolvers: \verb{GameActionResolver}, \verb{CountrySelectionResolver}, \verb{GameTransitionResolver} e \verb{CPUActionResolver} são responsáveis pela lógica das ações que ocorrem durante o jogo
+através da interação do usuário com a aplicação e estão divididos entre responsabilidade de processamento das ações dos players (\verb|GameActionResolver|), processamento das ações da \textit{CPU}
+(\verb|CPUActionResolver|) , efeitos da troca de estados do jogo (\verb|GameTransitionResolver|) e resolver efeitos da interação do usuário com a interface (\verb|CountrySelectionResolver|).
+
+\begin{lstlisting}[language=JavaScript]
+ interface GameActionResolverInterface {
+
+   delegate: GameActionResolverDelegate;
+   addTroops(country: Countries, quantity: number): void;
+   attack(from: Countries, to: Countries, quantity: number): boolean;
+   move(from: Countries, to: Countries, quantity: number): void;
+
+ }
+
+ interface CountrySelectionResolverInterface {
+
+   delegate: CountrySelectionResolverDelegate;
+   countrySelectionTransition(type: CountrySelection, country: Countries): void;
+
+ }
+
+ interface CPUActionResolverInterface {
+
+   delegate: CPUActionResolverDelegate;
+   resolveCPUAction(phase: GamePhase): void;
+
+ }
+
+ interface GameTransitionResolverInterface {
+
+   delegate: GameTransitionResolverDelegate;
+   computeNewTroops(player: string): void;
+   interactionInit(phase: GamePhase): void;
+   nextTurnInit(): void;
+   gameInit(players: string[]): void;
+   endGameVerify(): void;
+   playerRemoveVerify(): void;
+
+ }
+\end{lstlisting}
+
+\subsection{Interfaces}
+Todas as classes que oferecem recursos ao controle do jogo apresentavam as devidas interfaces, expondo somente os métodos usados pelo jogo para fazer o devido controle e atualização do estado.
+Também foram usadas interfaces para especificar os requerimentos a serem providos pelos \textit{delegates}.
+\par
+
+Aqui podemos ver um exemplo do uso de interface para definir as propriedades acessíveis de um \textit{store} que guarda uma parte do estado do jogo:
+
+\begin{lstlisting}[language=JavaScript]
+
+ interface PlayerStoreInterface {
+
+   players: {[id: string]: PlayerInfo};
+   getPlayer(id: String): PlayerInfo;
+   addPlayer(player: PlayerInfo): void;
+   incrementTroops(playerId: String, quantity: number): void;
+   decrementTroops(playerId: String, quantity: number): void;
+
+ }
+
+\end{lstlisting}
+
+Aqui podemos ver um exemplo do uso de interfaces para definir os requerimentos funcionais de um \textit{delegate}, nesse caso especificando o delegate com um \textit{datasource}:
+
+\begin{lstlisting}[language=JavaScript]
+ interface GameActionResolverDelegate {
+
+   country: CountryStoreInterface;
+   game: GameStoreInterface;
+   player: PlayerStoreInterface;
+
+ }
+\end{lstlisting}
+
+\subsection{Delegates}
+
+Para as classes foram usados \textit{delegates}, que podem ser considerados \textit{placeholders} para métodos e atributos. Isso garante que os métodos implementados que tenham as mesmas assinaturas que os métodos do \textit{delegate} sejam chamados toda vez que o delegate é chamado.\par
+Também, seguindo o conceito de \textit{delegates}, foram implementados \verb|resolvers|, que consistem na compilação dos métodos soltos e funções anônimas que antes eram importadas como constantes em classes que implementam uma interface visível para a \textit{store}. Com os \textit{delegates}, todos
+os métodos de resolução \verb|resolvers| garantidamente têm as informações necessárias para atuar sobre o estado atual do jogo, se comportando também como \textit{datasources}.
+
+\begin{lstlisting}[language=JavaScript]
+ interface GameActionResolverDelegate {
+
+   country: CountryStoreInterface;
+   game: GameStoreInterface;
+   player: PlayerStoreInterface;
+
+ }
+\end{lstlisting}
+
+\subsection{Encapsulamento}
+Para garantir o encapsulamento foram usados dois recursos, classes que implementam interfaces sendo que a última é exposta como tipo das instâncias criadas
+
+\begin{lstlisting}[language=JavaScript]
+
+ class AppStore implements AppStoreInterface,
+                         GameActionResolverDelegate,
+                         CPUActionResolverDelegate,
+                         GameStoreDelegate,
+                         GameTransitionResolverDelegate {
+
+   gameTransitionResolver: GameTransitionResolverInterface;
+   countrySelectionResolver: CountrySelectionResolverInterface;
+   gameActionResolver: GameActionResolverInterface;
+   cpuActionResolver: CPUActionResolverInterface;
+  }
+
+\end{lstlisting}
+/par
+Outro método utilizado para garantir o encapsulamento foi o uso de \textit{getters} e \textit{setters} pelos elementos de UI na parte do \textbf{React}, embora essa funcionalidade seja afetada pela natureza do \textbf{MobX} que impõe uma camada adicional
+sobre o uso de \textit{getters} e \textit{setters} de propriedades marcadas com o \textit{decorator} \textbf{@observable} por mais que sejam transparentes aos usuários.
+
+\begin{lstlisting}[language=JavaScript]
+
+ const AttackStep: React.SFC<AttackStepProps> = (props: AttackStepProps) => {
+   const { store, selectedTo, selectedFrom, selectables, maxAttack, quantity } = props;
+
+   if (maxAttack < quantity) {
+     store.menu.setQuantity(maxAttack);
+   }
+
+   [...]
+
+ }
+\end{lstlisting}
+\par
+O uso de \textit{getters} e \textit{setters} também foi utilizado para interceptar mudanças de estado e agir sobre elas.
+
+\begin{lstlisting}[language=JavaScript]
+
+ @action setGamePhase(phase: GamePhase) {
+
+   const actualPhase = this.phase;
+   const nextPhase = phase;
+
+   if (actualPhase === 'INIT') {
+     this.delegate.gameTransitionResolver.gameInit(this.playerOrder);
+   }
+   if (nextPhase === 'FINAL') {
+     stopClock();
+   } else {
+     if (nextPhase === 'DISTRIBUTION') {
+       this.delegate.gameTransitionResolver.nextTurnInit();
+     }
+
+     if (nextPhase === 'MOVE') {
+       this.delegate.gameTransitionResolver.playerRemoveVerify();
+       if (this.delegate.gameTransitionResolver.endGameVerify()) {
+         this.setGamePhase('FINAL');
+         return;
+       }
+     }
+
+     // Clock time
+     stopClock();
+     this.setRemainingTime(60);
+     startClock(() => this.decrementRemainingTime());
+     this.delegate.gameTransitionResolver.interactionInit(nextPhase);
+     this.delegate.cpuActionResolver.resolveCPUAction(nextPhase);
+
+     this.phase = nextPhase;
+   }
+ }
+
+\end{lstlisting}
+
+\subsection{Métodos}
+
+Foram criadas classes para as \textbf{stores}, o que possibilitou todas as funções exportadas na primeira parte do trabalho serem convertidas a métodos,
+essa transição fica aparente com a representação de cada \textit{action} que antes era exportada como constante na abordagem funcional agora como método de classe.
+
 \begin{lstlisting}[language=JavaScript]
 import { ActionCreator } from 'redux';
 import { Countries } from 'store/country/types';
 import {
-  ViewMode,
-  SetQuantityAction,
-  SET_QUANTITY,
-  SetSelectablesAction,
-  SET_SELECTABLES,
-  SetSelectedsAction,
-  SET_SELECTEDS,
-  SetViewModeAction,
-  SET_VIEW_MODE,
+ ViewMode,
+ SetQuantityAction,
+ SET_QUANTITY,
+ SetSelectablesAction,
+ SET_SELECTABLES,
+ SetSelectedsAction,
+ SET_SELECTEDS,
+ SetViewModeAction,
+ SET_VIEW_MODE,
 } from './types';
 
 export const setQuantity: ActionCreator<SetQuantityAction> = (quantity: number) => ({
-  type: SET_QUANTITY,
-  payload: {
-    quantity
-  }
+ type: SET_QUANTITY,
+ payload: {
+   quantity
+ }
 });
 
 [...]
 
 export const setViewMode: ActionCreator<SetViewModeAction> = (viewMode: ViewMode) => ({
-  type: SET_VIEW_MODE,
-  payload: {
-    viewMode
-  }
+ type: SET_VIEW_MODE,
+ payload: {
+   viewMode
+ }
 });
 \end{lstlisting}
 
-Que agora, em classe, passou a ser:
+Agora com o uso de classes essas \verb|consts| se tornaram métodos da classe \verb|MenuStore|:
 
 \begin{lstlisting}[language=JavaScript]
-import { observable, action, computed } from 'mobx';
-import { MenuState, ViewMode } from './types';
-import { Countries } from 'store/country/types';
 
 interface MenuStoreInterface {
-  quantity: number;
-  selectables: Countries[];
-  selecteds: Countries[];
-  viewMode: ViewMode;
-  readonly menuState: MenuState;
-  getQuantity(): void;
-  setQuantity(quantity: number): void;
-  getSelectables(): Countries[];
-  setSelectables(selectables: Countries[]): void;
-  getSelecteds(): Countries[];
-  setSelecteds(selecteds: Countries[]): void;
-  getViewMode(): ViewMode;
-  setViewMode(viewMode: ViewMode): void;
+ quantity: number;
+ selectables: Countries[];
+ selecteds: Countries[];
+ viewMode: ViewMode;
+ readonly menuState: MenuState;
+ getQuantity(): void;
+ setQuantity(quantity: number): void;
+ getSelectables(): Countries[];
+ setSelectables(selectables: Countries[]): void;
+ getSelecteds(): Countries[];
+ setSelecteds(selecteds: Countries[]): void;
+ getViewMode(): ViewMode;
+ setViewMode(viewMode: ViewMode): void;
 }
 class MenuStore implements MenuStoreInterface {
 
-  @observable quantity: number;
-  @observable selectables: Countries[];
-  @observable selecteds: Countries[];
-  @observable viewMode: ViewMode;
+ getQuantity() {
+   return this.quantity;
+ }
 
-  @computed get menuState(): MenuState {
-    return {
-      quantity: this.quantity,
-      selectables: this.selectables,
-      selecteds: this.selecteds,
-      viewMode: this.viewMode,
-    };
-  }
+ @action setQuantity(quantity: number) {
+   this.quantity = quantity;
+ }
 
-  constructor() {
-    this.quantity = 1;
-    this.selectables = ['Brazil', 'Peru', 'Venezuela', 'North Africa'];
-    this.selecteds = [];
-    this.viewMode = 'PLAYER';
-  }
+ [...]
 
-  getQuantity() {
-    return this.quantity;
-  }
-
-  @action setQuantity(quantity: number) {
-    this.quantity = quantity;
-  }
-
-[...]
-
-  @action setViewMode(viewMode: ViewMode) {
-    this.viewMode = viewMode;
-  }
+ @action setViewMode(viewMode: ViewMode) {
+   this.viewMode = viewMode;
+ }
 
 }
 
 export { MenuStore , MenuStoreInterface };
+
 \end{lstlisting}
 
-Os conceitos de delegates e resolvers serão explicados nas seções que seguem.
-
-
-\subsection{Delegates}
-Para as classes foram usados \textbf{Delegates}, que podem ser considerados \textit{placeholders} para métodos e atributos. Isso garante que os métodos implementados que tenham as mesmas assinaturas que os métodos do delegate sejam chamados toda vez que o delegate é chamado.\par
-Também, seguindo o conceito de Delegates, foram implementados \textbf{Resolvers}, que consistem na compilação dos métodos soltos e funções anônimas que antes eram importadas como constantes em classes que implementam uma interface visível para a store. Com os delegats, todos os métodos de resolução (Resolvers) garantidamente têm as informações necessárias para atuar sobre o estado atual do jogo.
-
-\subsection{Encapsulamento}
-
-\subsection{Singleton}
-
-\subsection{Métodos}
-
 \subsection{Herança}
+
+Não houve uso de herança nesse projeto devido principalmente a forma que a aplicação foi concebida visando a ortogonalidade das estruturas criadas, o que resultou na ausência de oportunidades de implementação
+de uma real de hierarquia de classes. As necessidades de herança para especificar comportamento foram supridas pelo uso extenso de interfaces.
+
+\subsection{Construtores}
+
+Construtores foram utilizados na construção de todas as classes, tendo um papel especialmente importante em classes ao qual o uso de delegates era vital, que é passado como parâmetro
+na instanciação da classe.
+
+\par
+
+Aqui vemos o uso de um construtor para dar um estado inicial para a instância:
+
+\begin{lstlisting}[language=JavaScript]
+
+ class AppStore implements AppStoreInterface,
+                         GameActionResolverDelegate,
+                         CPUActionResolverDelegate,
+                         GameStoreDelegate,
+                         GameTransitionResolverDelegate {
+
+   constructor() {
+
+     this.game = new GameStore(this);
+     this.player = new PlayerStore();
+     this.menu = new MenuStore();
+     this.country = new CountryStore(this);
+     this.gameActionResolver = new GameActionResolver(this);
+     this.cpuActionResolver = new CPUActionResolver(this);
+     this.countrySelectionResolver = new CountrySelectionResolver(this);
+     this.gameTransitionResolver = new GameTransitionResolver(this);
+
+   }
+ }
+ \end{lstlisting}
+
+Aqui vemos o uso de um construtor para passar um delegate para a instância:
+
+\begin{lstlisting}[language=JavaScript]
+
+ constructor(delegate: GameActionResolverDelegate) {
+
+   this.delegate = delegate;
+
+ }
+
+\end{lstlisting}
 
 \chapter{Resultados}
 
 O link \texttt{https://bfbechlin.github.io/war-game/} fornece a página pública do projeto, através da ferramenta GitHub Pages, disponibilizada pelo próprio GitHub.
 
-A aplicação que desenvolvemos possui suporte para até 6 jogadores, sendo que é possível configurá-los para que sejam controlados pela própria aplicação como BOTs.
-
-A seguir será abordado as etapas principais para uso da aplicação. A aplicação inicia diretamente na etapa de seleção de jogadores como pode ser vista na figura \ref{fig:landing} abaixo.
+A aplicação que desenvolvemos possui suporte para até 6 jogadores, sendo que é possível configurá-los para que sejam controlados pela própria aplicação como \textit{BOTs}.
+A seguir serão abordadas as etapas principais para uso da aplicação.
+A aplicação inicia diretamente na etapa de seleção de jogadores como pode ser vista na figura \ref{fig:landing} abaixo.
 
 \begin{figure}[h!]
 \centering
@@ -863,8 +1103,7 @@ A seguir será abordado as etapas principais para uso da aplicação. A aplicaç
   \label{fig:landing}
 \end{figure}
 
-Na primeira tela é possível adicionar novos jogadores e também renomeá-los. 
-Caso seja desejado adicionar jogadores controlados pela computador é necessário usar a aba CPU onde é habilitado a alteração de modo de jogo de cada jogador. 
+Nessa etapa é possível adicionar novos jogadores e também renomeá-los. Caso se deseje adicionar jogadores controlados pela aplicação é necessário usar a aba CPU, onde é habilitada a alteração de modo de jogo de cada jogador.
 A figura \ref{fig:setup} está uma configuração de exemplo.
 
 \begin{figure}[h!]
@@ -874,8 +1113,9 @@ A figura \ref{fig:setup} está uma configuração de exemplo.
   \label{fig:setup}
 \end{figure}
 
-Ao iniciar o jogo cada jogador terá 1 minuto para realizar os passos de distribuição de tropas, atacar inimigos e movimentação. Caso o tempo se esgote a fase será automaticamente trocada para a próxima no fluxo normal de jogo, entretanto, caso se deseje acelerar o processo é possível usar o botão finish para forçar a troca de etapa.
-A ordem de jogadores é definida exatamente como a descrita na etapa de configuração do jogo. 
+Ao iniciar o jogo cada jogador terá 1 minuto para realizar os passos de distribuição de tropas, ataque a inimigos e movimentação. Caso o tempo se esgote, a fase será automaticamente trocada para a próxima no fluxo normal de jogo entretanto, caso se deseje acelerar o processo, é possível usar o botão \textit{finish} para forçar a troca de etapa.
+A ordem de jogadores é definida exatamente como a descrita na etapa de configuração do jogo.
+
 Na figura \ref{fig:initGame} está retratado o início do jogo.
 
 \begin{figure}[h!]
@@ -885,8 +1125,8 @@ Na figura \ref{fig:initGame} está retratado o início do jogo.
   \label{fig:initGame}
 \end{figure}
 
-Ao lado direito da tela está o menu de ações do jogo, onde cada jogador pode realizar sua interação com o jogo. Outro meio de selecionar países é utilizando o mapa onde é facilitado usando indicações visuais quais países podem ser selecionados, importante ressaltar é que caso se use as caixas de seleção os países também são ressaltados no mapa para facilitar a visualização.
-Como a conquista de um continente inteiro influência na quantidade de tropas recebidas o jogo disponibiliza uma forma de visualização por continentes para facilitar a visualização de fronteiras. 
+Ao lado direito da tela está o menu de ações do jogo, onde cada jogador pode realizar sua interação com o jogo. Outro meio de selecionar países é utilizando o mapa através do qual indicações visuais de quais países podem ser selecionados facilitam a visualização. Importante ressaltar é que caso se use as caixas de seleção os países também são ressaltados no mapa para facilitar a visualização.
+Como a conquista de um continente inteiro influencia na quantidade de tropas recebidas o jogo disponibiliza uma forma de visualização por continentes para facilitar a visualização de fronteiras.
 A figura \ref{fig:continentView} mostra a visualização em modo continente.
 
 \begin{figure}[h!]
@@ -896,7 +1136,7 @@ A figura \ref{fig:continentView} mostra a visualização em modo continente.
   \label{fig:continentView}
 \end{figure}
 
-A primeira etapa é a de distribuição de tropas, onde se seleciona um país que esteja sobre o controle do jogador ativo do turno, a quantidade de tropas que se deseja colocar nesse país e então se confirma a operação usando o botão \textit{Add Troops}.
+A primeira etapa é a de distribuição de tropas, onde se seleciona um país que esteja sobre o controle do jogador ativo do turno, a quantidade de tropas que se deseja colocar nesse país e então se confirma a operação usando o botão "\textit{Add Troops}".
 A figura \ref{fig:distribution} mostra esse etapa do jogo.
 
 \begin{figure}[h!]
@@ -906,9 +1146,7 @@ A figura \ref{fig:distribution} mostra esse etapa do jogo.
   \label{fig:distribution}
 \end{figure}
 
-A segunda etapa é o de ataque a países inimigos, onde se seleciona um país origem do jogador ativo no turno do jogo, um outro destino que não seja do jogador ativo, a quantidade de vezes que se deseja atacar e então se confirma a operação usando o botão \textit{Attack}. Importante ressaltar que ataques só podem ser realizados entre países que fazem fronteira. 
-Para cada ataque é realizado um sorteio onde o defensor tem $55\%$ de chances de vitória sobre o atacante, ou seja, caso se ataque 3 vezes um país para cada ataque será realizado o sorteio citado.
-A figura \ref{fig:attack} demonstra essa etapa.
+A segunda etapa é o de ataque a países inimigos, onde se seleciona um país origem do jogador ativo no turno do jogo, um outro destino que não seja do jogador ativo, a quantidade de vezes que se deseja atacar e então se confirma a operação usando o botão "\textit{attack}". Importante ressaltar que ataques só podem ser realizados entre países que fazem fronteira. Para cada ataque é realizado um sorteio onde o defensor tem 55% de chances de vitória sobre o atacante, ou seja, caso se ataque 3 vezes um país para cada ataque será realizado o sorteio citado.A figura \ref{fig:attack} demonstra essa etapa.
 
 \begin{figure}[h!]
 \centering
@@ -917,8 +1155,7 @@ A figura \ref{fig:attack} demonstra essa etapa.
   \label{fig:attack}
 \end{figure}
 
-A última etapa é a de movimentação entre países aliados, onde se seleciona um país origem do jogador ativo no turno do jogo, um outro destino também do jogador ativo, a quantidade de tropas que se deseja mover e então se confirma a operação usando o botão \textit{Move}. 
-As movimentações também só podem ser realizadas entre países que fazem fronteira.
+A última etapa é a de movimentação entre países aliados, onde se seleciona um país origem do jogador ativo no turno do jogo, um outro destino também do jogador ativo, a quantidade de tropas que se deseja mover e então se confirma a operação usando o botão "\textit{move}". As movimentações também só podem ser realizadas entre países que fazem fronteira.
 A figura \ref{fig:move} retrata a fase de movimentação de tropas.
 
 \begin{figure}[h!]
@@ -928,7 +1165,7 @@ A figura \ref{fig:move} retrata a fase de movimentação de tropas.
   \label{fig:move}
 \end{figure}
 
-Caso se use algum jogador controlado pelo computador no turno desse jogador as ações serão bloqueadas pois são todas resolvidas pela própria aplicação.
+Caso seja usado algum jogador controlado pelo computador, no turno desse jogador as ações serão bloqueadas pois são todas resolvidas pela própria aplicação.
 A figura \label{fig:bot} mostra um jogador controlado pelo computador na etapa de ataque.
 
 \begin{figure}[h!]
@@ -938,7 +1175,7 @@ A figura \label{fig:bot} mostra um jogador controlado pelo computador na etapa d
   \label{fig:bot}
 \end{figure}
 
-O jogo termina quando um jogador conquistar todos os países e esse jogador é o vencedor. 
+O jogo termina quando um jogador conquistar todos os países e esse jogador é o vencedor.
 A figura \label{fig:endGame} mostra o fim do jogo com o jogador chamado \textit{BOT} vencendo a partida.
 
 \begin{figure}[h!]
@@ -951,16 +1188,14 @@ A figura \label{fig:endGame} mostra o fim do jogo com o jogador chamado \textit{
 \chapter{Conclusão}
 Ao final do trabalho notamos que a linguagem é bem indicada para esse tipo de problema, com muita interação com o usuário e necessidade de lidar com ações disparadas assincronamente.
 Ela possui um conceito interessante de pilha de execução, eventos e de animação que fazem com seja possível executar procedimentos com contextos totalmente diferentes mesmo que executando efetivamente sobre uma única thread.
-Além disso possui um escalonador super otimizado para interação com usuário possibilitando até mesmo uma fila específica para procedimentos de animação que tendem a ser escalonada a cada 1 / 60 segundos.
-Isso também é nos guiou para não criar grandes pontos de computação extensiva, já que no momento em que o procedimento entra em execução ele irá até encontrar um ponto de parada.
-Mesmo tomando cuidado com essa limitação esse problema pode ser notado quando um jogador é controlado pelo computador e realiza muitas ações em um curto espaço do tempo, fazendo assim que tanto a interação quanto a atualização da tela são congeladas rapidamente,
-esse problema é agravado com o aumento de países sobre o controle do computador. Isso poderia ser solucionado gerando eventos e dando um espaço de tempo entre as modificações, especificamente com o uso do comando timeout.
-Nesse trabalho também podemos notar como a definição de uso de alguns frameworks e bibliotecas podem acabar por guiar toda a solução.
-Nesse contexto, o React possui uma limitação quanto a entradas de valores em seus componentes, já que realiza otimizações para checar se houveram diferenças nas entradas que devam disparar um novo ciclo de renderização do componente.
-Dessa maneira ele sempre faz com que as variáveis de estados sejam de alguma forma observadas por ele e estejam disponíveis em toda a árvore de componentes. Isso acarreta que se caso alguma variável de estado seja alterada sem a devida notificação, por algum agente externo, não seja disparado nenhum novo ciclo de renderização.
-Esse tipo de solução leva a uso extensivo de padrão de projeto singleton, onde todos os componentes quando queiram usar algumas variáveis de estados acessem sempre a mesma instância que contenha essas variáveis.
-Em relação ao Typescript concordamos que ele é importante para grandes projetos com times distribuídos em relação ao Javascript comum, adicionando  uma nova camada de verificação e garantia para os desenvolvedores com o uso de checagem estática. Entretanto, os conceitos introduzidos com a especificação ainda são bem novos, além da própria especificação estar evoluindo muito rapidamente. Por exemplo no início do projeto optamos por typescript 2.8.1 lançado em março e nesse mês de junho já se encontrar na versão 2.9.2. Esse evolução rápida acaba gerando confusão, já que muitas das soluções proposta pela comunidade para integração com as bibliotecas e para a arquitetura de projeto sejam invalidadas ou devam sofrer atualização muito rapidamente. Isso gera um nível de insegurança ao desenvolver já é necessário ler muitos conteúdos diferentes para optar por um tipo de solução e ele não possua um feedback tão grande da comunidade se essa escolha é realmente a melhor a ser tomada.
-
+Além disso possui um escalonador otimizado para interação com usuário possibilitando até mesmo uma fila específica para procedimentos de animação que tendem a ser escalonada a cada 1 / 60 segundos.
+Isso também nos guiou para não criar grandes pontos de computação extensiva, já que no momento em que o procedimento entra em execução ele seguirá até encontrar um ponto de parada.
+Mesmo tomando cuidado com essa limitação, esse problema pode ser notado quando um jogador é controlado pelo computador e realiza muitas ações em um curto espaço do tempo, fazendo assim que tanto a interação quanto a atualização da tela são congeladas rapidamente, esse problema é agravado com o aumento de países sobre o controle do computador. Isso poderia ser solucionado gerando eventos e dando um espaço de tempo entre as modificações, especificamente com o uso do comando timeout.
+Nesse trabalho também podemos notar como a definição de uso de alguns \textit{frameworks} e bibliotecas podem acabar por guiar toda a solução.
+Nesse contexto, o \verb|React| possui uma limitação quanto a entradas de valores em seus componentes, já que realiza otimizações para checar se houve diferenças nas entradas que devem disparar um novo ciclo de renderização do componente.
+Dessa maneira, o \verb|React| sempre faz com que as variáveis de estados sejam de alguma forma observadas por ele e estejam disponíveis em toda a árvore de componentes. Isso acarreta a situação na qual caso alguma variável de estado seja alterada sem a devida notificação por algum agente externo não seja disparado nenhum novo ciclo de renderização.
+Esse tipo de solução leva a uso extensivo de padrão de projeto \textit{singleton}, onde todos os componentes quando queiram usar algumas variáveis de estados acessem sempre a mesma instância que contenha essas variáveis.
+Em relação ao Typescript concordamos que ele é importante para grandes projetos com times distribuídos em relação ao Javascript comum, adicionando  uma nova camada de verificação e garantia para os desenvolvedores com o uso de checagem estática. Entretanto, os conceitos introduzidos com a especificação ainda são bem novos, além da própria especificação estar evoluindo muito rapidamente. Por exemplo no início do projeto optamos por typescript 2.8.1 lançado em março de 2018 e nesse mês de junho de 2018 já se encontra na versão 2.9.2. Esse evolução rápida acaba gerando confusão, já que muitas das soluções proposta pela comunidade para integração com as bibliotecas e para a arquitetura de projeto sejam invalidadas ou devam sofrer atualização muito rapidamente. Isso gera um nível de insegurança ao desenvolver, já que é necessário ler muitos conteúdos diferentes para optar por um tipo de solução, e eles não possuem um feedback tão grande da comunidade sobre a dúvida de se essa escolha é realmente a melhor a ser tomada.
 
 \bibliographystyle{abntex2-alf}
 
