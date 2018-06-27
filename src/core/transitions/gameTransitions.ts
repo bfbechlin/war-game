@@ -21,7 +21,6 @@ interface GameTransitionResolverInterface {
   nextTurnInit(): void;
   gameInit(players: string[]): void;
   endGameVerify(): void;
-  playerRemoveVerify(): void;
 }
 
 interface InitCountries {
@@ -90,18 +89,6 @@ class GameTransitionResolver implements GameTransitionResolverInterface {
     const { country } = this.delegate;
     const randomPlayer = country.countries.Brazil.owner; 
     return filter(country, (countryInfo: CountryInfo) => (countryInfo.owner !== randomPlayer)).length === 0; 
-  }
-
-  playerRemoveVerify() { 
-    const { country } = this.delegate; 
-    let players = this.delegate.game.getPlayerOrder(); 
-    let newPlayerOrder = [...players]; 
-    players.forEach((player) => { 
-      if (filter(country, (countryInfo: CountryInfo) => (countryInfo.owner === player)).length === 0) { 
-        newPlayerOrder.splice(newPlayerOrder.indexOf(player), 1); 
-        this.delegate.game.setPlayerOrder(newPlayerOrder);
-      } 
-    }); 
   }
 
 }

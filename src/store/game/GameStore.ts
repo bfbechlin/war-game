@@ -101,7 +101,6 @@ class GameStore implements GameStoreInterface {
       }
 
       if (nextPhase === 'MOVE') {
-        this.delegate.gameTransitionResolver.playerRemoveVerify();
         if (this.delegate.gameTransitionResolver.endGameVerify()) { 
           this.setGamePhase('FINAL');
           return; 
@@ -139,7 +138,6 @@ class GameStore implements GameStoreInterface {
       }
 
       if (nextPhase === 'MOVE') {
-        this.delegate.gameTransitionResolver.playerRemoveVerify();
         if (this.delegate.gameTransitionResolver.endGameVerify()) { 
           this.setGamePhase('FINAL');
           return; 
