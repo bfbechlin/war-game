@@ -1,44 +1,70 @@
 import * as React from 'react';
+import { connect } from 'react-redux';
+
 import Continent  from './Continent';
-import { continents, ContinentType, CountryType } from './constants';
+import { CountryProps } from './Country';
+import { countriesShape } from './constants';
 import './Map.css';
 
-import { connect } from 'react-redux';
-import { CountryState } from 'store/country/types';
-import { incrementTroops } from 'store/country/actions';
-import { ApplicationState, ConnectedReduxProps } from 'store/';
+import { map } from 'utils/object';
+import { Color, GREY } from 'utils/colors';
 
-export interface MapProps extends ConnectedReduxProps<CountryState> {
+import { continentsInfo, ContinentInfo, Countries } from 'store/country/types';
+import { countrySelectionTransition, CountrySelection } from 'core/transitions/countrySelection';
+import { ConnectedReduxProps } from 'store/';
+
+import { 
+  MapTransducer, 
+  MapStateToProps, 
+  selectableTransducer, 
+  interactionStateTransducer,
+  possibleChoiceTransducer } from 'core/transducers/map';
+
+export interface MapProps extends ConnectedReduxProps {
 }
 
 type MapState = {
 };
 
-type Props = MapProps & CountryState;
+type Props = MapProps & MapStateToProps;
 
 export class Map extends React.Component<Props, MapState> {
   state: MapState = {
   };
 
-  handleCountryClick = (countryName: string) => (event: any) => {
-    this.props.dispatch(incrementTroops(countryName, 1));
+  handleAction = (name: Countries, action: CountrySelection) => (event: any) => {
+    countrySelectionTransition(this.props.gamePhase, action, name);
   }
 
-  countriesData = (continent: ContinentType) => {
-    return continent.countries.map((country: CountryType) => (
-      Object.assign(country, this.props[country.name])
-    ));
+  countriesData = (countries: Countries[], color: Color): CountryProps[] => {
+    const { players, gamePhase, viewMode, selectedables, selecteds, selectorType } = this.props;
+    const countriesState = this.props.countries;
+    return countries.map((country: Countries) => {
+      const countryState = countriesState[country];
+      const shape = countriesShape[country].shape;
+      const playerColor = countryState.owner ? players[countryState.owner].color : GREY; 
+      return {
+        name: country,
+        troops: countryState.troops,
+        shape: shape,
+        viewMode: viewMode,
+        continentColor: color,
+        playerColor,
+        selectable: selectableTransducer(country, selectedables, selecteds),
+        interactionState: interactionStateTransducer(country, countryState, selecteds),
+        possibleChoice: possibleChoiceTransducer(country, selectedables, gamePhase, selectorType),
+        onAction: this.handleAction
+      };
+    });
   }
 
   render() {
-    const Continents = continents.map((continent: ContinentType) => (
+    const Continents = map<ContinentInfo, React.ReactNode>(continentsInfo, (info: ContinentInfo, name: string) => (
       <Continent 
-        key={`continent-${continent.name}`} 
-        name={continent.name} 
-        fillColor={continent.fillColor} 
-        borderColor={continent.borderColor} 
-        countries={this.countriesData(continent)}
-        click={this.handleCountryClick} 
+        key={`continent-${name}`} 
+        name={name} 
+        color={info.color} 
+        countries={this.countriesData(info.countries, info.color)}
       />
     ));
     return(
@@ -49,6 +75,4 @@ export class Map extends React.Component<Props, MapState> {
   }
 }
 
-const mapStateToProps = (state: ApplicationState) => ( state.country );
-
-export default connect(mapStateToProps)(Map);
+export default connect(MapTransducer)(Map);

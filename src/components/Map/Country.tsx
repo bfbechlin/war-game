@@ -1,13 +1,30 @@
 import * as React from 'react';
 import { v4 as UUID } from 'uuid';
+import * as classNames from 'classnames';
 import './Country.css';
-import getCentroid from 'util/pathCentroid';
+import 'utils/colors.css';
+import getCentroid from 'utils/pathCentroid';
+
+import TroopsMarker from './TroopsMarker';
+import TroopsChangeMarker from './TroopsChangeMarker';
+
+import { Countries } from 'store/country/types';
+import { ViewMode } from 'store/menu/types';
+import { Color } from 'utils/colors';
+import { InteractionState,  } from 'core/transducers/map';
+import { CountrySelection } from 'core/transitions/countrySelection';
 
 export interface CountryProps {
-  name: string;
-  path: string;
+  name: Countries;
   troops: number;
-  onClick: ((countryName: string) => (event: any) => void);
+  shape: string;
+  viewMode: ViewMode;
+  continentColor: Color;
+  playerColor: Color;
+  selectable: boolean;
+  interactionState: InteractionState;
+  possibleChoice: boolean;
+  onAction: ((name: Countries, type: CountrySelection) => (event: any) => void);
 }
 
 interface TroopsChange {
@@ -27,57 +44,58 @@ class Country extends React.Component<CountryProps, CountryState> {
     };
   }
 
-  componentDidUpdate(prevProps: CountryProps, prevState: CountryState) {
-    let troopsChanges: TroopsChange[];
-    if (prevProps.troops !== this.props.troops) {
-      troopsChanges = this.state.troopsChanges.slice();
-      const quantity = this.props.troops - prevProps.troops;
+  componentDidUpdate({troops}: CountryProps, {troopsChanges}: CountryState) {
+    if (troops !== this.props.troops) {
+      const quantity = this.props.troops - troops;
       const id = UUID();
-      troopsChanges.push({id, quantity});
-      this.setState({troopsChanges});
-      setTimeout(
-        () => {
-          troopsChanges = this.state.troopsChanges.slice();
-          troopsChanges.shift();
-          this.setState({troopsChanges});
-        }, 
-        1100
-      );
+      this.setState({troopsChanges: [...troopsChanges, {id, quantity}]});
+      setTimeout(() => { this.setState({troopsChanges : troopsChanges.slice(1)}); }, 1100);
     }
   }
-
+  
   render() {
-    const { name, path, troops, onClick } = this.props;
-    const centroid = getCentroid(path);
-    const troopsChanges = this.state.troopsChanges.map((item) => (
-      <g key={`troopsChange-${item.id}`} className="troops-change">
-          <circle cx={centroid.x} cy={centroid.y} r="20" stroke="black" strokeWidth="1" fill="#D3D3D3" />
-          <text 
-            x={centroid.x}
-            y={centroid.y}
-            textAnchor="middle"
-            fontWeight="bold" 
-            fontSize="17px" 
-            fontFamily="Arial" 
-            dy=".3em"
-            stroke={item.quantity > 0 ? 'green' : 'red'}
-            fill={item.quantity > 0 ? 'green' : 'red'}
-          >
-           {item.quantity >= 0 ? `+${item.quantity}` : item.quantity} 
-          </text>
-      </g>
+    const { name, shape, troops, viewMode, playerColor, continentColor, selectable, interactionState, onAction, possibleChoice } = this.props;
+    const color = viewMode === 'PLAYER' ? playerColor : continentColor;
+    const colorMapper = {
+      'NORMAL': color.normal,
+      'SELECT': color.dark,
+      'HOVER': color.light,
+    };
+    const shapeID = `${name}-shape`;
+    const centroid = getCentroid(shape);
+
+    const troopsChanges: React.ReactNode[] = this.state.troopsChanges.map(({id, quantity}) => (
+      <TroopsChangeMarker key={`troopsChange-${id}`} position={centroid} quantity={quantity}/>
     ));
+    const country: React.ReactNode = (
+      <use 
+        xlinkHref={`#${shapeID}`} 
+        className={classNames({'country-selectable': selectable})} 
+        fill={colorMapper[interactionState]} 
+        stroke={color.dark} 
+        style={possibleChoice && interactionState === 'NORMAL' ? {visibility: 'hidden'} : {}} 
+      />
+    );
+    const fadding: React.ReactNode = possibleChoice ? (
+      <use 
+        xlinkHref={`#${shapeID}`} 
+        className={classNames('country-selectable', `${color.name}-fade`)} 
+        stroke={color.dark} 
+      />
+    ) : null;
     return (
-      <g className="country-container" onClick={onClick(name)}>
-        <g className="country">
-          <path className="country-selectable" id={name} d={path} />
-        </g>
-        <g className="troops">
-          <circle cx={centroid.x} cy={centroid.y} r="16" stroke="white" strokeWidth="2" fill="black" />
-          <text x={centroid.x} y={centroid.y} textAnchor="middle" fill="white" fontSize="15px" fontFamily="Arial" dy=".3em" >
-            {troops}
-          </text>
-        </g>
+      <g 
+        className={classNames('country-container', {'country-container-selectable': selectable})} 
+        onClick={selectable ? onAction(name, interactionState === 'SELECT' ? 'SELECTION-OUT' : 'SELECTION-IN') : undefined} 
+        onMouseEnter={selectable ? onAction(name, 'HOVER-IN') : undefined}
+        onMouseLeave={selectable ? onAction(name, 'HOVER-OUT') : undefined}
+      >
+        <defs>
+          <path id={shapeID} d={shape} />
+        </defs>
+        {fadding}
+        {country}
+        <TroopsMarker position={centroid} troops={troops} color={viewMode === 'CONTINENT' ? playerColor.normal : '#000000'} />
         {troopsChanges}
       </g>
     );

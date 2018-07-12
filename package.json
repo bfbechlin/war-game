@@ -4,7 +4,9 @@
   "private": true,
   "homepage": "http://bfbechlin.github.io/war-game",
   "dependencies": {
+    "@types/underscore": "^1.8.8",
     "bootstrap": "^4.1.0",
+    "classnames": "^2.2.5",
     "history": "^4.7.2",
     "material-ui": "^0.20.0",
     "react": "^16.3.1",
@@ -17,6 +19,7 @@
     "redux": "^3.7.2",
     "redux-devtools-extension": "^2.13.2",
     "svg-path-parser": "^1.1.0",
+    "underscore": "^1.9.0",
     "uuid": "^3.2.1"
   },
   "scripts": {
@@ -25,9 +28,11 @@
     "test": "react-scripts-ts test --env=jsdom",
     "eject": "react-scripts-ts eject",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d build"
+    "deploy": "gh-pages -d build",
+    "report": "pdflatex -no-file-line-error report/relatorio.tex"
   },
   "devDependencies": {
+    "@types/classnames": "^2.2.3",
     "@types/jest": "^22.2.2",
     "@types/node": "^9.6.2",
     "@types/react": "^16.3.10",

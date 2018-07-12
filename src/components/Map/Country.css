@@ -1,20 +1,30 @@
 .country-container {
-  cursor: pointer; 
-}
-.country-selectable {
-  -webkit-transition: all 300ms ease-in-out;
-  -moz-transition: all 300ms ease-in-out;
-  -ms-transition: all 300ms ease-in-out;
-  -o-transition: all 300ms ease-in-out;
-  transition: all 300ms ease-in-out;
+  cursor: default; 
 }
 
-.country-container:hover .country-selectable{
-  fill-opacity: 0.5;
+.country-container-selectable {
+  cursor: pointer;
+}
+
+.country-selectable {
+  -webkit-transition: fill 300ms ease-in-out;
+  -moz-transition: fill 300ms ease-in-out;
+  -ms-transition: fill 300ms ease-in-out;
+  -o-transition: fill 300ms ease-in-out;
+  transition: fill 300ms ease-in-out;
 }
 
 .troops-change {
+  -webkit-animation: topDisapear 0.75s linear 0s;
+  -moz-animation: topDisapear 0.75s linear 0s;
+  -ms-animation: topDisapear 0.75s linear 0s;
+  -o-animation: topDisapear 0.75s linear 0s;
   animation: topDisapear 0.75s linear 0s;
+
+  -webkit-animation-fill-mode: forwards;
+  -moz-animation-fill-mode: forwards;
+  -ms-animation-fill-mode: forwards;
+  -o-animation-fill-mode: forwards;
   animation-fill-mode: forwards;
 }
 

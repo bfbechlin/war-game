@@ -1,0 +1,408 @@
+.red-fade {
+  -webkit-animation: redFadeAnimation 2s infinite;
+  -moz-animation: redFadeAnimation 2s infinite;
+  -ms-animation: redFadeAnimation 2s infinite;
+  -o-animation: redFadeAnimation 2s infinite;
+   animation: redFadeAnimation 2s infinite;
+}
+
+@keyframes redFadeAnimation {
+  0% {
+    fill: #ef5350;
+  }
+  50% {
+    fill: #ff867c;
+  }
+  100% {
+    fill: #ef5350;
+  }
+}
+
+@-o-keyframes redFadeAnimation {
+  0% {
+    fill: #ef5350;
+  }
+  50% {
+    fill: #ff867c;
+  }
+  100% {
+    fill: #ef5350;
+  }
+}
+
+@-ms-keyframes redFadeAnimation {
+  0% {
+    fill: #ef5350;
+  }
+  50% {
+    fill: #ff867c;
+  }
+  100% {
+    fill: #ef5350;
+  }
+}
+
+@-moz-keyframes redFadeAnimation {
+  0% {
+    fill: #ef5350;
+  }
+  50% {
+    fill: #ff867c;
+  }
+  100% {
+    fill: #ef5350;
+  }
+}
+
+@-webkit-keyframes redFadeAnimation {
+  0% {
+    fill: #ef5350;
+  }
+  50% {
+    fill: #ff867c;
+  }
+  100% {
+    fill: #ef5350;
+  }
+}
+
+.green-fade {
+  -webkit-animation: greenFadeAnimation 2s infinite;
+  -moz-animation: greenFadeAnimation 2s infinite;
+  -ms-animation: greenFadeAnimation 2s infinite;
+  -o-animation: greenFadeAnimation 2s infinite;
+   animation: greenFadeAnimation 2s infinite;
+}
+
+@keyframes greenFadeAnimation {
+  0% {
+    fill: #66bb6a;
+  }
+  50% {
+    fill: #98ee99;
+  }
+  100% {
+    fill: #66bb6a;
+  }
+}
+
+@-o-keyframes greenFadeAnimation {
+  0% {
+    fill: #66bb6a;
+  }
+  50% {
+    fill: #98ee99;
+  }
+  100% {
+    fill: #66bb6a;
+  }
+}
+
+@-ms-keyframes greenFadeAnimation {
+  0% {
+    fill: #66bb6a;
+  }
+  50% {
+    fill: #98ee99;
+  }
+  100% {
+    fill: #66bb6a;
+  }
+}
+
+@-moz-keyframes greenFadeAnimation {
+  0% {
+    fill: #66bb6a;
+  }
+  50% {
+    fill: #98ee99;
+  }
+  100% {
+    fill: #66bb6a;
+  }
+}
+
+@-webkit-keyframes greenFadeAnimation {
+  0% {
+    fill: #66bb6a;
+  }
+  50% {
+    fill: #98ee99;
+  }
+  100% {
+    fill: #66bb6a;
+  }
+}
+
+.blue-fade {
+  -webkit-animation: blueFadeAnimation 2s infinite;
+  -moz-animation: blueFadeAnimation 2s infinite;
+  -ms-animation: blueFadeAnimation 2s infinite;
+  -o-animation: blueFadeAnimation 2s infinite;
+   animation: blueFadeAnimation 2s infinite;
+}
+
+@keyframes blueFadeAnimation {
+  0% {
+    fill: #26c6da;
+  }
+  50% {
+    fill: #6ff9ff;
+  }
+  100% {
+    fill: #26c6da;
+  }
+}
+
+@-o-keyframes blueFadeAnimation {
+  0% {
+    fill: #26c6da;
+  }
+  50% {
+    fill: #6ff9ff;
+  }
+  100% {
+    fill: #26c6da;
+  }
+}
+
+@-ms-keyframes blueFadeAnimation {
+  0% {
+    fill: #26c6da;
+  }
+  50% {
+    fill: #6ff9ff;
+  }
+  100% {
+    fill: #26c6da;
+  }
+}
+
+@-moz-keyframes blueFadeAnimation {
+  0% {
+    fill: #26c6da;
+  }
+  50% {
+    fill: #6ff9ff;
+  }
+  100% {
+    fill: #26c6da;
+  }
+}
+
+@-webkit-keyframes blueFadeAnimation {
+  0% {
+    fill: #26c6da;
+  }
+  50% {
+    fill: #6ff9ff;
+  }
+  100% {
+    fill: #26c6da;
+  }
+}
+
+.yellow-fade {
+  -webkit-animation: yellowFadeAnimation 2s infinite;
+  -moz-animation: yellowFadeAnimation 2s infinite;
+  -ms-animation: yellowFadeAnimation 2s infinite;
+  -o-animation: yellowFadeAnimation 2s infinite;
+   animation: yellowFadeAnimation 2s infinite;
+}
+
+@keyframes yellowFadeAnimation {
+  0% {
+    fill: #ffa726;
+  }
+  50% {
+    fill: #ffd95b;
+  }
+  100% {
+    fill: #ffa726;
+  }
+}
+
+@-o-keyframes yellowFadeAnimation {
+  0% {
+    fill: #ffa726;
+  }
+  50% {
+    fill: #ffd95b;
+  }
+  100% {
+    fill: #ffa726;
+  }
+}
+
+@-ms-keyframes yellowFadeAnimation {
+  0% {
+    fill: #ffa726;
+  }
+  50% {
+    fill: #ffd95b;
+  }
+  100% {
+    fill: #ffa726;
+  }
+}
+
+@-moz-keyframes yellowFadeAnimation {
+  0% {
+    fill: #ffa726;
+  }
+  50% {
+    fill: #ffd95b;
+  }
+  100% {
+    fill: #ffa726;
+  }
+}
+
+@-webkit-keyframes yellowFadeAnimation {
+  0% {
+    fill: #ffa726;
+  }
+  50% {
+    fill: #ffd95b;
+  }
+  100% {
+    fill: #ffa726;
+  }
+}
+
+.brown-fade {
+  -webkit-animation: brownFadeAnimation 2s infinite;
+  -moz-animation: brownFadeAnimation 2s infinite;
+  -ms-animation: brownFadeAnimation 2s infinite;
+  -o-animation: brownFadeAnimation 2s infinite;
+   animation: brownFadeAnimation 2s infinite;
+}
+
+@keyframes brownFadeAnimation {
+  0% {
+    fill: #8d6e63;
+  }
+  50% {
+    fill: #be9c91;
+  }
+  100% {
+    fill: #8d6e63;
+  }
+}
+
+@-o-keyframes brownFadeAnimation {
+  0% {
+    fill: #8d6e63;
+  }
+  50% {
+    fill: #be9c91;
+  }
+  100% {
+    fill: #8d6e63;
+  }
+}
+
+@-ms-keyframes brownFadeAnimation {
+  0% {
+    fill: #8d6e63;
+  }
+  50% {
+    fill: #be9c91;
+  }
+  100% {
+    fill: #8d6e63;
+  }
+}
+
+@-moz-keyframes brownFadeAnimation {
+  0% {
+    fill: #8d6e63;
+  }
+  50% {
+    fill: #be9c91;
+  }
+  100% {
+    fill: #8d6e63;
+  }
+}
+
+@-webkit-keyframes brownFadeAnimation {
+  0% {
+    fill: #8d6e63;
+  }
+  50% {
+    fill: #be9c91;
+  }
+  100% {
+    fill: #8d6e63;
+  }
+}
+
+.purple-fade {
+  -webkit-animation: purpleFadeAnimation 2s infinite;
+  -moz-animation: purpleFadeAnimation 2s infinite;
+  -ms-animation: purpleFadeAnimation 2s infinite;
+  -o-animation: purpleFadeAnimation 2s infinite;
+   animation: purpleFadeAnimation 2s infinite;
+}
+
+@keyframes purpleFadeAnimation {
+  0% {
+    fill: #ab47bc;
+  }
+  50% {
+    fill: #df78ef;
+  }
+  100% {
+    fill: #ab47bc;
+  }
+}
+
+@-o-keyframes purpleFadeAnimation {
+  0% {
+    fill: #ab47bc;
+  }
+  50% {
+    fill: #df78ef;
+  }
+  100% {
+    fill: #ab47bc;
+  }
+}
+
+@-ms-keyframes purpleFadeAnimation {
+  0% {
+    fill: #ab47bc;
+  }
+  50% {
+    fill: #df78ef;
+  }
+  100% {
+    fill: #ab47bc;
+  }
+}
+
+@-moz-keyframes purpleFadeAnimation {
+  0% {
+    fill: #ab47bc;
+  }
+  50% {
+    fill: #df78ef;
+  }
+  100% {
+    fill: #ab47bc;
+  }
+}
+
+@-webkit-keyframes purpleFadeAnimation {
+  0% {
+    fill: #ab47bc;
+  }
+  50% {
+    fill: #df78ef;
+  }
+  100% {
+    fill: #ab47bc;
+  }
+}
+

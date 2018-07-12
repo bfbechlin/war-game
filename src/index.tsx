@@ -5,10 +5,8 @@ import registerServiceWorker from './registerServiceWorker';
 import './index.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Provider } from 'react-redux';
-import createHistory from 'history/createBrowserHistory';
-import configureStore from './AppStore';
-
-const store = configureStore(createHistory());
+import store from 'store/';
+// import { nextGamePhase } from 'store/game/actions';
 
 ReactDOM.render(
   <Provider store={store}>
@@ -16,4 +14,13 @@ ReactDOM.render(
   </Provider>,
   document.getElementById('root') as HTMLElement
 );
+
 registerServiceWorker();
+
+declare global {
+  interface Window {
+    store: any;
+  }
+}
+window.store = store;
+// store.dispatch(nextGamePhase());

@@ -1,14 +1,34 @@
 import { ActionCreator } from 'redux';
 import {
+  MassChangeOwnerAction,
+  MASS_CHANGE_OWNER,
+  SetTroopsAction,
+  SET_TROOPS,
   IncrementTroopsAction,
   INCREMENT_TROOPS,
   DecrementTroopsAction,
   DECREMENT_TROOPS,
   ChangeOwnerAction,
   CHANGE_OWNER,
-  ChangeSelectionAction,
-  CHANGE_SELECTION,
+  SetHoverAction,
+  SET_HOVER,
 } from './types';
+
+export const massChangeOwner: ActionCreator<MassChangeOwnerAction> = (countries: string[], onwer: string) => ({
+  type: MASS_CHANGE_OWNER,
+  payload: {
+    countries,
+    onwer
+  },
+});
+
+export const setTroops: ActionCreator<SetTroopsAction> = (countryName: string, quantity: number) => ({
+  type: SET_TROOPS,
+  payload: {
+    countryName,
+    quantity
+  },
+});
 
 export const incrementTroops: ActionCreator<IncrementTroopsAction> = (countryName: string, quantity: number) => ({
   type: INCREMENT_TROOPS,
@@ -34,11 +54,10 @@ export const changeOwner: ActionCreator<ChangeOwnerAction> = (countryName: strin
   },
 });
 
-export const changeSelection: ActionCreator<ChangeSelectionAction> = (countryName: string, selectionType: 'source' | 'destination', newState: boolean) => ({
-  type: CHANGE_SELECTION,
+export const setHover: ActionCreator<SetHoverAction> = (countryName: string, hovered: boolean) => ({
+  type: SET_HOVER,
   payload: {
     countryName,
-    selectionType,
-    newState
+    hovered
   },
 });
